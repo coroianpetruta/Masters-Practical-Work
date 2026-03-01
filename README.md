@@ -24,20 +24,9 @@ streamlit run practical_work/streamlit_app.py
 Neo4j connection settings are defined in:
 - `practical_work/app_config.py`
 
-## Run Notebook Updates
-
-Open Jupyter:
-
-```bash
-jupyter notebook
-```
-
-Then run notebooks in `practical_work/`:
-- `database_update.ipynb`
-- `database_update_created_at.ipynb`
 
 ## Data Files
 
-Source files used by the app/notebooks are in:
-- `practical_work/data/`
+Source files used by the app/notebooks and a dump of the created graph are in the data folder.
+
 
