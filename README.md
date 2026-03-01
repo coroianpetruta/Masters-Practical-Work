@@ -1,4 +1,4 @@
-﻿# Graphiti Experiments
+﻿# Practical Work
 
 This project contains:
 - A Streamlit app to explore a temporal knowledge graph timeline.
@@ -40,3 +40,4 @@ Then run notebooks in `practical_work/`:
 
 Source files used by the app/notebooks are in:
 - `practical_work/data/`
+
