@@ -40,7 +40,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     }}
     .timeline-slider {{
       position: absolute; left: 20px; right: 20px; bottom: 18px; height: 20px;
-      accent-color: #ff4b57;
+      accent-color: #8ea0b8;
     }}
     svg.graph-svg {{ width: 100%; height: 100%; background: #ffffff; }}
     .t-spike {{ stroke: #aab3bc; stroke-width: 2px; opacity: 0.65; }}
@@ -513,10 +513,10 @@ function applyGraphEpisodeHover(epUuids) {{
 
   graphEpisodeHoverActive = true;
   nodeSelection.style("filter", d => (nodeIds.has(String(d.id))
-    ? "drop-shadow(0 0 8px rgba(255,243,166,0.95))"
+    ? "drop-shadow(0 0 8px rgba(34,269,227,0.998))"
     : null));
   edgeGroupSelection.style("filter", d => (edgeKeys.has(`${{d.id}}-${{d.parallel_index}}`)
-    ? "drop-shadow(0 0 7px rgba(255,243,166,0.92))"
+    ? "drop-shadow(0 0 7px rgba(34,269,227,0.998))"
     : null));
 }}
 

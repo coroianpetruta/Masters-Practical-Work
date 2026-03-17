@@ -74,7 +74,6 @@ with st.sidebar:
         value=DEFAULT_REL_LIMIT,
         step=1000,
     )
-    load_btn = st.button("Refresh graph", type="primary")
 
 if "graph_source" not in st.session_state:
     st.session_state.graph_source = None
@@ -87,8 +86,7 @@ if "graph_source" not in st.session_state:
     st.session_state.last_limit = None
 
 needs_graph_reload = (
-    load_btn
-    or st.session_state.graph_source is None
+    st.session_state.graph_source is None
     or st.session_state.last_limit != int(limit)
 )
 
@@ -124,8 +122,6 @@ if needs_payload_recompute and st.session_state.graph_source is not None:
 
 if st.session_state.raw_payload:
     with st.sidebar:
-        mode_label = "Neo4j" if st.session_state.graph_source_mode == "neo4j" else "Demo dataset"
-        st.caption(f"Data source: {mode_label}")
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         st.subheader("Node Filter")
         selected_node_labels = st.multiselect(
