@@ -50,8 +50,8 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     .timeline-slider::-webkit-slider-runnable-track {{
       height: 8px;
       border-radius: 999px;
-      background: #4d5664;
-      border: 1px solid #7d8694;
+      background: #697587;
+      border: 1px solid #99a3b2;
     }}
     .timeline-slider::-webkit-slider-thumb {{
       -webkit-appearance: none;
@@ -59,29 +59,29 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       height: 16px;
       margin-top: -5px;
       border-radius: 50%;
-      background: #c8d2de;
-      border: 2px solid #738196;
+      background: #d6dee8;
+      border: 2px solid #8a97aa;
       box-shadow: 0 0 0 2px rgba(6, 13, 26, 0.9);
       cursor: pointer;
     }}
     .timeline-slider::-moz-range-track {{
       height: 8px;
       border-radius: 999px;
-      background: #4d5664;
-      border: 1px solid #7d8694;
+      background: #697587;
+      border: 1px solid #99a3b2;
     }}
     .timeline-slider::-moz-range-progress {{
       height: 8px;
       border-radius: 999px;
-      background: #4d5664;
-      border: 1px solid #7d8694;
+      background: #697587;
+      border: 1px solid #99a3b2;
     }}
     .timeline-slider::-moz-range-thumb {{
       width: 16px;
       height: 16px;
       border-radius: 50%;
-      background: #c8d2de;
-      border: 2px solid #738196;
+      background: #d6dee8;
+      border: 2px solid #8a97aa;
       box-shadow: 0 0 0 2px rgba(6, 13, 26, 0.9);
       cursor: pointer;
     }}

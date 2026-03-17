@@ -65,6 +65,18 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
 [data-testid="stSidebar"] [data-baseweb="tag"] * {
   color: #9a3412 !important;
 }
+[data-testid="stSidebar"] {
+  transform: none !important;
+  visibility: visible !important;
+}
+[data-testid="stSidebar"][aria-expanded="false"] {
+  min-width: 21rem !important;
+  max-width: 21rem !important;
+}
+[data-testid="stSidebar"] > div:first-child {
+  width: 21rem !important;
+  min-width: 21rem !important;
+}
 [data-testid="stSidebarCollapseButton"] {
   display: none !important;
 }
