@@ -1,0 +1,552 @@
+{
+  "edges": [
+    {
+      "edge_id": "53b5be6f-1703-40d5-a623-65e740800f07",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "828bf5ff-3e1e-4df5-b025-1e42f2b36dbf",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": "2019-12-29T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1b2b87e-4295-4421-bd83-955ba0439a2e",
+        "8760aebc-6587-45cf-a2ab-879be67bad4f",
+        "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+      ]
+    },
+    {
+      "edge_id": "ccd00358-84e7-4f9e-b9e3-b8cdd5d46938",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "76ec71bc-94db-4afc-9bb8-a5f8625a3ff4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Norway national team",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ]
+    },
+    {
+      "edge_id": "fbdb9c06-f7f0-412d-ba35-cfc7be860a26",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "801ea7f7-16c3-4329-bae1-0389c55cb17b",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Bryne FK",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": "2017-01-01T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ]
+    },
+    {
+      "edge_id": "344ebd52-6ead-44bb-91f3-c68e73b5b0c6",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "801ea7f7-16c3-4329-bae1-0389c55cb17b",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Bryne FK",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2016-05-12T00:00:00Z",
+      "invalid_at": "2017-01-01T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36"
+      ]
+    },
+    {
+      "edge_id": "34440403-3c61-4255-907b-1c5918aa9557",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "4b669a15-7c27-44ae-a8a3-89d68cb2c724",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Molde FK",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": "2019-01-01T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ]
+    },
+    {
+      "edge_id": "bab4feb3-22a3-432b-9e03-8eafaee72625",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "4b669a15-7c27-44ae-a8a3-89d68cb2c724",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Molde FK",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2017-02-01T00:00:00Z",
+      "invalid_at": "2019-12-26T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+      ]
+    },
+    {
+      "edge_id": "8c55589b-8166-4ae5-9f83-bf738029fc45",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "2d412580-f18b-4947-a5c0-ed21520274bc",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Alf-Inge Håland",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d"
+      ]
+    },
+    {
+      "edge_id": "e39495e3-8e7a-4db9-983c-abc3cb86a692",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "52593dee-7f41-4e73-aff1-429c55d1f32f",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Bryne FK 2",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2015-08-01T00:00:00Z",
+      "invalid_at": "2016-07-31T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36"
+      ]
+    },
+    {
+      "edge_id": "d92cf7c8-1bef-490d-b571-ba7140993974",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "e1cf399e-dba2-452a-a8c2-45a462eb7ee1",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": "2022-06-13T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "c7b847a8-90ee-450d-9897-0dea29a546a9"
+      ]
+    },
+    {
+      "edge_id": "b09d9195-2862-4c03-9ff5-2ce67657bc83",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "e1cf399e-dba2-452a-a8c2-45a462eb7ee1",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "6d205677-9223-40ad-8ffa-9b7db5ae6ab6"
+      ]
+    },
+    {
+      "edge_id": "ad391e86-2bfe-40f0-a23b-78f2d853a7d5",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "cb2ade02-daee-404b-af72-0d58722f20ca",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Man City",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "c6dbf446-beae-4d83-bdaf-3b4ec054b25c"
+      ]
+    },
+    {
+      "edge_id": "87bebcec-07f6-4100-8172-3596e5adde85",
+      "source_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "target_id": "cb2ade02-daee-404b-af72-0d58722f20ca",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Man City",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5"
+      ]
+    },
+    {
+      "edge_id": "e5a0ef7a-738c-44db-a759-92731a8aac2a",
+      "source_id": "85fb2cc1-945a-4b60-8b44-805f2bddaedc",
+      "target_id": "4b669a15-7c27-44ae-a8a3-89d68cb2c724",
+      "source_label": "Romelu Lukaku",
+      "target_label": "Molde FK",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2018-07-01T00:00:00Z",
+      "invalid_at": "2019-12-26T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a"
+      ]
+    },
+    {
+      "edge_id": "236165c0-0b5f-410f-a752-74bd9f2eb258",
+      "source_id": "c7eab8bc-0acd-451b-a179-91df5ec9b6ee",
+      "target_id": "c5c7ed42-0db2-40d9-b9d8-7fb023af0593",
+      "source_label": "Haaland",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "0378458e-2c44-4907-a6d7-08c6903ea730"
+      ]
+    },
+    {
+      "edge_id": "4db4bd24-4f89-44ad-b688-fce59f130015",
+      "source_id": "c7eab8bc-0acd-451b-a179-91df5ec9b6ee",
+      "target_id": "e1cf399e-dba2-452a-a8c2-45a462eb7ee1",
+      "source_label": "Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "db0b3e08-42bd-4acc-8b44-ab528a871122"
+      ]
+    },
+    {
+      "edge_id": "bbe4320b-1158-45ed-bef7-20633997d42f",
+      "source_id": "c7eab8bc-0acd-451b-a179-91df5ec9b6ee",
+      "target_id": "e1cf399e-dba2-452a-a8c2-45a462eb7ee1",
+      "source_label": "Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "0378458e-2c44-4907-a6d7-08c6903ea730"
+      ]
+    }
+  ],
+  "episodes": {
+    "e1b2b87e-4295-4421-bd83-955ba0439a2e": {
+      "uuid": "e1b2b87e-4295-4421-bd83-955ba0439a2e",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Early life]\n\nErling Braut Haaland (/ˈhɔːlɑːnd/; né Håland, born 21 July 2000) is a Norwegian footballer who plays as a striker for Austrian football club Red Bull Salzburg and the Norway national team.\n\nHaaland started his career at his hometown club Bryne FK in 2016, and moved to Molde FK the next year where he spent two years. In January 2019, Austrian side Red Bull Salzburg signed him on a five-year contract. In the 2019–20 UEFA Champions League, he became the first teenager to score in five consecutive UEFA Champions League matches.\n\nAfter impressive performances in the 2019 FIFA U-20 World Cup, in which he won the Golden Boot, Håland made his debut for the Norway senior team in September 2019.\n\nHåland was born in Leeds, England as his footballer father, Alf-Inge Håland, was playing in England at the time.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36": {
+      "uuid": "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Club career]\n\nBryne\nHe joined the academy of his hometown club Bryne FK. During the 2015–16 seasons, Håland played for the reserve side Bryne FK 2 where he impressed scoring 18 goals in 14 games. His performances for the Reserve side led him to his senior debut, 15 years of age, Håland made his Bryne debut on 12 May 2016 in a 1. divisjon match against Ranheim. Whilst at Bryne, he also had an unsuccessful trial at German Bundesliga side TSG 1899 Hoffenheim, Håland played 16 games for Bryne.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "cc227322-32bb-4b69-8e9f-7542294dcbe7": {
+      "uuid": "cc227322-32bb-4b69-8e9f-7542294dcbe7",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Molde]\n\n2017 season\nOn 1 February 2017, Molde FK announced the signing of Erling Braut Håland. He made his debut on 26 April 2017 in the Norwegian Cup match against Volda TI. Håland scored his first goal for Molde in his debut in the 3–2 win against Volda. His league debut came on 4 June 2017 when he came on as a substitute in the 71st minute against Sarpsborg 08. He received a yellow card after 65 seconds on the pitch. Håland scored the winner in the 77th minute, a goal which was his first Eliteserien goal. Håland scored his second league goal of the season on 17 September, a match-winning goal against Viking in a 3–2 win. In the aftermath of the goal, he received criticism from teammate Björn Bergmann Sigurðarson for celebrating towards Viking supporters. Håland finished his first season at Molde with 4 goals in 20 appearances.\n\n2018 season",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a": {
+      "uuid": "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Molde]\n\nHåland (right) in the Europa League play-offs against Zenit Saint Petersburg in August 2018\nOn 1 July 2018, Håland scored 4 goals against Brann within the first 21 minutes of the game, securing his team a 4–0 away win over the unbeaten league leaders at the time. The hat-trick was scored in 11 minutes and 2 seconds and all four goals in 17 minutes and 4 seconds. A Manchester United scout was present at the match. Molde FK manager Ole Gunnar Solskjær after the game compared Håland style of play to Romelu Lukaku and revealed the club had rejected several bids for Håland from different clubs.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "cf9de08d-25c5-45cc-899e-b64bf74c4f8d": {
+      "uuid": "cf9de08d-25c5-45cc-899e-b64bf74c4f8d",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Molde]\n\nIn the following game on 8 July, Håland continued his scoring run when he scored two goals and gained an assist in the 5–1 victory against Vålerenga. Håland scored in Molde's UEFA Europa League victory against KF Laçi in a 3–0 win on 26 July. Due to a sprained ankle, Håland did not participate in Molde's three last league games of the season. For his performances in the 2018 Eliteserien, Håland received the Eliteserien Breakthrough of the Year award. He finished the 2018 season as Molde's top goalscorer with 16 goals in 30 matches in all competitions.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "8760aebc-6587-45cf-a2ab-879be67bad4f": {
+      "uuid": "8760aebc-6587-45cf-a2ab-879be67bad4f",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Red Bull Salzburg]\n\nHåland (right) playing for RB Salzburg in 2019.\nOn 19 August 2018, Austrian club Red Bull Salzburg announced that Håland would join the club on 1 January 2019, signing a five-year contract. On 19 July 2019, Håland scored his first hat-trick for the club in a 7–1 Austrian Cup win against SC-ESV Parndorf, and followed it on 10 August with his first Austrian Bundesliga hat-trick in a 5–2 win against Wolfsberger AC. Håland scored his third hat-trick for Red Bull Salzburg on 14 September, in a 7–2 victory over TSV Hartberg, taking his seasonal record to eleven league goals in seven games, and three days later, he got another in his 2019–20 UEFA Champions League debut against Genk in a 6–2 victory, his fourth overall for the club.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "bff95141-c420-45e4-bdf2-30a5dfad01b1": {
+      "uuid": "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: Red Bull Salzburg]\n\nHåland then went on to become only the second teenager in Champions League history to score in each of his first three appearances in the competition, after Karim Benzema, with 1 goal against Liverpool and 2 against Napoli. Thereby he also became the first player ever to score as many as six goals in his first 3 matches in the Champions League. Later on, he scored a goal against Napoli to be the first teenager to score in four consecutive matches, and fourth player to achieve that feat, following Zé Carlos, Alessandro Del Piero and Diego Costa. On 27 November, he scored another goal against Genk, to reach five consecutive matches, and to join Alessandro Del Piero, Serhiy Rebrov, Neymar, Cristiano Ronaldo and Robert Lewandowski in doing so.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "8403d406-c595-48c1-9dbb-8dffb76804c4": {
+      "uuid": "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: International career]\n\nHåland has represented Norway at various age groups. With Norway U19, on 27 March 2018 he scored a hat-trick against Scotland in a 5–4 victory to help Norway secure their qualification to the 2018 UEFA European Under-19 Championship.\n\nOn 22 July 2018, Håland scored for Norway U19 in a 1–1 draw against Italy in the 2018 UEFA European Under-19 Championship.\n\nOn 30 May 2019, Håland scored nine goals in Norway U20's 12–0 win against Honduras U20 at the 2019 FIFA U-20 World Cup in Lublin, Poland. This was Norway U20's biggest ever win and Honduras U20's heaviest ever defeat. This also set a new U-20 World Cup record for most goals scored by a single player in a match, and also the biggest win by any team in the history of the tournament. Despite the Norwegians being eliminated in the group stage, and Håland not scoring in any other games in the tournament, he won its Golden Boot.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d": {
+      "uuid": "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d",
+      "source_text_name": "haaland_2019",
+      "context": "[Section: International career]\n\nAfter the impressive performance in 2019 FIFA U-20 World Cup, a good run of form with Red Bull Salzburg and scoring six goals in the first four games of the 2019–20 Austrian Bundesliga, on 28 August 2019 Håland was named by manager Lars Lagerbäck in the Norway senior team squad to face Malta and Sweden in 2020 Euro qualifying matches, and made his debut on 5 September 2019 against Malta.",
+      "created_at": "2019-12-26T00:00:00Z"
+    },
+    "9e464dd1-cec9-4707-9fe7-02722d2d27e5": {
+      "uuid": "9e464dd1-cec9-4707-9fe7-02722d2d27e5",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nSalzburg starlet Haaland signs for Borussia Dortmund - €20m deal",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "c7b847a8-90ee-450d-9897-0dea29a546a9": {
+      "uuid": "c7b847a8-90ee-450d-9897-0dea29a546a9",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nBorussia Dortmund have announced the signing of RB Salzburg striker Erling Haaland on a contract until 2024.\n\nHaaland, 19, had been linked with a switch to Manchester United after impressing with eight goals in the Champions League this season.\n\nDortmund said the Bundesliga club had “notified Haaland’s current employer to meet all the contractual conditions necessary for a transfer in good time” ahead of the transfer window opening.",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "db0b3e08-42bd-4acc-8b44-ab528a871122": {
+      "uuid": "db0b3e08-42bd-4acc-8b44-ab528a871122",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nHaaland will officially join the Germans on January 3 and then head out to the club’s training camp in Marbella.\n“I had intensive discussions with the club management and the sports management, especially with Hans-Joachim Watzke, Michael Zorc and trainer Lucien Favre,” Haaland said on the Dortmund website.\n“There was a feeling right from the start that I absolutely wanted to switch to this club, go this route and play football in this incredible Dortmund atmosphere in front of more than 80,000 spectators.\n\nI’m already burning for it.”\nHaaland, the son of former Manchester City midfielder Alf-Inge, had been among Manchester United’s transfer targets after making an outstanding start to his first season at the Austrian champions.",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "6d205677-9223-40ad-8ffa-9b7db5ae6ab6": {
+      "uuid": "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nUnited had been hopeful Ole Gunnar Solskjaer’s personal relationship with striker Haaland from their time together at Molde would have helped get a deal over the line.\n\nDortmund chief executive Hans-Joachim Watzke feels the transfer is something of a coup.\n“Despite many offers from absolute top clubs from all over Europe, Erling Haaland decided on the sporting task at BVB and the perspective that we have shown him,” he said. “Our tenacity has paid off.”",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "c6dbf446-beae-4d83-bdaf-3b4ec054b25c": {
+      "uuid": "c6dbf446-beae-4d83-bdaf-3b4ec054b25c",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nMan City announce Haaland - Exit clause doubled from Dortmund days",
+      "created_at": "2022-06-13T00:00:00Z"
+    },
+    "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5": {
+      "uuid": "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nOne month after Borussia Dortmund have confirmed the deal Manchester City announced that Erling Haaland will join the club.\n\nThe €60 million transfer is now a done deal as the Premier League club confirmed on Monday.\n\nHaaland's contract will run until 2027.\n“This is a proud day for me and my family,” Haaland said in a club statement after signing his new contract. “I have always watched City and have loved doing so in recent seasons.\n\nYou can’t help but admire their style of play, it’s exciting and they create a lot of chances, which is perfect for a player like me.\n\nMan City announce Haaland - Deal includes €150m exit clause \nAccording to German newspaper, Bild Haaland will have the opportunity to leave Man City after two years—in the summer of 2024, three years before his contract expires.\n\nHaaland's contract includes an exit clause that allows him to leave for €150 million.",
+      "created_at": "2022-06-13T00:00:00Z"
+    },
+    "0378458e-2c44-4907-a6d7-08c6903ea730": {
+      "uuid": "0378458e-2c44-4907-a6d7-08c6903ea730",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nA clause negotiated by his star agent Mino Raiola, who has recently passed away.\n\nHaaland's contract option at Dortmund was less than half.\n\nHaaland broke several records at BVB, including the record for the fastest 60 goals in Bundesliga history.\n\nHaaland needed just 65 games to score 60 goals in Germany's topflight—the previous record dated back to 1966 and was held by Timo Konietzka, who needed 76 games.\n\nAt Man City, Haaland will follow in his father's footsteps.\n\nBetween 2000 and 2003, Alf-Inge played 45 games for Man City.",
+      "created_at": "2022-06-13T00:00:00Z"
+    }
+  },
+  "node_to_episode_uuids": {
+    "c5c7ed42-0db2-40d9-b9d8-7fb023af0593": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730",
+      "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36",
+      "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "8760aebc-6587-45cf-a2ab-879be67bad4f",
+      "9e464dd1-cec9-4707-9fe7-02722d2d27e5",
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d",
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a",
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "c6dbf446-beae-4d83-bdaf-3b4ec054b25c",
+      "c7b847a8-90ee-450d-9897-0dea29a546a9",
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7",
+      "cf9de08d-25c5-45cc-899e-b64bf74c4f8d",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "e1cf399e-dba2-452a-a8c2-45a462eb7ee1": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730",
+      "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "9e464dd1-cec9-4707-9fe7-02722d2d27e5",
+      "c6dbf446-beae-4d83-bdaf-3b4ec054b25c",
+      "c7b847a8-90ee-450d-9897-0dea29a546a9",
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "c7eab8bc-0acd-451b-a179-91df5ec9b6ee": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730",
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "cb2ade02-daee-404b-af72-0d58722f20ca": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730",
+      "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "c6dbf446-beae-4d83-bdaf-3b4ec054b25c"
+    ],
+    "43a53a82-09e3-4eb4-81db-933d67bbe524": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730"
+    ],
+    "ee78336c-073b-47de-a802-2044232416e0": [
+      "0378458e-2c44-4907-a6d7-08c6903ea730"
+    ],
+    "2d412580-f18b-4947-a5c0-ed21520274bc": [
+      "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "cb8f414e-d37c-4601-81c7-5d32ea00c563": [
+      "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5",
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d"
+    ],
+    "801ea7f7-16c3-4329-bae1-0389c55cb17b": [
+      "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "52593dee-7f41-4e73-aff1-429c55d1f32f": [
+      "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36"
+    ],
+    "d1bea581-7faa-4e48-99c6-b254d9aa75a1": [
+      "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36",
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d"
+    ],
+    "5eefaeb3-5515-4e0f-9884-00ccbb3ca599": [
+      "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a",
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "336a0a34-a8f9-4e44-b8b1-bfaab1218715": [
+      "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "c7b847a8-90ee-450d-9897-0dea29a546a9",
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "52e19e51-fb75-460d-bd5d-3239e8304a44": [
+      "6d205677-9223-40ad-8ffa-9b7db5ae6ab6",
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "29569be4-5382-4a37-8361-b15d6251fae5": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "acf5589f-144e-4b21-95d0-6a6eccf31f23": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "c15fe67f-37bc-4636-9a80-d286fe7e37cd": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "75996021-7ba9-4860-a040-22f356052e03": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4",
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "20b9801c-3f7b-4f0c-b51d-5676896f4c14": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "249d1c49-bc4a-4512-8997-fa456d3bb86f": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "c82393ac-7546-4da6-9b88-6257f5827b6e": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "6e7a96fb-df04-4d68-9eab-6c7975088982": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "896d2396-077e-4e8f-aa33-e0551ab87660": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "6edc32b2-424c-4bd3-9fc4-d68963d62e6c": [
+      "8403d406-c595-48c1-9dbb-8dffb76804c4"
+    ],
+    "828bf5ff-3e1e-4df5-b025-1e42f2b36dbf": [
+      "8760aebc-6587-45cf-a2ab-879be67bad4f",
+      "9e464dd1-cec9-4707-9fe7-02722d2d27e5",
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "c7b847a8-90ee-450d-9897-0dea29a546a9",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "38db0daa-6776-41a4-b040-f081af43388c": [
+      "8760aebc-6587-45cf-a2ab-879be67bad4f"
+    ],
+    "dd375f84-d629-4ef5-ab4d-8dfe7c485d59": [
+      "8760aebc-6587-45cf-a2ab-879be67bad4f"
+    ],
+    "fde510f4-a0d8-40fb-b62a-65418c1ff7a6": [
+      "8760aebc-6587-45cf-a2ab-879be67bad4f",
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "99308262-8e4d-48e0-8cc6-7ed058ed5fa5": [
+      "8760aebc-6587-45cf-a2ab-879be67bad4f",
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "c2b11a45-2106-450a-b640-5604d6aded84": [
+      "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d",
+      "cf9de08d-25c5-45cc-899e-b64bf74c4f8d"
+    ],
+    "4b669a15-7c27-44ae-a8a3-89d68cb2c724": [
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a",
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "48c9f4b7-4cf6-4471-990a-2303911992cb": [
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a"
+    ],
+    "0b59e919-8180-4bde-be78-eaf7c24bb050": [
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a",
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "1ff9e94f-49e3-48f5-aa5e-7324eb56bc70": [
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a"
+    ],
+    "85fb2cc1-945a-4b60-8b44-805f2bddaedc": [
+      "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a"
+    ],
+    "76ec71bc-94db-4afc-9bb8-a5f8625a3ff4": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ],
+    "bf346466-5a5a-486b-a802-c1aa61eeda71": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "07b9b3e7-5ae4-495a-91fd-a59dbf9b5f04": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "cc92bf98-cf47-4d1c-928c-a3a782a87483": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1",
+      "cf9de08d-25c5-45cc-899e-b64bf74c4f8d"
+    ],
+    "c91cfc8a-f16f-45d3-bce9-42269644c863": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "d56a0938-ee13-498a-94d9-8cfc3b891226": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "96dcf210-4106-4206-9ec0-5e3d3ad05981": [
+      "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+    ],
+    "1dca55db-e0c7-4ce6-9d98-b8a3488de908": [
+      "c7b847a8-90ee-450d-9897-0dea29a546a9"
+    ],
+    "41879509-e2b0-48bb-aea3-01e982b37131": [
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "df80c6c4-4d74-4824-9794-6abad57cb2a0": [
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "94289bbe-62e2-4f1f-b6af-58e81ce82723": [
+      "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+    ],
+    "937a34fd-0251-4f30-b4a1-cee18b94fd01": [
+      "cf9de08d-25c5-45cc-899e-b64bf74c4f8d"
+    ],
+    "3924ba0d-e2fa-4166-8d71-690f4d44f390": [
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "c9063d7c-f638-4858-b21c-0032913698ce": [
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "f342439c-ba6b-44ee-af53-4ebaae691dcf": [
+      "db0b3e08-42bd-4acc-8b44-ab528a871122"
+    ],
+    "4bb7416f-ce55-4dd1-a4e1-ac50fedde28e": [
+      "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+    ]
+  },
+  "source_docs": {
+    "haaland_2019": {
+      "date_accessed": "2019-12-26",
+      "link": "https://en.wikipedia.org/w/index.php?title=Erling_Haaland&oldid=932501957",
+      "text": "Erling Braut Haaland (/ˈhɔːlɑːnd/; né Håland,[1] born 21 July 2000) is a Norwegian footballer who plays as a striker for Austrian football club Red Bull Salzburg and the Norway national team.\n\nHaaland started his career at his hometown club Bryne FK in 2016, and moved to Molde FK the next year where he spent two years. In January 2019, Austrian side Red Bull Salzburg signed him on a five-year contract.[6] In the 2019–20 UEFA Champions League, he became the first teenager to score in five consecutive UEFA Champions League matches.[7]\n\nAfter impressive performances in the 2019 FIFA U-20 World Cup, in which he won the Golden Boot, Håland made his debut for the Norway senior team in September 2019.[8]\n\nEarly life\nHåland was born in Leeds, England as his footballer father, Alf-Inge Håland, was playing in England at the time.[9]\n\nClub career\nBryne\nHe joined the academy of his hometown club Bryne FK. During the 2015–16 seasons, Håland played for the reserve side Bryne FK 2 where he impressed scoring 18 goals in 14 games.[10] His performances for the Reserve side led him to his senior debut, 15 years of age, Håland made his Bryne debut on 12 May 2016 in a 1. divisjon match against Ranheim.[11] Whilst at Bryne, he also had an unsuccessful trial at German Bundesliga side TSG 1899 Hoffenheim, Håland played 16 games for Bryne.[10]\n\nMolde\n2017 season\nOn 1 February 2017, Molde FK announced the signing of Erling Braut Håland.[12] He made his debut on 26 April 2017 in the Norwegian Cup match against Volda TI. Håland scored his first goal for Molde in his debut in the 3–2 win against Volda.[13] His league debut came on 4 June 2017 when he came on as a substitute in the 71st minute against Sarpsborg 08. He received a yellow card after 65 seconds on the pitch.[14] Håland scored the winner in the 77th minute, a goal which was his first Eliteserien goal. Håland scored his second league goal of the season on 17 September, a match-winning goal against Viking in a 3–2 win. In the aftermath of the goal, he received criticism from teammate Björn Bergmann Sigurðarson for celebrating towards Viking supporters.[15] Håland finished his first season at Molde with 4 goals in 20 appearances.\n\n2018 season\n\nHåland (right) in the Europa League play-offs against Zenit Saint Petersburg in August 2018\nOn 1 July 2018, Håland scored 4 goals against Brann within the first 21 minutes of the game, securing his team a 4–0 away win over the unbeaten league leaders at the time. The hat-trick was scored in 11 minutes and 2 seconds and all four goals in 17 minutes and 4 seconds. A Manchester United scout was present at the match.[16] Molde FK manager Ole Gunnar Solskjær after the game compared Håland style of play to Romelu Lukaku and revealed the club had rejected several bids for Håland from different clubs.[17]\n\nIn the following game on 8 July, Håland continued his scoring run when he scored two goals and gained an assist in the 5–1 victory against Vålerenga.[18] Håland scored in Molde's UEFA Europa League victory against KF Laçi in a 3–0 win on 26 July.[19] Due to a sprained ankle, Håland did not participate in Molde's three last league games of the season.[20] For his performances in the 2018 Eliteserien, Håland received the Eliteserien Breakthrough of the Year award.[21] He finished the 2018 season as Molde's top goalscorer with 16 goals in 30 matches in all competitions.\n\nRed Bull Salzburg\n\nHåland (right) playing for RB Salzburg in 2019.\nOn 19 August 2018, Austrian club Red Bull Salzburg announced that Håland would join the club on 1 January 2019, signing a five-year contract.[6] On 19 July 2019, Håland scored his first hat-trick for the club in a 7–1 Austrian Cup win against SC-ESV Parndorf,[22] and followed it on 10 August with his first Austrian Bundesliga hat-trick in a 5–2 win against Wolfsberger AC.[23] Håland scored his third hat-trick for Red Bull Salzburg on 14 September, in a 7–2 victory over TSV Hartberg, taking his seasonal record to eleven league goals in seven games,[24] and three days later, he got another in his 2019–20 UEFA Champions League debut against Genk in a 6–2 victory, his fourth overall for the club.[25]\n\nHåland then went on to become only the second teenager in Champions League history to score in each of his first three appearances in the competition, after Karim Benzema, with 1 goal against Liverpool and 2 against Napoli.[26] Thereby he also became the first player ever to score as many as six goals in his first 3 matches in the Champions League.[26] Later on, he scored a goal against Napoli to be the first teenager to score in four consecutive matches, and fourth player to achieve that feat, following Zé Carlos, Alessandro Del Piero and Diego Costa.[7] On 27 November, he scored another goal against Genk, to reach five consecutive matches, and to join Alessandro Del Piero, Serhiy Rebrov, Neymar, Cristiano Ronaldo and Robert Lewandowski in doing so.[27][28]\n\nInternational career\nHåland has represented Norway at various age groups. With Norway U19,[29] on 27 March 2018 he scored a hat-trick against Scotland in a 5–4 victory to help Norway secure their qualification to the 2018 UEFA European Under-19 Championship.[30]\n\nOn 22 July 2018, Håland scored for Norway U19 in a 1–1 draw against Italy in the 2018 UEFA European Under-19 Championship.[31]\n\nOn 30 May 2019, Håland scored nine goals in Norway U20's 12–0 win against Honduras U20 at the 2019 FIFA U-20 World Cup in Lublin, Poland.[32][33] This was Norway U20's biggest ever win and Honduras U20's heaviest ever defeat. This also set a new U-20 World Cup record for most goals scored by a single player in a match, and also the biggest win by any team in the history of the tournament.[34] Despite the Norwegians being eliminated in the group stage, and Håland not scoring in any other games in the tournament, he won its Golden Boot.[35]\n\nAfter the impressive performance in 2019 FIFA U-20 World Cup, a good run of form with Red Bull Salzburg and scoring six goals in the first four games of the 2019–20 Austrian Bundesliga, on 28 August 2019 Håland was named by manager Lars Lagerbäck in the Norway senior team squad to face Malta and Sweden in 2020 Euro qualifying matches, and made his debut on 5 September 2019 against Malta.[8]"
+    },
+    "transfermarkt_2019": {
+      "date_accessed": "2019-12-29",
+      "link": "https://www.transfermarkt.com/salzburg-starlet-haaland-signs-for-borussia-dortmund-euro-20m-deal/view/news/350909",
+      "text": "Salzburg starlet Haaland signs for Borussia Dortmund - €20m deal\n\nBorussia Dortmund have announced the signing of RB Salzburg striker Erling Haaland on a contract until 2024.\nHaaland, 19, had been linked with a switch to Manchester United after impressing with eight goals in the Champions League this season.\nDortmund said the Bundesliga club had “notified Haaland’s current employer to meet all the contractual conditions necessary for a transfer in good time” ahead of the transfer window opening.\nHaaland will officially join the Germans on January 3 and then head out to the club’s training camp in Marbella.\n“I had intensive discussions with the club management and the sports management, especially with Hans-Joachim Watzke, Michael Zorc and trainer Lucien Favre,” Haaland said on the Dortmund website.\n“There was a feeling right from the start that I absolutely wanted to switch to this club, go this route and play football in this incredible Dortmund atmosphere in front of more than 80,000 spectators. I’m already burning for it.”\nHaaland, the son of former Manchester City midfielder Alf-Inge, had been among Manchester United’s transfer targets after making an outstanding start to his first season at the Austrian champions.\nUnited had been hopeful Ole Gunnar Solskjaer’s personal relationship with striker Haaland from their time together at Molde would have helped get a deal over the line.\nDortmund chief executive Hans-Joachim Watzke feels the transfer is something of a coup.\n“Despite many offers from absolute top clubs from all over Europe, Erling Haaland decided on the sporting task at BVB and the perspective that we have shown him,” he said. “Our tenacity has paid off.”"
+    },
+    "transfermarkt_2022": {
+      "date_accessed": "2022-06-13",
+      "link": "https://www.transfermarkt.com/man-city-announce-haaland-exit-clause-doubled-from-dortmund-days/view/news/405914",
+      "text": "Man City announce Haaland - Exit clause doubled from Dortmund days\n\nOne month after Borussia Dortmund have confirmed the deal Manchester City announced that Erling Haaland will join the club. The €60 million transfer is now a done deal as the Premier League club confirmed on Monday. Haaland's contract will run until 2027.\n“This is a proud day for me and my family,” Haaland said in a club statement after signing his new contract. “I have always watched City and have loved doing so in recent seasons. You can’t help but admire their style of play, it’s exciting and they create a lot of chances, which is perfect for a player like me.\nMan City announce Haaland - Deal includes €150m exit clause \nAccording to German newspaper, Bild Haaland will have the opportunity to leave Man City after two years—in the summer of 2024, three years before his contract expires. Haaland's contract includes an exit clause that allows him to leave for €150 million. A clause negotiated by his star agent Mino Raiola, who has recently passed away. Haaland's contract option at Dortmund was less than half.\nHaaland broke several records at BVB, including the record for the fastest 60 goals in Bundesliga history. Haaland needed just 65 games to score 60 goals in Germany's topflight—the previous record dated back to 1966 and was held by Timo Konietzka, who needed 76 games. At Man City, Haaland will follow in his father's footsteps. Between 2000 and 2003, Alf-Inge played 45 games for Man City."
+    }
+  }
+}
