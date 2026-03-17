@@ -1,10 +1,10 @@
 """Neo4j and source document data access."""
 
 import json
-from dataclasses import dataclass
+from dataclasses import asdict, dataclass
 from pathlib import Path
 from datetime import datetime
-from typing import Dict, List, Optional, Set, Tuple
+from typing import Any, Dict, List, Optional, Set, Tuple
 
 from neo4j import GraphDatabase
 
@@ -30,6 +30,91 @@ class EpisodeRow:
     source_text_name: Optional[str]
     context: str
     created_at: Optional[datetime]
+
+
+def _serialize_dt(value: Optional[datetime]) -> Optional[str]:
+    if value is None:
+        return None
+    return value.isoformat().replace("+00:00", "Z")
+
+
+def _serialize_edge_row(edge: EdgeRow) -> Dict[str, Any]:
+    data = asdict(edge)
+    data["valid_at"] = _serialize_dt(edge.valid_at)
+    data["invalid_at"] = _serialize_dt(edge.invalid_at)
+    data["created_at"] = _serialize_dt(edge.created_at)
+    return data
+
+
+def _serialize_episode_row(episode: EpisodeRow) -> Dict[str, Any]:
+    data = asdict(episode)
+    data["created_at"] = _serialize_dt(episode.created_at)
+    return data
+
+
+def save_demo_dataset(
+    path: Path,
+    edges: List[EdgeRow],
+    episode_map: Dict[str, EpisodeRow],
+    node_to_episode_uuids: Dict[str, Set[str]],
+    source_docs: Dict[str, Dict[str, str]],
+) -> None:
+    payload = {
+        "edges": [_serialize_edge_row(edge) for edge in edges],
+        "episodes": {uuid: _serialize_episode_row(ep) for uuid, ep in episode_map.items()},
+        "node_to_episode_uuids": {
+            node_id: sorted(uuids) for node_id, uuids in node_to_episode_uuids.items()
+        },
+        "source_docs": source_docs,
+    }
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(payload, indent=2, ensure_ascii=False), encoding="utf-8")
+
+
+def load_demo_dataset(
+    path: Path,
+) -> Tuple[List[EdgeRow], Dict[str, EpisodeRow], Dict[str, Set[str]], Dict[str, Dict[str, str]]]:
+    raw = json.loads(path.read_text(encoding="utf-8"))
+
+    edges = [
+        EdgeRow(
+            edge_id=str(item["edge_id"]),
+            source_id=str(item["source_id"]),
+            target_id=str(item["target_id"]),
+            source_label=str(item["source_label"]),
+            target_label=str(item["target_label"]),
+            rel_name=str(item["rel_name"]),
+            valid_at=parse_dt(item.get("valid_at")),
+            invalid_at=parse_dt(item.get("invalid_at")),
+            created_at=parse_dt(item.get("created_at")),
+            episode_uuids=[str(x) for x in item.get("episode_uuids", []) if x is not None],
+        )
+        for item in raw.get("edges", [])
+    ]
+
+    episode_map = {
+        str(uuid): EpisodeRow(
+            uuid=str(uuid),
+            source_text_name=(str(item["source_text_name"]) if item.get("source_text_name") is not None else None),
+            context=str(item.get("context", "")),
+            created_at=parse_dt(item.get("created_at")),
+        )
+        for uuid, item in raw.get("episodes", {}).items()
+    }
+
+    node_to_episode_uuids = {
+        str(node_id): {str(uuid) for uuid in uuids if uuid}
+        for node_id, uuids in raw.get("node_to_episode_uuids", {}).items()
+    }
+    source_docs = {
+        str(name): {
+            "date_accessed": str(doc.get("date_accessed", "")),
+            "link": str(doc.get("link", "")),
+            "text": str(doc.get("text", "")),
+        }
+        for name, doc in raw.get("source_docs", {}).items()
+    }
+    return edges, episode_map, node_to_episode_uuids, source_docs
 
 
 def fetch_edges(
