@@ -40,7 +40,50 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     }}
     .timeline-slider {{
       position: absolute; left: 20px; right: 20px; bottom: 18px; height: 20px;
-      accent-color: #8ea0b8;
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+    }}
+    .timeline-slider:focus {{
+      outline: none;
+    }}
+    .timeline-slider::-webkit-slider-runnable-track {{
+      height: 8px;
+      border-radius: 999px;
+      background: #4d5664;
+      border: 1px solid #7d8694;
+    }}
+    .timeline-slider::-webkit-slider-thumb {{
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      margin-top: -5px;
+      border-radius: 50%;
+      background: #c8d2de;
+      border: 2px solid #738196;
+      box-shadow: 0 0 0 2px rgba(6, 13, 26, 0.9);
+      cursor: pointer;
+    }}
+    .timeline-slider::-moz-range-track {{
+      height: 8px;
+      border-radius: 999px;
+      background: #4d5664;
+      border: 1px solid #7d8694;
+    }}
+    .timeline-slider::-moz-range-progress {{
+      height: 8px;
+      border-radius: 999px;
+      background: #4d5664;
+      border: 1px solid #7d8694;
+    }}
+    .timeline-slider::-moz-range-thumb {{
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #c8d2de;
+      border: 2px solid #738196;
+      box-shadow: 0 0 0 2px rgba(6, 13, 26, 0.9);
+      cursor: pointer;
     }}
     svg.graph-svg {{ width: 100%; height: 100%; background: #ffffff; }}
     .t-spike {{ stroke: #aab3bc; stroke-width: 2px; opacity: 0.65; }}

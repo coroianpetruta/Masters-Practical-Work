@@ -61,7 +61,11 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
     }, "demo"
 
 
-st.set_page_config(page_title="Temporal KG Timeline (Neo4j + D3)", layout="wide")
+st.set_page_config(
+    page_title="Temporal KG Timeline (Neo4j + D3)",
+    layout="wide",
+    initial_sidebar_state="expanded",
+)
 st.markdown(APP_STYLE, unsafe_allow_html=True)
 
 with st.sidebar:

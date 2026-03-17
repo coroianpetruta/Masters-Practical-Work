@@ -65,5 +65,11 @@ html, body, [data-testid="stAppViewContainer"], [data-testid="stMain"] {
 [data-testid="stSidebar"] [data-baseweb="tag"] * {
   color: #9a3412 !important;
 }
+[data-testid="stSidebarCollapseButton"] {
+  display: none !important;
+}
+[data-testid="stSidebarCollapsedControl"] {
+  display: none !important;
+}
 </style>
 """
