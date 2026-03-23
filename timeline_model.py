@@ -44,6 +44,22 @@ def compute_timestep_states(
     # Precompute per-edge bins
     start_bin = {e.edge_id: floor_to_bin(edge_start_dt(e), granularity) for e in usable}
     invalid_bin = {e.edge_id: (floor_to_bin(e.invalid_at, granularity) if e.invalid_at else None) for e in usable}
+    invalid_idx = {
+        e.edge_id: (bins.index(invalid_bin[e.edge_id]) if invalid_bin[e.edge_id] is not None else None)
+        for e in usable
+    }
+    label_map: Dict[str, str] = {}
+    node_first_seen: Dict[str, datetime] = {}
+    node_incident_edges: Dict[str, List[EdgeRow]] = {}
+    for e in usable:
+        label_map[e.source_id] = e.source_label
+        label_map[e.target_id] = e.target_label
+        node_incident_edges.setdefault(e.source_id, []).append(e)
+        node_incident_edges.setdefault(e.target_id, []).append(e)
+        sb = start_bin[e.edge_id]
+        for nid in (e.source_id, e.target_id):
+            if nid not in node_first_seen or sb < node_first_seen[nid]:
+                node_first_seen[nid] = sb
 
     # Serialize sources and episodes once for frontend panel/highlighting
     episodes_payload: Dict[str, Dict[str, Any]] = {}
@@ -72,76 +88,47 @@ def compute_timestep_states(
     #    gray otherwise (active)
     # If invalid_bin == this_bin: show red this timestep, remove next.
     frames = []
-    for b in bins:
-        # edges visible at bin b:
+    previous_invalid_nodes: Set[str] = set()
+    node_invalid_start_idx: Dict[str, int] = {}
+    for b_idx, b in enumerate(bins):
         visible_edges: List[EdgeRow] = []
+        active_node_ids: Set[str] = set()
         for e in usable:
             sb = start_bin[e.edge_id]
             ib = invalid_bin[e.edge_id]
             if sb > b:
                 continue
-            # if invalidated in an earlier bin, it's gone
-            if ib is not None and ib < b:
-                continue
-            # if invalidated in this bin, still visible (red)
             visible_edges.append(e)
+            if ib is None or ib > b:
+                active_node_ids.add(e.source_id)
+                active_node_ids.add(e.target_id)
 
-        # node activity based on visible edges that are NOT already gone
-        node_ids = set()
-        for e in visible_edges:
-            node_ids.add(e.source_id)
-            node_ids.add(e.target_id)
+        node_ids = {nid for nid, first_seen in node_first_seen.items() if first_seen <= b}
+        current_invalid_nodes = {nid for nid in node_ids if nid not in active_node_ids}
+        prior_invalid_nodes = set(previous_invalid_nodes)
 
-        # Compute node "new" and "invalid" moments:
-        # New node = first bin where node appears at all.
-        # Invalid node = bin where it loses last active connection (shown red), i.e.,
-        #               node exists in this bin but will not exist in next bin.
-        # We'll compute this by looking at activity in next bin.
-        # First, build node->first_seen_bin from starts of incident edges.
-        # For robustness, node first seen is min start_bin of incident edges.
-        first_seen: Dict[str, datetime] = {}
-        for e in usable:
-            sb = start_bin[e.edge_id]
-            for nid in (e.source_id, e.target_id):
-                if nid not in first_seen or sb < first_seen[nid]:
-                    first_seen[nid] = sb
+        for nid in current_invalid_nodes:
+            if nid not in prior_invalid_nodes:
+                node_invalid_start_idx[nid] = b_idx
+        previous_invalid_nodes = current_invalid_nodes
 
-        # Compute node present in next bin for invalid marking
-        next_b = next_bin_start(b, granularity)
-        # Only relevant if next_b is within range
-        in_range_next = next_b <= bins[-1]
-
-        next_node_ids = set()
-        if in_range_next:
-            for e in usable:
-                sb = start_bin[e.edge_id]
-                ib = invalid_bin[e.edge_id]
-                if sb > next_b:
-                    continue
-                if ib is not None and ib < next_b:
-                    continue
-                # if ib == next_b, still visible next step as red
-                next_node_ids.add(e.source_id)
-                next_node_ids.add(e.target_id)
-
-        # Build nodes with status
         nodes = []
-        # create quick label map from any edge
-        label_map: Dict[str, str] = {}
-        for e in usable:
-            label_map[e.source_id] = e.source_label
-            label_map[e.target_id] = e.target_label
-
-        for nid in node_ids:
-            is_new = first_seen.get(nid) == b
-            is_invalid = in_range_next and (nid not in next_node_ids)
+        for nid in sorted(node_ids):
+            is_new = node_first_seen.get(nid) == b
+            is_invalid_event = nid in current_invalid_nodes and nid not in prior_invalid_nodes
+            is_currently_invalid = nid in current_invalid_nodes
             status = "active"
-            if is_new and is_invalid:
+            if is_new and is_currently_invalid:
                 status = "new_invalid"
             elif is_new:
                 status = "new"
-            elif is_invalid:
+            elif is_currently_invalid:
                 status = "invalid"
+            invalid_age = (
+                b_idx - node_invalid_start_idx[nid]
+                if is_currently_invalid and nid in node_invalid_start_idx
+                else None
+            )
             ep_uuids = sorted(node_to_episode_uuids.get(nid, set()))
             nodes.append(
                 {
@@ -149,23 +136,29 @@ def compute_timestep_states(
                     "label": label_map.get(nid, nid),
                     "status": status,
                     "is_new": is_new,
-                    "is_invalid": is_invalid,
+                    "is_invalid": is_invalid_event,
+                    "invalid_age": invalid_age,
                     "episode_uuids": ep_uuids,
                 }
             )
 
-        # Build links with status
         links = []
         for e in visible_edges:
             is_new = start_bin[e.edge_id] == b
-            is_invalid = invalid_bin[e.edge_id] == b
+            is_invalid_event = invalid_bin[e.edge_id] == b
+            is_currently_invalid = invalid_bin[e.edge_id] is not None and invalid_bin[e.edge_id] <= b
             status = "active"
-            if is_new and is_invalid:
+            if is_new and is_currently_invalid:
                 status = "new_invalid"
             elif is_new:
                 status = "new"
-            elif is_invalid:
+            elif is_currently_invalid:
                 status = "invalid"
+            age = (
+                b_idx - invalid_idx[e.edge_id]
+                if is_currently_invalid and invalid_idx[e.edge_id] is not None
+                else None
+            )
             links.append(
                 {
                     "id": e.edge_id,
@@ -174,7 +167,8 @@ def compute_timestep_states(
                     "label": e.rel_name,
                     "status": status,
                     "is_new": is_new,
-                    "is_invalid": is_invalid,
+                    "is_invalid": is_invalid_event,
+                    "invalid_age": age,
                     "episode_uuids": sorted(set(e.episode_uuids)),
                 }
             )
@@ -253,13 +247,11 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
 
     filtered_frame_links: List[List[Dict[str, Any]]] = []
     frame_node_ids: List[Set[str]] = []
-    present_original_ids: List[Set[str]] = []
 
     for frame in frames:
         orig_nodes = frame.get("nodes", [])
         orig_links = frame.get("links", [])
         orig_node_ids = {str(n.get("id")) for n in orig_nodes}
-        present_original_ids.append(orig_node_ids)
 
         keep_links: List[Dict[str, Any]] = []
         keep_node_ids: Set[str] = set()
@@ -284,20 +276,34 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
                 first_seen_idx[nid] = i
 
     filtered_frames: List[Dict[str, Any]] = []
+    previous_invalid_nodes: Set[str] = set()
+    node_invalid_start_idx: Dict[str, int] = {}
     for i, keep_links in enumerate(filtered_frame_links):
         ids_now = frame_node_ids[i]
-        ids_next = frame_node_ids[i + 1] if i + 1 < len(frame_node_ids) else set()
+        active_node_ids: Set[str] = set()
+        for l in keep_links:
+            if l.get("status") in ("active", "new"):
+                active_node_ids.add(str(l.get("source")))
+                active_node_ids.add(str(l.get("target")))
+
+        current_invalid_nodes = {nid for nid in ids_now if nid not in active_node_ids}
+        prior_invalid_nodes = set(previous_invalid_nodes)
+        for nid in current_invalid_nodes:
+            if nid not in prior_invalid_nodes:
+                node_invalid_start_idx[nid] = i
+        previous_invalid_nodes = current_invalid_nodes
 
         nodes_out: List[Dict[str, Any]] = []
         for nid in sorted(ids_now):
             is_new = first_seen_idx.get(nid) == i
-            is_invalid = nid not in ids_next
+            is_invalid_event = nid in current_invalid_nodes and nid not in prior_invalid_nodes
+            is_currently_invalid = nid in current_invalid_nodes
             status = "active"
-            if is_new and is_invalid:
+            if is_new and is_currently_invalid:
                 status = "new_invalid"
             elif is_new:
                 status = "new"
-            elif is_invalid:
+            elif is_currently_invalid:
                 status = "invalid"
 
             # preserve episode uuids from original frame node if available
@@ -313,7 +319,12 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
                     "label": label_by_id.get(nid, nid),
                     "status": status,
                     "is_new": is_new,
-                    "is_invalid": is_invalid,
+                    "is_invalid": is_invalid_event,
+                    "invalid_age": (
+                        i - node_invalid_start_idx[nid]
+                        if is_currently_invalid and nid in node_invalid_start_idx
+                        else None
+                    ),
                     "episode_uuids": ep_uuids,
                 }
             )

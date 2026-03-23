@@ -247,6 +247,11 @@ function colorForStatus(status) {{
   return "#95a5a6";
 }}
 
+function invalidOpacity(age) {{
+  if (age === null || age === undefined) return 1;
+  return Math.max(0.18, 1 - (Number(age) * 0.14));
+}}
+
 function seededRandom(seed) {{
   let s = seed >>> 0;
   return function() {{
@@ -389,10 +394,10 @@ function visibleTimelineItems() {{
 function frameMods(frameIdx) {{
   if (frameIdx === null || frameIdx === undefined) return {{ add: 0, del: 0, total: 0 }};
   const f = frameAt(frameIdx);
-  const add = (f.nodes || []).filter(x => x.status === "new" || x.status === "new_invalid").length +
-    (f.links || []).filter(x => x.status === "new" || x.status === "new_invalid").length;
-  const del = (f.nodes || []).filter(x => x.status === "invalid" || x.status === "new_invalid").length +
-    (f.links || []).filter(x => x.status === "invalid" || x.status === "new_invalid").length;
+  const add = (f.nodes || []).filter(x => x.is_new).length +
+    (f.links || []).filter(x => x.is_new).length;
+  const del = (f.nodes || []).filter(x => x.is_invalid).length +
+    (f.links || []).filter(x => x.is_invalid).length;
   return {{ add, del, total: add + del }};
 }}
 
@@ -745,7 +750,10 @@ function renderGraph() {{
   const edgeGroup = g.append("g").selectAll("g.edge")
     .data(renderLinks, d => `${{d.id}}-${{d.parallel_index}}`)
     .join("g")
-    .attr("class", "edge");
+    .attr("class", "edge")
+    .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
+      ? invalidOpacity(d.invalid_age)
+      : 1));
 
   const link = edgeGroup.append("path")
     .attr("id", d => d.path_id)
@@ -797,6 +805,9 @@ function renderGraph() {{
     .join("g")
     .attr("class", "node")
     .attr("transform", d => `translate(${{d.x}},${{d.y}})`)
+    .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
+      ? invalidOpacity(d.invalid_age)
+      : 1))
     .call(d3.drag().on("drag", dragged));
 
   node.append("circle")
