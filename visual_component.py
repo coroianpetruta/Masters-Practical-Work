@@ -23,6 +23,23 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       position: absolute; left: 0; right: 0; top: 0; height: 94px;
       z-index: 14; background: #060d1a; border-bottom: 1px solid #1c2a3b;
     }}
+    .window-summary {{
+      position: absolute; left: 12px; right: 180px; bottom: 4px;
+      display: flex; gap: 10px; align-items: center;
+      padding: 6px 10px; border-radius: 8px;
+      border: 1px solid rgba(92,122,156,0.5);
+      background: rgba(6, 13, 26, 0.72);
+      color: #d0d9e8; font-size: 11px; line-height: 1.4;
+      transition: background 0.15s ease, border-color 0.15s ease;
+    }}
+    .window-summary:not(.active) {{ opacity: 0.85; }}
+    .window-summary-text b {{ color: #fff; }}
+    .window-clear-btn {{
+      border: 1px solid #6e7a8f; border-radius: 6px;
+      background: rgba(15, 26, 46, 0.8); color: #dce6f1;
+      font-size: 10px; padding: 4px 8px; cursor: pointer;
+    }}
+    .window-clear-btn:disabled {{ opacity: 0.4; cursor: default; }}
     .year-nav {{
       position: absolute; right: 10px; top: 6px; display: none; align-items: center; gap: 6px;
       font-size: 11px; color: #c4d1e0;
@@ -44,6 +61,17 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       -webkit-appearance: none;
       background: transparent;
     }}
+    .t-brush .selection {{
+      fill: rgba(255, 255, 255, 0.14);
+      stroke: #d7e3f1;
+      stroke-width: 1px;
+    }}
+    .t-brush .handle {{
+      fill: rgba(215, 227, 241, 0.8);
+      stroke: none;
+      width: 4px;
+    }}
+    .t-brush .overlay {{ cursor: crosshair; }}
     .timeline-slider:focus {{
       outline: none;
     }}
@@ -154,6 +182,10 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     <svg class="timeline" id="timeline"></svg>
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
+    <div class="window-summary" id="windowSummary">
+      <div class="window-summary-text" id="windowSummaryText">Drag over the bars to pick a custom window, then click Clear to return to single steps.</div>
+      <button class="window-clear-btn" id="windowClear" disabled>Clear window</button>
+    </div>
     <div class="year-nav" id="yearNav">
       <button id="yearPrev" title="Previous year">◀</button>
       <span class="year-label" id="yearLabel">-</span>
@@ -215,6 +247,9 @@ const yearNav = document.getElementById("yearNav");
 const yearPrev = document.getElementById("yearPrev");
 const yearNext = document.getElementById("yearNext");
 const yearLabel = document.getElementById("yearLabel");
+const windowSummary = document.getElementById("windowSummary");
+const windowSummaryText = document.getElementById("windowSummaryText");
+const windowClearBtn = document.getElementById("windowClear");
 
 let activeDoc = null;
 let activeHighlightEpisodeUuids = [];
@@ -225,6 +260,9 @@ let edgePathSelection = null;
 let nodeIdsByEpisode = new Map();
 let edgeKeysByEpisode = new Map();
 let graphEpisodeHoverActive = false;
+let customWindow = null;
+let customWindowFrameCache = null;
+let suppressBrushSync = false;
 const monthNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 const isMonthGranularity =
   payloadGranularity === "month" ||
@@ -401,6 +439,167 @@ function frameMods(frameIdx) {{
   return {{ add, del, total: add + del }};
 }}
 
+function labelForFrameIdx(idx) {
+  if (idx === null || idx === undefined) return "-";
+  const label = timestepLabels[idx];
+  if (label !== undefined) return String(label);
+  return `Frame ${idx + 1}`;
+}
+
+function composeWindowFrame(startIdx, endIdx) {
+  if (!frames.length) return { nodes: [], links: [], doc_names: [] };
+  const start = Math.max(0, Math.min(startIdx, frames.length - 1));
+  const end = Math.max(start, Math.min(endIdx, frames.length - 1));
+  const nodeMap = new Map();
+  const linkMap = new Map();
+  const docNames = new Set();
+
+  for (let i = start; i <= end; i += 1) {
+    const frame = frameAt(i);
+    if (!frame) continue;
+    (frame.doc_names || []).forEach(name => docNames.add(String(name)));
+
+    (frame.nodes || []).forEach(n => {
+      const key = String(n.id);
+      const entry = nodeMap.get(key) || {
+        id: n.id,
+        label: n.label,
+        added: false,
+        invalidated: false,
+        episodes: new Set(),
+      };
+      entry.added = entry.added || Boolean(n.is_new);
+      entry.invalidated = entry.invalidated || Boolean(n.is_invalid);
+      (n.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
+      nodeMap.set(key, entry);
+    });
+
+    (frame.links || []).forEach(l => {
+      const key = String(l.id);
+      const entry = linkMap.get(key) || {
+        id: l.id,
+        label: l.label,
+        source: l.source,
+        target: l.target,
+        added: false,
+        invalidated: false,
+        episodes: new Set(),
+      };
+      entry.added = entry.added || Boolean(l.is_new);
+      entry.invalidated = entry.invalidated || Boolean(l.is_invalid);
+      (l.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
+      linkMap.set(key, entry);
+    });
+  }
+
+  const nodes = [];
+  nodeMap.forEach(entry => {
+    if (!entry.added && !entry.invalidated) return;
+    let status = "active";
+    if (entry.added && entry.invalidated) status = "new_invalid";
+    else if (entry.added) status = "new";
+    else if (entry.invalidated) status = "invalid";
+    nodes.push({
+      id: entry.id,
+      label: entry.label,
+      status,
+      is_new: entry.added,
+      is_invalid: entry.invalidated,
+      invalid_age: entry.invalidated ? 0 : null,
+      episode_uuids: Array.from(entry.episodes).sort(),
+    });
+  });
+  nodes.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
+
+  const links = [];
+  linkMap.forEach(entry => {
+    if (!entry.added && !entry.invalidated) return;
+    let status = "active";
+    if (entry.added && entry.invalidated) status = "new_invalid";
+    else if (entry.added) status = "new";
+    else if (entry.invalidated) status = "invalid";
+    links.push({
+      id: entry.id,
+      source: entry.source,
+      target: entry.target,
+      label: entry.label,
+      status,
+      is_new: entry.added,
+      is_invalid: entry.invalidated,
+      invalid_age: entry.invalidated ? 0 : null,
+      episode_uuids: Array.from(entry.episodes).sort(),
+    });
+  });
+  links.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
+
+  const orderedDocNames = Array.from(docNames).sort((a, b) => {
+    const aMeta = sources[a] || {};
+    const bMeta = sources[b] || {};
+    const dateCmp = String(aMeta.date_accessed || "9999-12-31").localeCompare(String(bMeta.date_accessed || "9999-12-31"));
+    if (dateCmp !== 0) return dateCmp;
+    return String(a).localeCompare(String(b));
+  });
+
+  return { nodes, links, doc_names: orderedDocNames };
+}
+
+function currentFramePayload() {
+  if (customWindowFrameCache) return customWindowFrameCache;
+  return frameAt(currentIdx);
+}
+
+function updateWindowSummary() {
+  if (!windowSummary || !windowSummaryText || !windowClearBtn) return;
+  if (!customWindow) {
+    windowSummary.classList.remove("active");
+    windowSummaryText.innerHTML = "Drag over the bars to pick a custom window, then click Clear to return to single steps.";
+    windowClearBtn.disabled = true;
+    timelineSlider.disabled = false;
+    return;
+  }
+  windowSummary.classList.add("active");
+  const startLabel = labelForFrameIdx(customWindow.startIdx);
+  const endLabel = labelForFrameIdx(customWindow.endIdx);
+  const priorLabel = customWindow.startIdx > 0 ? labelForFrameIdx(customWindow.startIdx - 1) : "timeline start";
+  const span = customWindow.endIdx - customWindow.startIdx + 1;
+  const nodesInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.nodes)) ? customWindowFrameCache.nodes.length : 0;
+  const linksInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.links)) ? customWindowFrameCache.links.length : 0;
+  const changeCount = nodesInWindow + linksInWindow;
+  const changeLabel = changeCount ? `${changeCount} change${changeCount === 1 ? "" : "s"}` : "no changes";
+  windowSummaryText.innerHTML = `Window <b>${startLabel}</b> → <b>${endLabel}</b> (${span} steps, ${changeLabel}). Showing changes since ${priorLabel}.`;
+  windowClearBtn.disabled = false;
+  timelineSlider.disabled = true;
+}
+
+function setCustomWindow(startIdx, endIdx) {
+  const start = Math.max(0, Math.min(startIdx, frames.length - 1));
+  const end = Math.max(start, Math.min(endIdx, frames.length - 1));
+  customWindow = { startIdx: start, endIdx: end };
+  customWindowFrameCache = composeWindowFrame(start, end);
+  updateWindowSummary();
+  renderTimeline();
+  renderSliderSpikes();
+  renderGraph();
+  renderTabs();
+}
+
+function clearCustomWindow(shouldRender = true) {
+  customWindow = null;
+  customWindowFrameCache = null;
+  updateWindowSummary();
+  if (shouldRender) {
+    renderTimeline();
+    renderSliderSpikes();
+    renderGraph();
+    renderTabs();
+  }
+}
+
+function slotForFrameIdx(idx, visibleItems) {
+  const item = visibleItems.find(v => v.frameIdx === idx);
+  return item ? item.slot : null;
+}
+
 function updateYearNav() {{
   if (!isMonthGranularity) {{
     yearNav.style.display = "none";
@@ -413,8 +612,8 @@ function updateYearNav() {{
   yearNext.disabled = idx >= availableYears.length - 1;
 }}
 
-function docsForActiveEpisodeHover() {{
-  const docs = frameAt(currentIdx).doc_names || [];
+function docsForActiveEpisodeHover() {
+  const docs = currentFramePayload().doc_names || [];
   if (!activeHighlightEpisodeUuids.length) return [];
   const docSet = new Set();
   for (const epUuid of activeHighlightEpisodeUuids) {{
@@ -435,9 +634,9 @@ function scrollToFirstHighlight() {{
   }}
 }}
 
-function renderTabs() {{
+function renderTabs() {
   srcTabs.innerHTML = "";
-  const docs = frameAt(currentIdx).doc_names || [];
+  const docs = currentFramePayload().doc_names || [];
   const hoverDocs = new Set(docsForActiveEpisodeHover());
 
   if (!docs.length) {{
@@ -471,7 +670,7 @@ function renderDocBody() {{
   srcMeta.innerHTML = `${{dateText}}<br/>${{linkText}}`;
 
   const rawDoc = String(doc.text || "");
-  const frame = frameAt(currentIdx);
+  const frame = currentFramePayload();
   const epSet = new Set();
   for (const n of (frame.nodes || [])) for (const e of (n.episode_uuids || [])) epSet.add(String(e));
   for (const l of (frame.links || [])) for (const e of (l.episode_uuids || [])) epSet.add(String(e));
@@ -741,7 +940,7 @@ function nodeLabelLines(text, maxChars = 16) {{
 }}
 
 function renderGraph() {{
-  const frame = frameAt(currentIdx);
+  const frame = currentFramePayload();
   const {{ renderNodes, renderLinks }} = makeRenderData(frame);
   const nodePos = new Map(renderNodes.map(n => [n.id, {{ x: n.x, y: n.y }}]));
 
@@ -963,6 +1162,7 @@ function renderTimeline() {{
     .attr("width", band.bandwidth() + 4)
     .attr("height", innerH)
     .on("click", (_, d) => {{
+      if (customWindow) return;
       if (d.frameIdx !== null && d.frameIdx !== undefined) setCurrentIdx(d.frameIdx);
     }});
 
@@ -975,6 +1175,66 @@ function renderTimeline() {{
     .attr("y", 0)
     .attr("width", barWidth + 4)
     .attr("height", innerH);
+
+  const slotFromX = (x) => {{
+    const domain = band.domain();
+    if (!domain.length) return 0;
+    let bestSlot = domain[0];
+    let bestDist = Infinity;
+    domain.forEach(slot => {{
+      const center = band(slot) + band.bandwidth() / 2;
+      const dist = Math.abs(center - x);
+      if (dist < bestDist) {{
+        bestDist = dist;
+        bestSlot = slot;
+      }}
+    }});
+    return bestSlot;
+  }};
+
+  const brush = d3.brushX()
+    .extent([[0, 0], [innerW, innerH]])
+    .on("end", (event) => {{
+      if (suppressBrushSync) return;
+      const sel = event.selection;
+      if (!sel) {{
+        if (customWindow) clearCustomWindow();
+        return;
+      }}
+      const [x0, x1] = sel;
+      const startSlot = slotFromX(x0);
+      const endSlot = slotFromX(x1);
+      const minSlot = Math.min(startSlot, endSlot);
+      const maxSlot = Math.max(startSlot, endSlot);
+      const candidates = visible
+        .filter(v => v.frameIdx !== null && v.frameIdx !== undefined)
+        .filter(v => v.slot >= minSlot && v.slot <= maxSlot);
+      if (!candidates.length) {{
+        brushG.call(brush.move, null);
+        if (customWindow) clearCustomWindow();
+        return;
+      }}
+      const startIdx = candidates[0].frameIdx;
+      const endIdx = candidates[candidates.length - 1].frameIdx;
+      if (startIdx === undefined || endIdx === undefined) return;
+      setCustomWindow(startIdx, endIdx);
+    }});
+
+  const brushG = gT.append("g").attr("class", "t-brush").call(brush);
+
+  if (customWindow) {{
+    const startSlot = slotForFrameIdx(customWindow.startIdx, visible);
+    const endSlot = slotForFrameIdx(customWindow.endIdx, visible);
+    if (startSlot !== null && endSlot !== null) {{
+      suppressBrushSync = true;
+      const a = Math.min(startSlot, endSlot);
+      const b = Math.max(startSlot, endSlot);
+      const x0 = band(a);
+      const x1 = band(b) + band.bandwidth();
+      brushG.call(brush.move, [x0, x1]);
+      suppressBrushSync = false;
+    }}
+  }}
 }}
 
 function renderSliderSpikes() {{
@@ -996,6 +1256,12 @@ function renderSliderSpikes() {{
   const gS = timelineSliderSpikesSvg.append("g").attr("transform", `translate(${{margin.left}},0)`);
   const visibleIdx = visible.findIndex(v => v.frameIdx === currentIdx);
   const currentSlot = visibleIdx >= 0 ? visible[visibleIdx].slot : 0;
+  const windowStartSlot = customWindow ? slotForFrameIdx(customWindow.startIdx, visible) : null;
+  const windowEndSlot = customWindow ? slotForFrameIdx(customWindow.endIdx, visible) : null;
+  const windowRange = (windowStartSlot !== null && windowEndSlot !== null)
+    ? [Math.min(windowStartSlot, windowEndSlot), Math.max(windowStartSlot, windowEndSlot)]
+    : null;
+  const slotInWindow = slot => (windowRange ? (slot >= windowRange[0] && slot <= windowRange[1]) : false);
 
   gS.append("g")
     .selectAll("line")
@@ -1005,9 +1271,11 @@ function renderSliderSpikes() {{
     .attr("x2", d => x(d.slot) + x.bandwidth() / 2)
     .attr("y1", 3)
     .attr("y2", d => (d.slot === currentSlot ? 12 : 9))
-    .attr("stroke", d => (d.slot === currentSlot ? "#2c7be5" : "#7f8fa3"))
+    .attr("stroke", d => (
+      d.slot === currentSlot ? "#2c7be5" : (slotInWindow(d.slot) ? "#f8b4ff" : "#7f8fa3")
+    ))
     .attr("stroke-width", d => (d.slot === currentSlot ? 1.6 : 1.2))
-    .attr("opacity", d => (d.slot === currentSlot ? 0.95 : 0.7));
+    .attr("opacity", d => (slotInWindow(d.slot) ? 0.9 : (d.slot === currentSlot ? 0.95 : 0.7)));
 
   gS.append("g")
     .selectAll("text")
@@ -1017,7 +1285,9 @@ function renderSliderSpikes() {{
     .attr("y", 20)
     .attr("text-anchor", "middle")
     .attr("font-size", "10px")
-    .attr("fill", d => (d.slot === currentSlot ? "#dbe7ff" : "#98a7bc"))
+    .attr("fill", d => (
+      d.slot === currentSlot ? "#dbe7ff" : (slotInWindow(d.slot) ? "#ffe0ff" : "#98a7bc")
+    ))
     .text(d => d.tickLabel);
 }}
 
@@ -1040,12 +1310,17 @@ function setCurrentIdx(idx) {{
 }}
 
 timelineSlider.addEventListener("input", (e) => {{
+  if (customWindow) return;
   const slot = Number(e.target.value || 0);
   if (Number.isNaN(slot)) return;
   const visible = visibleTimelineItems();
   const target = visible[Math.max(0, Math.min(slot, visible.length - 1))];
   if (target && target.frameIdx !== null && target.frameIdx !== undefined) setCurrentIdx(target.frameIdx);
 }});
+
+if (windowClearBtn) {{
+  windowClearBtn.addEventListener("click", () => clearCustomWindow());
+}}
 
 yearPrev.addEventListener("click", () => {{
   if (!isMonthGranularity) return;
@@ -1095,6 +1370,7 @@ timelineSlider.max = String(Math.max(0, initVisible.length - 1));
 timelineSlider.step = "1";
 timelineSlider.value = "0";
 setCurrentIdx(currentIdx);
+updateWindowSummary();
 </script>
 </body>
 </html>
