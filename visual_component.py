@@ -439,44 +439,44 @@ function frameMods(frameIdx) {{
   return {{ add, del, total: add + del }};
 }}
 
-function labelForFrameIdx(idx) {
+function labelForFrameIdx(idx) {{
   if (idx === null || idx === undefined) return "-";
   const label = timestepLabels[idx];
   if (label !== undefined) return String(label);
-  return `Frame ${idx + 1}`;
-}
+  return `Frame ${{idx + 1}}`;
+}}
 
-function composeWindowFrame(startIdx, endIdx) {
-  if (!frames.length) return { nodes: [], links: [], doc_names: [] };
+function composeWindowFrame(startIdx, endIdx) {{
+  if (!frames.length) return {{ nodes: [], links: [], doc_names: [] }};
   const start = Math.max(0, Math.min(startIdx, frames.length - 1));
   const end = Math.max(start, Math.min(endIdx, frames.length - 1));
   const nodeMap = new Map();
   const linkMap = new Map();
   const docNames = new Set();
 
-  for (let i = start; i <= end; i += 1) {
+  for (let i = start; i <= end; i += 1) {{
     const frame = frameAt(i);
     if (!frame) continue;
     (frame.doc_names || []).forEach(name => docNames.add(String(name)));
 
-    (frame.nodes || []).forEach(n => {
+    (frame.nodes || []).forEach(n => {{
       const key = String(n.id);
-      const entry = nodeMap.get(key) || {
+      const entry = nodeMap.get(key) || {{
         id: n.id,
         label: n.label,
         added: false,
         invalidated: false,
         episodes: new Set(),
-      };
+      }};
       entry.added = entry.added || Boolean(n.is_new);
       entry.invalidated = entry.invalidated || Boolean(n.is_invalid);
       (n.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
       nodeMap.set(key, entry);
-    });
+    }});
 
-    (frame.links || []).forEach(l => {
+    (frame.links || []).forEach(l => {{
       const key = String(l.id);
-      const entry = linkMap.get(key) || {
+      const entry = linkMap.get(key) || {{
         id: l.id,
         label: l.label,
         source: l.source,
@@ -484,22 +484,22 @@ function composeWindowFrame(startIdx, endIdx) {
         added: false,
         invalidated: false,
         episodes: new Set(),
-      };
+      }};
       entry.added = entry.added || Boolean(l.is_new);
       entry.invalidated = entry.invalidated || Boolean(l.is_invalid);
       (l.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
       linkMap.set(key, entry);
-    });
-  }
+    }});
+  }}
 
   const nodes = [];
-  nodeMap.forEach(entry => {
+  nodeMap.forEach(entry => {{
     if (!entry.added && !entry.invalidated) return;
     let status = "active";
     if (entry.added && entry.invalidated) status = "new_invalid";
     else if (entry.added) status = "new";
     else if (entry.invalidated) status = "invalid";
-    nodes.push({
+    nodes.push({{
       id: entry.id,
       label: entry.label,
       status,
@@ -507,18 +507,18 @@ function composeWindowFrame(startIdx, endIdx) {
       is_invalid: entry.invalidated,
       invalid_age: entry.invalidated ? 0 : null,
       episode_uuids: Array.from(entry.episodes).sort(),
-    });
-  });
+    }});
+  }});
   nodes.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
 
   const links = [];
-  linkMap.forEach(entry => {
+  linkMap.forEach(entry => {{
     if (!entry.added && !entry.invalidated) return;
     let status = "active";
     if (entry.added && entry.invalidated) status = "new_invalid";
     else if (entry.added) status = "new";
     else if (entry.invalidated) status = "invalid";
-    links.push({
+    links.push({{
       id: entry.id,
       source: entry.source,
       target: entry.target,
@@ -528,35 +528,35 @@ function composeWindowFrame(startIdx, endIdx) {
       is_invalid: entry.invalidated,
       invalid_age: entry.invalidated ? 0 : null,
       episode_uuids: Array.from(entry.episodes).sort(),
-    });
-  });
+    }});
+  }});
   links.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
 
-  const orderedDocNames = Array.from(docNames).sort((a, b) => {
-    const aMeta = sources[a] || {};
-    const bMeta = sources[b] || {};
+  const orderedDocNames = Array.from(docNames).sort((a, b) => {{
+    const aMeta = sources[a] || {{}};
+    const bMeta = sources[b] || {{}};
     const dateCmp = String(aMeta.date_accessed || "9999-12-31").localeCompare(String(bMeta.date_accessed || "9999-12-31"));
     if (dateCmp !== 0) return dateCmp;
     return String(a).localeCompare(String(b));
-  });
+  }});
 
-  return { nodes, links, doc_names: orderedDocNames };
-}
+  return {{ nodes, links, doc_names: orderedDocNames }};
+}}
 
-function currentFramePayload() {
+function currentFramePayload() {{
   if (customWindowFrameCache) return customWindowFrameCache;
   return frameAt(currentIdx);
-}
+}}
 
-function updateWindowSummary() {
+function updateWindowSummary() {{
   if (!windowSummary || !windowSummaryText || !windowClearBtn) return;
-  if (!customWindow) {
+  if (!customWindow) {{
     windowSummary.classList.remove("active");
     windowSummaryText.innerHTML = "Drag over the bars to pick a custom window, then click Clear to return to single steps.";
     windowClearBtn.disabled = true;
     timelineSlider.disabled = false;
     return;
-  }
+  }}
   windowSummary.classList.add("active");
   const startLabel = labelForFrameIdx(customWindow.startIdx);
   const endLabel = labelForFrameIdx(customWindow.endIdx);
@@ -565,40 +565,40 @@ function updateWindowSummary() {
   const nodesInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.nodes)) ? customWindowFrameCache.nodes.length : 0;
   const linksInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.links)) ? customWindowFrameCache.links.length : 0;
   const changeCount = nodesInWindow + linksInWindow;
-  const changeLabel = changeCount ? `${changeCount} change${changeCount === 1 ? "" : "s"}` : "no changes";
-  windowSummaryText.innerHTML = `Window <b>${startLabel}</b> → <b>${endLabel}</b> (${span} steps, ${changeLabel}). Showing changes since ${priorLabel}.`;
+  const changeLabel = changeCount ? `${{changeCount}} change${{changeCount === 1 ? "" : "s"}}` : "no changes";
+  windowSummaryText.innerHTML = `Window <b>${{startLabel}}</b> → <b>${{endLabel}}</b> (${{span}} steps, ${{changeLabel}}). Showing changes since ${{priorLabel}}.`;
   windowClearBtn.disabled = false;
   timelineSlider.disabled = true;
-}
+}}
 
-function setCustomWindow(startIdx, endIdx) {
+function setCustomWindow(startIdx, endIdx) {{
   const start = Math.max(0, Math.min(startIdx, frames.length - 1));
   const end = Math.max(start, Math.min(endIdx, frames.length - 1));
-  customWindow = { startIdx: start, endIdx: end };
+  customWindow = {{ startIdx: start, endIdx: end }};
   customWindowFrameCache = composeWindowFrame(start, end);
   updateWindowSummary();
   renderTimeline();
   renderSliderSpikes();
   renderGraph();
   renderTabs();
-}
+}}
 
-function clearCustomWindow(shouldRender = true) {
+function clearCustomWindow(shouldRender = true) {{
   customWindow = null;
   customWindowFrameCache = null;
   updateWindowSummary();
-  if (shouldRender) {
+  if (shouldRender) {{
     renderTimeline();
     renderSliderSpikes();
     renderGraph();
     renderTabs();
-  }
-}
+  }}
+}}
 
-function slotForFrameIdx(idx, visibleItems) {
+function slotForFrameIdx(idx, visibleItems) {{
   const item = visibleItems.find(v => v.frameIdx === idx);
   return item ? item.slot : null;
-}
+}}
 
 function updateYearNav() {{
   if (!isMonthGranularity) {{
@@ -612,7 +612,7 @@ function updateYearNav() {{
   yearNext.disabled = idx >= availableYears.length - 1;
 }}
 
-function docsForActiveEpisodeHover() {
+function docsForActiveEpisodeHover() {{
   const docs = currentFramePayload().doc_names || [];
   if (!activeHighlightEpisodeUuids.length) return [];
   const docSet = new Set();
@@ -634,7 +634,7 @@ function scrollToFirstHighlight() {{
   }}
 }}
 
-function renderTabs() {
+function renderTabs() {{
   srcTabs.innerHTML = "";
   const docs = currentFramePayload().doc_names || [];
   const hoverDocs = new Set(docsForActiveEpisodeHover());
