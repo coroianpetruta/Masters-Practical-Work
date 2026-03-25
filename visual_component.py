@@ -23,25 +23,18 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       position: absolute; left: 0; right: 0; top: 0; height: 94px;
       z-index: 14; background: #060d1a; border-bottom: 1px solid #1c2a3b;
     }}
-    .window-summary {{
-      position: absolute; left: 12px; right: 180px; bottom: 4px;
-      display: flex; gap: 10px; align-items: center;
-      padding: 6px 10px; border-radius: 8px;
-      border: 1px solid rgba(92,122,156,0.5);
-      background: rgba(6, 13, 26, 0.72);
-      color: #d0d9e8; font-size: 11px; line-height: 1.4;
-      transition: background 0.15s ease, border-color 0.15s ease;
+    .timeline-actions {{
+      position: absolute; right: 10px; top: 6px;
+      display: flex; align-items: center; gap: 8px;
     }}
-    .window-summary:not(.active) {{ opacity: 0.85; }}
-    .window-summary-text b {{ color: #fff; }}
     .window-clear-btn {{
       border: 1px solid #6e7a8f; border-radius: 6px;
-      background: rgba(15, 26, 46, 0.8); color: #dce6f1;
-      font-size: 10px; padding: 4px 8px; cursor: pointer;
+      background: #0c1628; color: #dce6f1;
+      font-size: 11px; padding: 4px 10px; cursor: pointer;
     }}
-    .window-clear-btn:disabled {{ opacity: 0.4; cursor: default; }}
+    .window-clear-btn:disabled {{ opacity: 0.35; cursor: default; }}
     .year-nav {{
-      position: absolute; right: 10px; top: 6px; display: none; align-items: center; gap: 6px;
+      display: none; align-items: center; gap: 6px;
       font-size: 11px; color: #c4d1e0;
     }}
     .year-nav button {{
@@ -182,14 +175,13 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     <svg class="timeline" id="timeline"></svg>
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
-    <div class="window-summary" id="windowSummary">
-      <div class="window-summary-text" id="windowSummaryText">Drag over the bars to pick a custom window, then click Clear to return to single steps.</div>
-      <button class="window-clear-btn" id="windowClear" disabled>Clear window</button>
-    </div>
-    <div class="year-nav" id="yearNav">
-      <button id="yearPrev" title="Previous year">◀</button>
-      <span class="year-label" id="yearLabel">-</span>
-      <button id="yearNext" title="Next year">▶</button>
+    <div class="timeline-actions" id="timelineActions">
+      <button class="window-clear-btn" id="windowClear" title="Drag over the bars to pick a window" disabled>Clear window</button>
+      <div class="year-nav" id="yearNav">
+        <button id="yearPrev" title="Previous year">◀</button>
+        <span class="year-label" id="yearLabel">-</span>
+        <button id="yearNext" title="Next year">▶</button>
+      </div>
     </div>
   </div>
   <div class="layout" id="layout">
@@ -247,8 +239,6 @@ const yearNav = document.getElementById("yearNav");
 const yearPrev = document.getElementById("yearPrev");
 const yearNext = document.getElementById("yearNext");
 const yearLabel = document.getElementById("yearLabel");
-const windowSummary = document.getElementById("windowSummary");
-const windowSummaryText = document.getElementById("windowSummaryText");
 const windowClearBtn = document.getElementById("windowClear");
 
 let activeDoc = null;
@@ -450,8 +440,11 @@ function composeWindowFrame(startIdx, endIdx) {{
   if (!frames.length) return {{ nodes: [], links: [], doc_names: [] }};
   const start = Math.max(0, Math.min(startIdx, frames.length - 1));
   const end = Math.max(start, Math.min(endIdx, frames.length - 1));
-  const nodeMap = new Map();
-  const linkMap = new Map();
+
+  const nodeAdded = new Set();
+  const nodeInvalidated = new Set();
+  const linkAdded = new Set();
+  const linkInvalidated = new Set();
   const docNames = new Set();
 
   for (let i = start; i <= end; i += 1) {{
@@ -460,77 +453,51 @@ function composeWindowFrame(startIdx, endIdx) {{
     (frame.doc_names || []).forEach(name => docNames.add(String(name)));
 
     (frame.nodes || []).forEach(n => {{
-      const key = String(n.id);
-      const entry = nodeMap.get(key) || {{
-        id: n.id,
-        label: n.label,
-        added: false,
-        invalidated: false,
-        episodes: new Set(),
-      }};
-      entry.added = entry.added || Boolean(n.is_new);
-      entry.invalidated = entry.invalidated || Boolean(n.is_invalid);
-      (n.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
-      nodeMap.set(key, entry);
+      const nid = String(n.id);
+      if (n.is_new) nodeAdded.add(nid);
+      if (n.is_invalid) nodeInvalidated.add(nid);
     }});
 
     (frame.links || []).forEach(l => {{
-      const key = String(l.id);
-      const entry = linkMap.get(key) || {{
-        id: l.id,
-        label: l.label,
-        source: l.source,
-        target: l.target,
-        added: false,
-        invalidated: false,
-        episodes: new Set(),
-      }};
-      entry.added = entry.added || Boolean(l.is_new);
-      entry.invalidated = entry.invalidated || Boolean(l.is_invalid);
-      (l.episode_uuids || []).forEach(ep => entry.episodes.add(String(ep)));
-      linkMap.set(key, entry);
+      const lid = String(l.id);
+      if (l.is_new) linkAdded.add(lid);
+      if (l.is_invalid) linkInvalidated.add(lid);
     }});
   }}
 
-  const nodes = [];
-  nodeMap.forEach(entry => {{
-    if (!entry.added && !entry.invalidated) return;
-    let status = "active";
-    if (entry.added && entry.invalidated) status = "new_invalid";
-    else if (entry.added) status = "new";
-    else if (entry.invalidated) status = "invalid";
-    nodes.push({{
-      id: entry.id,
-      label: entry.label,
-      status,
-      is_new: entry.added,
-      is_invalid: entry.invalidated,
-      invalid_age: entry.invalidated ? 0 : null,
-      episode_uuids: Array.from(entry.episodes).sort(),
-    }});
-  }});
-  nodes.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
+  const baseFrame = frameAt(end) || {{ nodes: [], links: [], doc_names: [] }};
 
-  const links = [];
-  linkMap.forEach(entry => {{
-    if (!entry.added && !entry.invalidated) return;
-    let status = "active";
-    if (entry.added && entry.invalidated) status = "new_invalid";
-    else if (entry.added) status = "new";
-    else if (entry.invalidated) status = "invalid";
-    links.push({{
-      id: entry.id,
-      source: entry.source,
-      target: entry.target,
-      label: entry.label,
+  const nodes = (baseFrame.nodes || []).map(n => {{
+    const nid = String(n.id);
+    const added = nodeAdded.has(nid);
+    const invalid = nodeInvalidated.has(nid);
+    let status = n.status;
+    if (added && invalid) status = "new_invalid";
+    else if (added) status = "new";
+    else if (invalid) status = "invalid";
+    return {{
+      ...n,
       status,
-      is_new: entry.added,
-      is_invalid: entry.invalidated,
-      invalid_age: entry.invalidated ? 0 : null,
-      episode_uuids: Array.from(entry.episodes).sort(),
-    }});
+      is_new: added,
+      is_invalid: invalid,
+    }};
   }});
-  links.sort((a, b) => String(a.label || a.id).localeCompare(String(b.label || b.id)));
+
+  const links = (baseFrame.links || []).map(l => {{
+    const lid = String(l.id);
+    const added = linkAdded.has(lid);
+    const invalid = linkInvalidated.has(lid);
+    let status = l.status;
+    if (added && invalid) status = "new_invalid";
+    else if (added) status = "new";
+    else if (invalid) status = "invalid";
+    return {{
+      ...l,
+      status,
+      is_new: added,
+      is_invalid: invalid,
+    }};
+  }});
 
   const orderedDocNames = Array.from(docNames).sort((a, b) => {{
     const aMeta = sources[a] || {{}};
@@ -549,25 +516,20 @@ function currentFramePayload() {{
 }}
 
 function updateWindowSummary() {{
-  if (!windowSummary || !windowSummaryText || !windowClearBtn) return;
+  if (!windowClearBtn) return;
   if (!customWindow) {{
-    windowSummary.classList.remove("active");
-    windowSummaryText.innerHTML = "Drag over the bars to pick a custom window, then click Clear to return to single steps.";
     windowClearBtn.disabled = true;
+    windowClearBtn.textContent = "Clear window";
+    windowClearBtn.title = "Drag over the bars to pick a window";
     timelineSlider.disabled = false;
     return;
   }}
-  windowSummary.classList.add("active");
   const startLabel = labelForFrameIdx(customWindow.startIdx);
   const endLabel = labelForFrameIdx(customWindow.endIdx);
-  const priorLabel = customWindow.startIdx > 0 ? labelForFrameIdx(customWindow.startIdx - 1) : "timeline start";
   const span = customWindow.endIdx - customWindow.startIdx + 1;
-  const nodesInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.nodes)) ? customWindowFrameCache.nodes.length : 0;
-  const linksInWindow = (customWindowFrameCache && Array.isArray(customWindowFrameCache.links)) ? customWindowFrameCache.links.length : 0;
-  const changeCount = nodesInWindow + linksInWindow;
-  const changeLabel = changeCount ? `${{changeCount}} change${{changeCount === 1 ? "" : "s"}}` : "no changes";
-  windowSummaryText.innerHTML = `Window <b>${{startLabel}}</b> → <b>${{endLabel}}</b> (${{span}} steps, ${{changeLabel}}). Showing changes since ${{priorLabel}}.`;
   windowClearBtn.disabled = false;
+  windowClearBtn.textContent = `Clear window (${{startLabel}} → ${{endLabel}})`;
+  windowClearBtn.title = `Custom window spanning ${{span}} step${{span === 1 ? "" : "s"}}`;
   timelineSlider.disabled = true;
 }}
 
