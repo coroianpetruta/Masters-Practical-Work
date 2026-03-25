@@ -1,3 +1,4 @@
+import importlib
 from pathlib import Path
 
 import streamlit as st
@@ -12,7 +13,7 @@ from data_access import (
 )
 from timeline_model import apply_node_filter, collect_node_labels, compute_timestep_states
 from ui_styles import APP_STYLE
-from visual_component import d3_html
+import visual_component as visual_component_module
 
 
 DEMO_DATA_PATH = Path(__file__).resolve().parent / "data" / "demo_payload.json"
@@ -140,5 +141,6 @@ if st.session_state.raw_payload:
 if not st.session_state.payload or not st.session_state.labels:
     st.info("Load data to see the timeline visualization.")
 else:
-    html = d3_html(st.session_state.payload, 0, width=1380, height=780)
+    vc_module = importlib.reload(visual_component_module)
+    html = vc_module.d3_html(st.session_state.payload, 0, width=1380, height=780)
     components.html(html, height=1000, scrolling=False)
