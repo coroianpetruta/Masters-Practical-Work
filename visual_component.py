@@ -45,8 +45,8 @@ SVG_SYMBOL_DEFS = "".join(filter(None, [PLAYER_SYMBOL, TEAM_SYMBOL, GENERIC_SYMB
 
 def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: int = 780) -> str:
     data_json = json.dumps(payload)
-  player_icon_id = "#icon-player" if PLAYER_SYMBOL else "#icon-generic"
-  team_icon_id = "#icon-team" if TEAM_SYMBOL else "#icon-generic"
+    player_icon_id = "#icon-player" if PLAYER_SYMBOL else "#icon-generic"
+    team_icon_id = "#icon-team" if TEAM_SYMBOL else "#icon-generic"
     return f"""
 <!doctype html>
 <html>
