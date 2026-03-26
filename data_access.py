@@ -1,7 +1,7 @@
 """Neo4j and source document data access."""
 
 import json
-from dataclasses import asdict, dataclass
+from dataclasses import asdict, dataclass, field
 from pathlib import Path
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple
@@ -22,6 +22,8 @@ class EdgeRow:
     invalid_at: Optional[datetime]
     created_at: Optional[datetime]
     episode_uuids: List[str]
+    source_labels: List[str] = field(default_factory=list)
+    target_labels: List[str] = field(default_factory=list)
 
 
 @dataclass
@@ -88,6 +90,8 @@ def load_demo_dataset(
             invalid_at=parse_dt(item.get("invalid_at")),
             created_at=parse_dt(item.get("created_at")),
             episode_uuids=[str(x) for x in item.get("episode_uuids", []) if x is not None],
+            source_labels=[str(lbl) for lbl in item.get("source_labels", []) if lbl],
+            target_labels=[str(lbl) for lbl in item.get("target_labels", []) if lbl],
         )
         for item in raw.get("edges", [])
     ]
@@ -147,6 +151,8 @@ def fetch_edges(
         coalesce(t.uuid, t.id, toString(id(t))) AS target_id,
         coalesce(s.name, s.title, s.label, head(labels(s)), 'Node') AS source_label,
         coalesce(t.name, t.title, t.label, head(labels(t)), 'Node') AS target_label,
+        labels(s) AS source_labels,
+        labels(t) AS target_labels,
         coalesce(r.name, type(r)) AS rel_name,
         r.valid_at AS valid_at,
         r.invalid_at AS invalid_at,
@@ -170,6 +176,8 @@ def fetch_edges(
                     invalid_at=parse_dt(rec["invalid_at"]),
                     created_at=parse_dt(rec["created_at"]),
                     episode_uuids=[str(x) for x in (rec["episodes"] or []) if x is not None],
+                    source_labels=[str(x) for x in (rec["source_labels"] or []) if x],
+                    target_labels=[str(x) for x in (rec["target_labels"] or []) if x],
                 )
             )
     driver.close()
