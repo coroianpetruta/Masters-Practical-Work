@@ -14,6 +14,14 @@
         "e1b2b87e-4295-4421-bd83-955ba0439a2e",
         "8760aebc-6587-45cf-a2ab-879be67bad4f",
         "bff95141-c420-45e4-bdf2-30a5dfad01b1"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -28,6 +36,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -42,6 +58,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -56,6 +80,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -70,6 +102,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "e1b2b87e-4295-4421-bd83-955ba0439a2e"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -84,6 +124,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "cc227322-32bb-4b69-8e9f-7542294dcbe7"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -98,6 +146,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "aa1ec468-a54b-48bb-8df4-4fe7c37e3a2d"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -112,6 +168,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "58d7cd3b-7c4d-436a-b8d0-eeeb0790fd36"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -126,6 +190,14 @@
       "created_at": "2019-12-29T00:00:00Z",
       "episode_uuids": [
         "c7b847a8-90ee-450d-9897-0dea29a546a9"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -140,6 +212,14 @@
       "created_at": "2019-12-29T00:00:00Z",
       "episode_uuids": [
         "6d205677-9223-40ad-8ffa-9b7db5ae6ab6"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -154,6 +234,14 @@
       "created_at": "2022-06-13T00:00:00Z",
       "episode_uuids": [
         "c6dbf446-beae-4d83-bdaf-3b4ec054b25c"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -168,6 +256,14 @@
       "created_at": "2022-06-13T00:00:00Z",
       "episode_uuids": [
         "4d5075c6-9a37-4ec7-83a2-ab61dfad80b5"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -182,6 +278,14 @@
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
         "b0435e7e-ff45-48ea-aa76-0e86ce3c5b3a"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -196,6 +300,14 @@
       "created_at": "2022-06-13T00:00:00Z",
       "episode_uuids": [
         "0378458e-2c44-4907-a6d7-08c6903ea730"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
       ]
     },
     {
@@ -210,6 +322,14 @@
       "created_at": "2019-12-29T00:00:00Z",
       "episode_uuids": [
         "db0b3e08-42bd-4acc-8b44-ab528a871122"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     },
     {
@@ -224,6 +344,14 @@
       "created_at": "2022-06-13T00:00:00Z",
       "episode_uuids": [
         "0378458e-2c44-4907-a6d7-08c6903ea730"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
       ]
     }
   ],
