@@ -1,10 +1,52 @@
 """D3 component renderer for Streamlit."""
 
 import json
+import re
+from pathlib import Path
 from typing import Any, Dict
+
+ASSET_DIR = Path(__file__).resolve().parent
+IMG_DIR = ASSET_DIR / "img"
+
+
+def _load_svg_symbol(symbol_id: str, filename: str) -> str:
+  path = IMG_DIR / filename
+  if not path.exists():
+    return ""
+
+  raw = path.read_text(encoding="utf-8")
+  raw = re.sub(r"<\?xml.*?\?>", "", raw, flags=re.S).strip()
+  match = re.search(r"<svg[^>]*>(.*)</svg>", raw, flags=re.S)
+  inner = match.group(1) if match else raw
+  viewbox_match = re.search(r'viewBox="([^"]+)"', raw)
+  viewbox = viewbox_match.group(1) if viewbox_match else "0 0 512 512"
+  inner = re.sub(r'(fill|stroke)="(#[0-9a-fA-F]{3,6})"', r'\1="currentColor"', inner)
+  return f'<symbol id="{symbol_id}" viewBox="{viewbox}" preserveAspectRatio="xMidYMid meet">{inner}</symbol>'
+
+
+PLAYER_SYMBOL = _load_svg_symbol("icon-player", "player.svg")
+TEAM_SYMBOL = _load_svg_symbol("icon-team", "team.svg")
+GENERIC_SYMBOL = (
+  '<symbol id="icon-generic" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">'
+  '<circle cx="256" cy="256" r="220" fill="currentColor" />'
+  '</symbol>'
+)
+
+CLIP_HALF_DEFS = (
+  '<clipPath id="icon-half-left" clipPathUnits="objectBoundingBox">'
+  '<rect x="0" y="0" width="0.5" height="1" />'
+  '</clipPath>'
+  '<clipPath id="icon-half-right" clipPathUnits="objectBoundingBox">'
+  '<rect x="0.5" y="0" width="0.5" height="1" />'
+  '</clipPath>'
+)
+
+SVG_SYMBOL_DEFS = "".join(filter(None, [PLAYER_SYMBOL, TEAM_SYMBOL, GENERIC_SYMBOL])) + CLIP_HALF_DEFS
 
 def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: int = 780) -> str:
     data_json = json.dumps(payload)
+  player_icon_id = "#icon-player" if PLAYER_SYMBOL else "#icon-generic"
+  team_icon_id = "#icon-team" if TEAM_SYMBOL else "#icon-generic"
     return f"""
 <!doctype html>
 <html>
@@ -118,9 +160,11 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     .edge-label {{ font-size: 8px; fill: #2f3a46; opacity: 0.95; pointer-events: none; }}
     .edge-label-bg {{ stroke: rgba(255,255,255,0.95); stroke-width: 2px; paint-order: stroke; stroke-linejoin: round; }}
     .node circle {{ stroke: #fff; stroke-width: 1.5px; }}
+    .node-icon {{ pointer-events: none; }}
+    .node-icon use {{ transition: color 0.2s ease, opacity 0.2s ease; }}
     .label {{
-      font-size: 6.6px; font-weight: 600; fill: #0f1720; text-anchor: middle;
-      dominant-baseline: middle; pointer-events: none;
+      font-size: 6.8px; font-weight: 600; fill: #0f1720; text-anchor: middle;
+      dominant-baseline: hanging; pointer-events: none;
     }}
 
     .source-toggle {{
@@ -170,6 +214,11 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
   </style>
 </head>
 <body>
+<svg aria-hidden="true" width="0" height="0" style="position:absolute;width:0;height:0;overflow:hidden;">
+  <defs>
+    {SVG_SYMBOL_DEFS}
+  </defs>
+</svg>
 <div class="wrap" id="wrap">
   <div class="timeline-shell" id="timelineShell">
     <svg class="timeline" id="timeline"></svg>
@@ -215,6 +264,11 @@ const episodes = payload.episodes || {{}};
 const frames = payload.frames || [];
 const timestepLabels = payload.labels || [];
 const payloadGranularity = String(payload.granularity || "").toLowerCase();
+const ICON_IDS = {{
+  player: "{player_icon_id}",
+  team: "{team_icon_id}",
+  generic: "#icon-generic",
+}};
 let currentIdx = Math.max(0, Math.min({frame_idx}, Math.max(0, frames.length - 1)));
 
 const wrapEl = document.getElementById("wrap");
@@ -755,7 +809,10 @@ const layoutSim = d3.forceSimulation(allNodes)
 for (let i = 0; i < 350; i += 1) layoutSim.tick();
 
 const posById = new Map(allNodes.map(n => [n.id, {{ x: n.x, y: n.y }}]));
-const NODE_R = 24;
+const NODE_ICON_SIZE = 56;
+const NODE_ICON_HALF = NODE_ICON_SIZE / 2;
+const NODE_LABEL_OFFSET = NODE_ICON_HALF + 12;
+const NODE_R = NODE_ICON_HALF + 4;
 
 const defs = svg.append("defs");
 defs.append("marker")
@@ -901,6 +958,13 @@ function nodeLabelLines(text, maxChars = 16) {{
   return [best[0], best[1]];
 }}
 
+function symbolForKind(kind) {{
+  const k = String(kind || "").toLowerCase();
+  if (k === "player") return ICON_IDS.player;
+  if (k === "team") return ICON_IDS.team;
+  return ICON_IDS.generic;
+}}
+
 function renderGraph() {{
   const frame = currentFramePayload();
   const {{ renderNodes, renderLinks }} = makeRenderData(frame);
@@ -971,26 +1035,37 @@ function renderGraph() {{
       : 1))
     .call(d3.drag().on("drag", dragged));
 
-  node.append("circle")
-    .attr("r", NODE_R)
-    .attr("fill", d => (d.status === "new_invalid" ? "none" : colorForStatus(d.status)));
+  const iconGroups = node.append("g")
+    .attr("class", "node-icon");
 
-  // Draw symmetric half-disks for combined new+invalid state.
-  const splitNodes = node.filter(d => d.status === "new_invalid");
-  splitNodes.append("path")
-    .attr("d", "M0,-24 A24,24 0 0 0 0,24 L0,24 L0,-24 Z")
-    .attr("fill", "#2ecc71");
-  splitNodes.append("path")
-    .attr("d", "M0,-24 A24,24 0 0 1 0,24 L0,24 L0,-24 Z")
-    .attr("fill", "#e74c3c");
-  splitNodes.append("circle")
-    .attr("r", NODE_R)
-    .attr("fill", "none");
+  iconGroups.each(function(d) {{
+    const iconHref = symbolForKind(d.kind);
+    const group = d3.select(this);
+
+    const appendIcon = (clipPath, color) => {{
+      const icon = group.append("use")
+        .attr("href", iconHref)
+        .attr("width", NODE_ICON_SIZE)
+        .attr("height", NODE_ICON_SIZE)
+        .attr("x", -NODE_ICON_HALF)
+        .attr("y", -NODE_ICON_HALF)
+        .style("color", color);
+      if (clipPath) icon.attr("clip-path", clipPath);
+      return icon;
+    }};
+
+    if (d.status === "new_invalid") {{
+      appendIcon("url(#icon-half-left)", colorForStatus("new"));
+      appendIcon("url(#icon-half-right)", colorForStatus("invalid"));
+    }} else {{
+      appendIcon(null, colorForStatus(d.status));
+    }}
+  }});
 
   node.append("text")
     .attr("class", "label")
     .attr("x", 0)
-    .attr("y", 0)
+    .attr("y", NODE_LABEL_OFFSET)
     .each(function(d) {{
       const lines = nodeLabelLines(d.label, 16);
       const t = d3.select(this);
@@ -998,7 +1073,7 @@ function renderGraph() {{
       lines.forEach((line, i) => {{
         t.append("tspan")
           .attr("x", 0)
-          .attr("dy", i === 0 ? (lines.length === 1 ? "0.35em" : "-0.2em") : "1.1em")
+          .attr("dy", i === 0 ? 0 : "1.1em")
           .text(line);
       }});
     }});

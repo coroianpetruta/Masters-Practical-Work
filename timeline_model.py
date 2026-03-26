@@ -4,7 +4,37 @@ from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple
 
 from data_access import EdgeRow, EpisodeRow
-from time_utils import floor_to_bin, make_bins, next_bin_start, label_bin
+from time_utils import floor_to_bin, make_bins, label_bin
+
+
+def infer_node_kind(rel_name: str, is_source: bool) -> str:
+    name = (rel_name or "").lower()
+    if "player" in name and "team" in name:
+        return "player" if is_source else "team"
+    if "player" in name:
+        return "player" if is_source else "entity"
+    if "team" in name:
+        return "team"
+    return "entity"
+
+
+def merge_node_kind(current: Optional[str], new_kind: str) -> str:
+    if not current or current == "entity":
+        return new_kind
+    if new_kind == "entity" or current == new_kind:
+        return current
+    return "entity"
+
+
+def kind_from_labels(labels: List[str]) -> Optional[str]:
+    lowered = [str(lbl).lower() for lbl in labels]
+    if any("player" in lbl for lbl in lowered):
+        return "player"
+    if any("team" in lbl for lbl in lowered):
+        return "team"
+    if lowered:
+        return lowered[0]
+    return None
 
 def edge_start_dt(e: EdgeRow) -> Optional[datetime]:
     return e.valid_at or e.created_at
@@ -49,11 +79,16 @@ def compute_timestep_states(
         for e in usable
     }
     label_map: Dict[str, str] = {}
+    node_kind_map: Dict[str, str] = {}
     node_first_seen: Dict[str, datetime] = {}
     node_incident_edges: Dict[str, List[EdgeRow]] = {}
     for e in usable:
         label_map[e.source_id] = e.source_label
         label_map[e.target_id] = e.target_label
+        source_kind = kind_from_labels(e.source_labels) or infer_node_kind(e.rel_name, True)
+        target_kind = kind_from_labels(e.target_labels) or infer_node_kind(e.rel_name, False)
+        node_kind_map[e.source_id] = merge_node_kind(node_kind_map.get(e.source_id), source_kind)
+        node_kind_map[e.target_id] = merge_node_kind(node_kind_map.get(e.target_id), target_kind)
         node_incident_edges.setdefault(e.source_id, []).append(e)
         node_incident_edges.setdefault(e.target_id, []).append(e)
         sb = start_bin[e.edge_id]
@@ -134,6 +169,7 @@ def compute_timestep_states(
                 {
                     "id": nid,
                     "label": label_map.get(nid, nid),
+                    "kind": node_kind_map.get(nid, "entity"),
                     "status": status,
                     "is_new": is_new,
                     "is_invalid": is_invalid_event,
@@ -234,11 +270,13 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
     # selected node ids come from the full timeline graph
     selected_ids: Set[str] = set()
     label_by_id: Dict[str, str] = {}
+    kind_by_id: Dict[str, str] = {}
     for frame in frames:
         for n in frame.get("nodes", []):
             nid = str(n.get("id"))
             nlabel = str(n.get("label", nid))
             label_by_id[nid] = nlabel
+            kind_by_id[nid] = str(n.get("kind", "entity"))
             if nlabel in selected_label_set:
                 selected_ids.add(nid)
 
@@ -317,6 +355,7 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
                 {
                     "id": nid,
                     "label": label_by_id.get(nid, nid),
+                    "kind": kind_by_id.get(nid, "entity"),
                     "status": status,
                     "is_new": is_new,
                     "is_invalid": is_invalid_event,
