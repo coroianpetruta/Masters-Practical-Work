@@ -3,7 +3,7 @@
 from datetime import datetime
 from typing import Any, Dict, List, Optional, Set, Tuple
 
-from data_access import EdgeRow, EpisodeRow
+from data_access import EdgeRow, EpisodeRow, NodeRow
 from time_utils import floor_to_bin, make_bins, label_bin
 
 
@@ -27,11 +27,17 @@ def merge_node_kind(current: Optional[str], new_kind: str) -> str:
 
 
 def kind_from_labels(labels: List[str]) -> Optional[str]:
-    lowered = [str(lbl).lower() for lbl in labels]
+    lowered = [
+        str(lbl).lower()
+        for lbl in labels
+        if str(lbl).lower() not in {"entity", "episodic", "community", "saga"}
+    ]
     if any("player" in lbl for lbl in lowered):
         return "player"
     if any("team" in lbl for lbl in lowered):
         return "team"
+    if any("coach" in lbl for lbl in lowered):
+        return "coach"
     if lowered:
         return lowered[0]
     return None
@@ -41,6 +47,7 @@ def edge_start_dt(e: EdgeRow) -> Optional[datetime]:
 
 
 def compute_timestep_states(
+    nodes: List[NodeRow],
     edges: List[EdgeRow],
     episode_map: Dict[str, EpisodeRow],
     node_to_episode_uuids: Dict[str, Set[str]],
@@ -53,11 +60,13 @@ def compute_timestep_states(
       - frames: per-bin dict with nodes + links + status {new/active/invalid}
     """
     # Filter edges that have some start time; otherwise they can’t be placed.
+    usable_nodes = [n for n in nodes if n.created_at is not None]
     usable = [e for e in edges if edge_start_dt(e) is not None]
-    if not usable:
+    if not usable and not usable_nodes:
         return [], {"frames": [], "labels": [], "episodes": {}, "sources": {}}
 
     starts = [edge_start_dt(e) for e in usable if edge_start_dt(e) is not None]
+    starts.extend(n.created_at for n in usable_nodes if n.created_at is not None)
     ends = []
     for e in usable:
         # if invalid_at exists, include it in range
@@ -65,6 +74,7 @@ def compute_timestep_states(
             ends.append(e.invalid_at)
         else:
             ends.append(edge_start_dt(e))
+    ends.extend(n.created_at for n in usable_nodes if n.created_at is not None)
     min_dt = min(starts)
     max_dt = max(ends)
 
@@ -82,6 +92,10 @@ def compute_timestep_states(
     node_kind_map: Dict[str, str] = {}
     node_first_seen: Dict[str, datetime] = {}
     node_incident_edges: Dict[str, List[EdgeRow]] = {}
+    for n in usable_nodes:
+        label_map[n.node_id] = n.label
+        node_kind_map[n.node_id] = kind_from_labels(n.labels) or "entity"
+        node_first_seen[n.node_id] = n.created_at
     for e in usable:
         label_map[e.source_id] = e.source_label
         label_map[e.target_id] = e.target_label
@@ -139,7 +153,9 @@ def compute_timestep_states(
                 active_node_ids.add(e.target_id)
 
         node_ids = {nid for nid, first_seen in node_first_seen.items() if first_seen <= b}
-        current_invalid_nodes = {nid for nid in node_ids if nid not in active_node_ids}
+        current_invalid_nodes = {
+            nid for nid in node_ids if nid not in active_node_ids and node_incident_edges.get(nid)
+        }
         prior_invalid_nodes = set(previous_invalid_nodes)
 
         for nid in current_invalid_nodes:
@@ -324,7 +340,8 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
                 active_node_ids.add(str(l.get("source")))
                 active_node_ids.add(str(l.get("target")))
 
-        current_invalid_nodes = {nid for nid in ids_now if nid not in active_node_ids}
+        linked_node_ids = {str(l.get("source")) for l in keep_links} | {str(l.get("target")) for l in keep_links}
+        current_invalid_nodes = {nid for nid in ids_now if nid not in active_node_ids and nid in linked_node_ids}
         prior_invalid_nodes = set(previous_invalid_nodes)
         for nid in current_invalid_nodes:
             if nid not in prior_invalid_nodes:

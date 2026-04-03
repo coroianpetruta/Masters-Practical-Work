@@ -6,6 +6,7 @@ import streamlit.components.v1 as components
 
 from app_config import NEO4J_DATABASE, NEO4J_PASSWORD, NEO4J_URI, NEO4J_USER
 from data_access import (
+    fetch_nodes,
     fetch_edges,
     fetch_episodes_and_mentions,
     load_demo_dataset,
@@ -33,6 +34,13 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
             database=NEO4J_DATABASE,
             limit=limit,
         )
+        nodes = fetch_nodes(
+            uri=NEO4J_URI,
+            user=NEO4J_USER,
+            password=NEO4J_PASSWORD,
+            database=NEO4J_DATABASE,
+            limit=limit,
+        )
         episode_map, node_to_episode_uuids = fetch_episodes_and_mentions(
             uri=NEO4J_URI,
             user=NEO4J_USER,
@@ -41,6 +49,7 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
         )
         source_docs = load_source_documents()
         return {
+            "nodes": nodes,
             "edges": edges,
             "episode_map": episode_map,
             "node_to_episode_uuids": node_to_episode_uuids,
@@ -53,8 +62,9 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
             "Generate it with export_demo_payload.py or enable Neo4j via Streamlit secrets."
         )
 
-    edges, episode_map, node_to_episode_uuids, source_docs = load_demo_dataset(DEMO_DATA_PATH)
+    nodes, edges, episode_map, node_to_episode_uuids, source_docs = load_demo_dataset(DEMO_DATA_PATH)
     return {
+        "nodes": nodes,
         "edges": edges,
         "episode_map": episode_map,
         "node_to_episode_uuids": node_to_episode_uuids,
@@ -113,6 +123,7 @@ needs_payload_recompute = (
 if needs_payload_recompute and st.session_state.graph_source is not None:
     with st.spinner("Computing temporal frames..."):
         _, payload = compute_timestep_states(
+            st.session_state.graph_source["nodes"],
             st.session_state.graph_source["edges"],
             episode_map=st.session_state.graph_source["episode_map"],
             node_to_episode_uuids=st.session_state.graph_source["node_to_episode_uuids"],

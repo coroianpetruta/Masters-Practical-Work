@@ -26,6 +26,20 @@ def _load_svg_symbol(symbol_id: str, filename: str) -> str:
 
 PLAYER_SYMBOL = _load_svg_symbol("icon-player", "player.svg")
 TEAM_SYMBOL = _load_svg_symbol("icon-team", "team.svg")
+MATCH_SYMBOL = _load_svg_symbol("icon-match", "match.svg")
+GOAL_SYMBOL = _load_svg_symbol("icon-goal", "goal.svg")
+INJURY_SYMBOL = _load_svg_symbol("icon-injury", "injury.svg")
+RETIREMENT_SYMBOL = _load_svg_symbol("icon-retirement", "retirement.svg")
+COMPETITION_SYMBOL = _load_svg_symbol("icon-competition", "competition.svg")
+AWARD_SYMBOL = _load_svg_symbol("icon-award", "award.svg")
+RECORD_SYMBOL = _load_svg_symbol("icon-record", "record.svg")
+STADIUM_SYMBOL = _load_svg_symbol("icon-stadium", "stadium.svg")
+TRANSFER_SYMBOL = (
+  '<symbol id="icon-transfer" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">'
+  '<path d="M104 164h220l-54-54 34-34 112 112-112 112-34-34 54-54H104z" fill="currentColor"/>'
+  '<path d="M408 348H188l54 54-34 34-112-112 112-112 34 34-54 54h220z" fill="currentColor"/>'
+  '</symbol>'
+)
 GENERIC_SYMBOL = (
   '<symbol id="icon-generic" viewBox="0 0 512 512" preserveAspectRatio="xMidYMid meet">'
   '<circle cx="256" cy="256" r="220" fill="currentColor" />'
@@ -41,12 +55,39 @@ CLIP_HALF_DEFS = (
   '</clipPath>'
 )
 
-SVG_SYMBOL_DEFS = "".join(filter(None, [PLAYER_SYMBOL, TEAM_SYMBOL, GENERIC_SYMBOL])) + CLIP_HALF_DEFS
+SVG_SYMBOL_DEFS = "".join(
+  filter(
+    None,
+    [
+      PLAYER_SYMBOL,
+      TEAM_SYMBOL,
+      MATCH_SYMBOL,
+      GOAL_SYMBOL,
+      INJURY_SYMBOL,
+      RETIREMENT_SYMBOL,
+      COMPETITION_SYMBOL,
+      AWARD_SYMBOL,
+      RECORD_SYMBOL,
+      STADIUM_SYMBOL,
+      TRANSFER_SYMBOL,
+      GENERIC_SYMBOL,
+    ],
+  )
+) + CLIP_HALF_DEFS
 
 def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: int = 780) -> str:
     data_json = json.dumps(payload)
     player_icon_id = "#icon-player" if PLAYER_SYMBOL else "#icon-generic"
     team_icon_id = "#icon-team" if TEAM_SYMBOL else "#icon-generic"
+    match_icon_id = "#icon-match" if MATCH_SYMBOL else "#icon-generic"
+    goal_icon_id = "#icon-goal" if GOAL_SYMBOL else "#icon-generic"
+    injury_icon_id = "#icon-injury" if INJURY_SYMBOL else "#icon-generic"
+    retirement_icon_id = "#icon-retirement" if RETIREMENT_SYMBOL else "#icon-generic"
+    competition_icon_id = "#icon-competition" if COMPETITION_SYMBOL else "#icon-generic"
+    award_icon_id = "#icon-award" if AWARD_SYMBOL else "#icon-generic"
+    record_icon_id = "#icon-record" if RECORD_SYMBOL else "#icon-generic"
+    stadium_icon_id = "#icon-stadium" if STADIUM_SYMBOL else "#icon-generic"
+    transfer_icon_id = "#icon-transfer"
     return f"""
 <!doctype html>
 <html>
@@ -267,6 +308,16 @@ const payloadGranularity = String(payload.granularity || "").toLowerCase();
 const ICON_IDS = {{
   player: "{player_icon_id}",
   team: "{team_icon_id}",
+  coach: "{player_icon_id}",
+  match: "{match_icon_id}",
+  competition: "{competition_icon_id}",
+  goalevent: "{goal_icon_id}",
+  injuryevent: "{injury_icon_id}",
+  transferevent: "{transfer_icon_id}",
+  retirementevent: "{retirement_icon_id}",
+  award: "{award_icon_id}",
+  record: "{record_icon_id}",
+  stadium: "{stadium_icon_id}",
   generic: "#icon-generic",
 }};
 let currentIdx = Math.max(0, Math.min({frame_idx}, Math.max(0, frames.length - 1)));
@@ -960,9 +1011,7 @@ function nodeLabelLines(text, maxChars = 16) {{
 
 function symbolForKind(kind) {{
   const k = String(kind || "").toLowerCase();
-  if (k === "player") return ICON_IDS.player;
-  if (k === "team") return ICON_IDS.team;
-  return ICON_IDS.generic;
+  return ICON_IDS[k] || ICON_IDS.generic;
 }}
 
 function renderGraph() {{

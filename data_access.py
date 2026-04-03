@@ -10,6 +10,50 @@ from neo4j import GraphDatabase
 
 from time_utils import parse_dt
 
+
+CUSTOM_NODE_LABELS = [
+    "Player",
+    "Team",
+    "Coach",
+    "Match",
+    "Competition",
+    "GoalEvent",
+    "InjuryEvent",
+    "TransferEvent",
+    "RetirementEvent",
+    "Award",
+    "Record",
+    "Stadium",
+]
+
+CUSTOM_REL_NAMES = [
+    "player_plays_for_team",
+    "coach_manages_team",
+    "team_participates_in_competition",
+    "team_participates_in_match",
+    "player_participates_in_match",
+    "player_part_of_goal_event",
+    "goal_event_part_of_match",
+    "goal_event_scored_for_team",
+    "player_part_of_transfer_event",
+    "transfer_event_to_team",
+    "transfer_event_from_team",
+    "injury_of_player",
+    "retirement_of_player_or_coach",
+    "award_to_recipient",
+    "record_held_by_entity",
+    "stadium_hosts_match",
+    "stadium_home_of_team",
+]
+
+
+@dataclass
+class NodeRow:
+    node_id: str
+    label: str
+    created_at: Optional[datetime]
+    labels: List[str] = field(default_factory=list)
+
 @dataclass
 class EdgeRow:
     edge_id: str
@@ -54,14 +98,22 @@ def _serialize_episode_row(episode: EpisodeRow) -> Dict[str, Any]:
     return data
 
 
+def _serialize_node_row(node: NodeRow) -> Dict[str, Any]:
+    data = asdict(node)
+    data["created_at"] = _serialize_dt(node.created_at)
+    return data
+
+
 def save_demo_dataset(
     path: Path,
+    nodes: List[NodeRow],
     edges: List[EdgeRow],
     episode_map: Dict[str, EpisodeRow],
     node_to_episode_uuids: Dict[str, Set[str]],
     source_docs: Dict[str, Dict[str, str]],
 ) -> None:
     payload = {
+        "nodes": [_serialize_node_row(node) for node in nodes],
         "edges": [_serialize_edge_row(edge) for edge in edges],
         "episodes": {uuid: _serialize_episode_row(ep) for uuid, ep in episode_map.items()},
         "node_to_episode_uuids": {
@@ -75,8 +127,18 @@ def save_demo_dataset(
 
 def load_demo_dataset(
     path: Path,
-) -> Tuple[List[EdgeRow], Dict[str, EpisodeRow], Dict[str, Set[str]], Dict[str, Dict[str, str]]]:
+) -> Tuple[List[NodeRow], List[EdgeRow], Dict[str, EpisodeRow], Dict[str, Set[str]], Dict[str, Dict[str, str]]]:
     raw = json.loads(path.read_text(encoding="utf-8"))
+
+    nodes = [
+        NodeRow(
+            node_id=str(item["node_id"]),
+            label=str(item["label"]),
+            created_at=parse_dt(item.get("created_at")),
+            labels=[str(lbl) for lbl in item.get("labels", []) if lbl],
+        )
+        for item in raw.get("nodes", [])
+    ]
 
     edges = [
         EdgeRow(
@@ -118,7 +180,47 @@ def load_demo_dataset(
         }
         for name, doc in raw.get("source_docs", {}).items()
     }
-    return edges, episode_map, node_to_episode_uuids, source_docs
+    return nodes, edges, episode_map, node_to_episode_uuids, source_docs
+
+
+def fetch_nodes(
+    uri: str,
+    user: str,
+    password: str,
+    database: Optional[str],
+    allowed_labels: Optional[List[str]] = None,
+    limit: Optional[int] = 5000,
+) -> List[NodeRow]:
+    driver = GraphDatabase.driver(uri, auth=(user, password))
+    allowed_labels = allowed_labels or CUSTOM_NODE_LABELS
+    query = """
+        MATCH (n:Entity)
+        WHERE any(lbl IN labels(n) WHERE lbl IN $allowed_labels)
+        RETURN
+            coalesce(n.uuid, n.id, toString(id(n))) AS node_id,
+            coalesce(n.name, n.title, n.label, head(labels(n)), 'Node') AS label,
+            n.created_at AS created_at,
+            labels(n) AS labels
+    """
+    if limit is not None:
+        query += "\n        LIMIT $limit"
+
+    rows: List[NodeRow] = []
+    with driver.session(database=database) as session:
+        params: Dict[str, Any] = {"allowed_labels": allowed_labels}
+        if limit is not None:
+            params["limit"] = limit
+        for rec in session.run(query, **params):
+            rows.append(
+                NodeRow(
+                    node_id=str(rec["node_id"]),
+                    label=str(rec["label"]),
+                    created_at=parse_dt(rec["created_at"]),
+                    labels=[str(x) for x in (rec["labels"] or []) if x],
+                )
+            )
+    driver.close()
+    return rows
 
 
 def fetch_edges(
@@ -126,8 +228,8 @@ def fetch_edges(
     user: str,
     password: str,
     database: Optional[str],
-    rel_name: str = "PLAYER_PLAYS_FOR_TEAM",
-    limit: int = 5000,
+    rel_names: Optional[List[str]] = None,
+    limit: Optional[int] = 5000,
 ) -> List[EdgeRow]:
     """
     Tries to be resilient across Graphiti-ish schemas:
@@ -136,15 +238,16 @@ def fetch_edges(
     """
 
     driver = GraphDatabase.driver(uri, auth=(user, password))
+    rel_names = rel_names or CUSTOM_REL_NAMES
     query = """
         MATCH (s)-[r]->(t)
-    WHERE
-        (
-            r.name IS NOT NULL AND
-            toLower(r.name) = "player_plays_for_team"
-        )
-        OR
-        toLower(type(r)) = "player_plays_for_team"
+        WHERE
+            (
+                r.name IS NOT NULL AND
+                toLower(r.name) IN $rel_names
+            )
+            OR
+            toLower(type(r)) IN $rel_names
     RETURN
         coalesce(r.uuid, r.id, toString(id(r))) AS edge_id,
         coalesce(s.uuid, s.id, toString(id(s))) AS source_id,
@@ -158,12 +261,16 @@ def fetch_edges(
         r.invalid_at AS invalid_at,
         r.created_at AS created_at,
         coalesce(r.episodes, []) AS episodes
-    LIMIT $limit
     """
+    if limit is not None:
+        query += "\n    LIMIT $limit"
 
     rows: List[EdgeRow] = []
     with driver.session(database=database) as session:
-        for rec in session.run(query, rel_name=rel_name, limit=limit):
+        params: Dict[str, Any] = {"rel_names": [name.lower() for name in rel_names]}
+        if limit is not None:
+            params["limit"] = limit
+        for rec in session.run(query, **params):
             rows.append(
                 EdgeRow(
                     edge_id=str(rec["edge_id"]),
