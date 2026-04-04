@@ -12,7 +12,13 @@ from data_access import (
     load_demo_dataset,
     load_source_documents,
 )
-from timeline_model import apply_node_filter, collect_node_labels, compute_timestep_states
+from timeline_model import (
+    apply_node_filter,
+    collect_node_kinds,
+    collect_node_labels,
+    compute_timestep_states,
+    format_node_kind_label,
+)
 from ui_styles import APP_STYLE
 import visual_component as visual_component_module
 
@@ -139,6 +145,7 @@ if needs_payload_recompute and st.session_state.graph_source is not None:
 if st.session_state.raw_payload:
     with st.sidebar:
         node_label_options = collect_node_labels(st.session_state.raw_payload)
+        node_kind_options = collect_node_kinds(st.session_state.raw_payload)
         st.subheader("Node Filter")
         selected_node_labels = st.multiselect(
             "Search and select node(s)",
@@ -147,7 +154,19 @@ if st.session_state.raw_payload:
             key="node_filter_labels",
             help="Shows only selected node(s) and directly connected neighbors via selected-node edges.",
         )
-    st.session_state.payload = apply_node_filter(st.session_state.raw_payload, selected_node_labels)
+        selected_node_kinds = st.multiselect(
+            "Filter by node type(s)",
+            options=node_kind_options,
+            default=[],
+            format_func=format_node_kind_label,
+            key="node_filter_kinds",
+            help="Shows all nodes of the selected type(s). Explicit node selections are still shown even if they are not one of the selected types.",
+        )
+    st.session_state.payload = apply_node_filter(
+        st.session_state.raw_payload,
+        selected_node_labels,
+        selected_node_kinds,
+    )
 
 if not st.session_state.payload or not st.session_state.labels:
     st.info("Load data to see the timeline visualization.")

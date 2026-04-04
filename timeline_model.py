@@ -292,12 +292,51 @@ def collect_node_labels(payload: Dict[str, Any]) -> List[str]:
     return sorted(labels)
 
 
-def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Dict[str, Any]:
+NODE_KIND_LABELS = {
+    "player": "Player",
+    "team": "Team",
+    "coach": "Coach",
+    "match": "Match",
+    "competition": "Competition",
+    "goalevent": "GoalEvent",
+    "injuryevent": "InjuryEvent",
+    "transferevent": "TransferEvent",
+    "retirementevent": "RetirementEvent",
+    "award": "Award",
+    "record": "Record",
+    "stadium": "Stadium",
+    "entity": "Entity",
+}
+
+
+def collect_node_kinds(payload: Dict[str, Any]) -> List[str]:
+    kinds: Set[str] = set()
+    for frame in payload.get("frames", []):
+        for n in frame.get("nodes", []):
+            kind = str(n.get("kind", "")).strip().lower()
+            if kind:
+                kinds.add(kind)
+    return sorted(kinds, key=lambda kind: NODE_KIND_LABELS.get(kind, kind).lower())
+
+
+def format_node_kind_label(kind: str) -> str:
+    return NODE_KIND_LABELS.get(str(kind).strip().lower(), str(kind))
+
+
+def apply_node_filter(
+    payload: Dict[str, Any],
+    selected_labels: List[str],
+    selected_kinds: Optional[List[str]] = None,
+) -> Dict[str, Any]:
     """
-    Keep only edges directly incident to selected nodes and nodes touched by those edges.
+    Keep:
+    - if only node kinds are selected: all nodes of selected kinds
+    - if explicit nodes are selected: all explicitly selected nodes
+    - if explicit nodes are selected: only direct neighbors of those nodes
+      and, when selected kinds exist, only neighbors whose type is selected
     Recompute node statuses on the filtered subgraph timeline.
     """
-    if not selected_labels:
+    if not selected_labels and not selected_kinds:
         return payload
 
     frames = payload.get("frames", [])
@@ -306,21 +345,26 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
     sources = payload.get("sources", {})
     granularity = payload.get("granularity", "")
     selected_label_set = set(selected_labels)
+    selected_kind_set = {str(kind).strip().lower() for kind in (selected_kinds or []) if str(kind).strip()}
 
     # selected node ids come from the full timeline graph
     selected_ids: Set[str] = set()
+    kind_selected_ids: Set[str] = set()
     label_by_id: Dict[str, str] = {}
     kind_by_id: Dict[str, str] = {}
     for frame in frames:
         for n in frame.get("nodes", []):
             nid = str(n.get("id"))
             nlabel = str(n.get("label", nid))
+            nkind = str(n.get("kind", "entity")).strip().lower()
             label_by_id[nid] = nlabel
-            kind_by_id[nid] = str(n.get("kind", "entity"))
+            kind_by_id[nid] = nkind
             if nlabel in selected_label_set:
                 selected_ids.add(nid)
+            if nkind in selected_kind_set:
+                kind_selected_ids.add(nid)
 
-    if not selected_ids:
+    if not selected_ids and not kind_selected_ids:
         return {"frames": [], "labels": labels, "episodes": episodes, "sources": sources, "granularity": granularity}
 
     filtered_frame_links: List[List[Dict[str, Any]]] = []
@@ -333,16 +377,45 @@ def apply_node_filter(payload: Dict[str, Any], selected_labels: List[str]) -> Di
 
         keep_links: List[Dict[str, Any]] = []
         keep_node_ids: Set[str] = set()
-        for l in orig_links:
-            s = str(l.get("source"))
-            t = str(l.get("target"))
-            if s in selected_ids or t in selected_ids:
+
+        if selected_ids:
+            # Explicit node filter drives the subgraph. Node kinds, when present,
+            # constrain which neighbor types may appear around the selected nodes.
+            for l in orig_links:
+                s = str(l.get("source"))
+                t = str(l.get("target"))
+
+                neighbor_id = None
+                if s in selected_ids and t not in selected_ids:
+                    neighbor_id = t
+                elif t in selected_ids and s not in selected_ids:
+                    neighbor_id = s
+                elif s in selected_ids and t in selected_ids:
+                    neighbor_id = None
+                else:
+                    continue
+
+                if selected_kind_set and neighbor_id is not None:
+                    if kind_by_id.get(neighbor_id, "entity") not in selected_kind_set:
+                        continue
+
                 keep_links.append(dict(l))
                 keep_node_ids.add(s)
                 keep_node_ids.add(t)
 
-        # Keep selected nodes if they exist this frame, even if isolated after filtering
-        keep_node_ids.update({nid for nid in selected_ids if nid in orig_node_ids})
+            # Keep explicit selected nodes even if isolated after filtering.
+            keep_node_ids.update({nid for nid in selected_ids if nid in orig_node_ids})
+        else:
+            # Only node-kind filtering: show the full induced subgraph on those kinds.
+            for l in orig_links:
+                s = str(l.get("source"))
+                t = str(l.get("target"))
+                if s in kind_selected_ids and t in kind_selected_ids:
+                    keep_links.append(dict(l))
+                    keep_node_ids.add(s)
+                    keep_node_ids.add(t)
+            keep_node_ids.update({nid for nid in kind_selected_ids if nid in orig_node_ids})
+
         filtered_frame_links.append(keep_links)
         frame_node_ids.append(keep_node_ids)
 
