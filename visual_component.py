@@ -200,9 +200,8 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     .link {{ stroke-width: 2px; opacity: 0.95; }}
     .edge-label {{ font-size: 8px; fill: #2f3a46; opacity: 0.95; pointer-events: none; }}
     .edge-label-bg {{ stroke: rgba(255,255,255,0.95); stroke-width: 2px; paint-order: stroke; stroke-linejoin: round; }}
-    .node circle {{ stroke: #fff; stroke-width: 1.5px; }}
-    .node {{ cursor: grab; }}
-    .node.dragging {{ cursor: grabbing; }}
+    .node-hit {{ fill: rgba(0,0,0,0.001); stroke: transparent; pointer-events: all; cursor: grab; }}
+    .node.dragging .node-hit {{ cursor: grabbing; }}
     .node-icon {{ pointer-events: none; }}
     .node-icon use {{ transition: color 0.2s ease, opacity 0.2s ease; }}
     .label {{
@@ -1112,22 +1111,24 @@ function renderGraph() {{
     .attr("transform", d => `translate(${{d.x}},${{d.y}})`)
     .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
       ? invalidOpacity(d.invalid_age)
-      : 1))
-    .call(
-      d3.drag()
-        .container(svg.node())
-        .on("start", dragstarted)
-        .on("drag", dragged)
-        .on("end", dragended)
-    );
+      : 1));
 
   const iconGroups = node.append("g")
     .attr("class", "node-icon");
 
-  node.append("circle")
+  const nodeHit = node.append("circle")
+    .attr("class", "node-hit")
     .attr("r", NODE_R + 3)
-    .attr("fill", "transparent")
-    .attr("stroke", "none");
+    .attr("fill", "rgba(0,0,0,0.001)")
+    .attr("stroke", "transparent");
+
+  nodeHit.call(
+    d3.drag()
+      .container(svg.node())
+      .on("start", dragstarted)
+      .on("drag", dragged)
+      .on("end", dragended)
+  );
 
   iconGroups.each(function(d) {{
     const iconHref = symbolForKind(d.kind);
@@ -1215,8 +1216,9 @@ function renderGraph() {{
       event.sourceEvent.stopPropagation();
       event.sourceEvent.preventDefault();
     }}
-    d3.select(event.currentTarget).classed("dragging", true);
-    d3.select(event.currentTarget).raise();
+    const nodeEl = d3.select(event.currentTarget.parentNode);
+    nodeEl.classed("dragging", true);
+    nodeEl.raise();
     hideTooltip();
   }}
 
@@ -1227,7 +1229,7 @@ function renderGraph() {{
     d.y = currentZoomTransform.invertY(sy);
     posById.set(d.id, {{ x: d.x, y: d.y }});
     nodePos.set(d.id, {{ x: d.x, y: d.y }});
-    d3.select(event.currentTarget).attr("transform", `translate(${{d.x}},${{d.y}})`);
+    d3.select(event.currentTarget.parentNode).attr("transform", `translate(${{d.x}},${{d.y}})`);
     const affected = edgeGroup.filter(l => l.source === d.id || l.target === d.id);
     affected.selectAll("path")
       .each(function(l) {{
@@ -1243,7 +1245,7 @@ function renderGraph() {{
 
   function dragended(event) {{
     if (event.sourceEvent) event.sourceEvent.stopPropagation();
-    d3.select(event.currentTarget).classed("dragging", false);
+    d3.select(event.currentTarget.parentNode).classed("dragging", false);
   }}
 }}
 
