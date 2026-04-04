@@ -6,9 +6,26 @@ from typing import Any, Dict, List, Optional, Set, Tuple
 from data_access import EdgeRow, EpisodeRow, NodeRow
 from time_utils import floor_to_bin, make_bins, label_bin
 
+RED_CAPABLE_RELATIONS = {
+    "player_plays_for_team",
+    "coach_manages_team",
+    "stadium_home_of_team",
+    "team_participates_in_competition",
+    "transfer_event_to_team",
+    "transfer_event_from_team",
+}
+
+
+def normalized_rel_name(rel_name: str) -> str:
+    return str(rel_name or "").strip().lower()
+
+
+def relation_can_turn_invalid(rel_name: str) -> bool:
+    return normalized_rel_name(rel_name) in RED_CAPABLE_RELATIONS
+
 
 def infer_node_kind(rel_name: str, is_source: bool) -> str:
-    name = (rel_name or "").lower()
+    name = normalized_rel_name(rel_name)
     if "player" in name and "team" in name:
         return "player" if is_source else "team"
     if "player" in name:
@@ -83,7 +100,14 @@ def compute_timestep_states(
 
     # Precompute per-edge bins
     start_bin = {e.edge_id: floor_to_bin(edge_start_dt(e), granularity) for e in usable}
-    invalid_bin = {e.edge_id: (floor_to_bin(e.invalid_at, granularity) if e.invalid_at else None) for e in usable}
+    invalid_bin = {
+        e.edge_id: (
+            floor_to_bin(e.invalid_at, granularity)
+            if e.invalid_at and relation_can_turn_invalid(e.rel_name)
+            else None
+        )
+        for e in usable
+    }
     invalid_idx = {
         e.edge_id: (bins.index(invalid_bin[e.edge_id]) if invalid_bin[e.edge_id] is not None else None)
         for e in usable

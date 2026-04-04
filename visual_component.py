@@ -201,6 +201,8 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     .edge-label {{ font-size: 8px; fill: #2f3a46; opacity: 0.95; pointer-events: none; }}
     .edge-label-bg {{ stroke: rgba(255,255,255,0.95); stroke-width: 2px; paint-order: stroke; stroke-linejoin: round; }}
     .node circle {{ stroke: #fff; stroke-width: 1.5px; }}
+    .node {{ cursor: grab; }}
+    .node.dragging {{ cursor: grabbing; }}
     .node-icon {{ pointer-events: none; }}
     .node-icon use {{ transition: color 0.2s ease, opacity 0.2s ease; }}
     .label {{
@@ -860,7 +862,7 @@ const layoutSim = d3.forceSimulation(allNodes)
 for (let i = 0; i < 350; i += 1) layoutSim.tick();
 
 const posById = new Map(allNodes.map(n => [n.id, {{ x: n.x, y: n.y }}]));
-const NODE_ICON_SIZE = 56;
+const NODE_ICON_SIZE = 46;
 const NODE_ICON_HALF = NODE_ICON_SIZE / 2;
 const NODE_LABEL_OFFSET = NODE_ICON_HALF + 12;
 const NODE_R = NODE_ICON_HALF + 4;
@@ -1082,7 +1084,7 @@ function renderGraph() {{
     .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
       ? invalidOpacity(d.invalid_age)
       : 1))
-    .call(d3.drag().on("drag", dragged));
+    .call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
 
   const iconGroups = node.append("g")
     .attr("class", "node-icon");
@@ -1126,6 +1128,9 @@ function renderGraph() {{
           .text(line);
       }});
     }});
+
+  node.append("title")
+    .text(d => String(d.label || ""));
 
   nodeSelection = node;
   edgeGroupSelection = edgeGroup;
@@ -1171,6 +1176,10 @@ function renderGraph() {{
     if (!graphEpisodeHoverActive) resetGraphEpisodeHover();
   }});
 
+  function dragstarted(event) {{
+    d3.select(event.currentTarget).classed("dragging", true);
+  }}
+
   function dragged(event, d) {{
     d.x = event.x; d.y = event.y;
     posById.set(d.id, {{ x: d.x, y: d.y }});
@@ -1187,6 +1196,10 @@ function renderGraph() {{
           p.attr("d", linkPathD(l, nodePos));
         }}
       }});
+  }}
+
+  function dragended(event) {{
+    d3.select(event.currentTarget).classed("dragging", false);
   }}
 }}
 
