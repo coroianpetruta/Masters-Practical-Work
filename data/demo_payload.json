@@ -1,7 +1,7 @@
 {
   "nodes": [
     {
-      "node_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
+      "node_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
       "label": "Erling Braut Haaland",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -10,7 +10,7 @@
       ]
     },
     {
-      "node_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
+      "node_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
       "label": "Red Bull Salzburg",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -19,7 +19,7 @@
       ]
     },
     {
-      "node_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
+      "node_id": "45c478b7-230b-47a1-8749-685c771e1fd6",
       "label": "Norway national team",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -28,7 +28,7 @@
       ]
     },
     {
-      "node_id": "3fa06ea2-60e3-4e86-8bbb-437a02151d48",
+      "node_id": "adf3a1c9-5a06-49c1-a5d7-6c2debadd7a4",
       "label": "Bryne FK",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -37,7 +37,7 @@
       ]
     },
     {
-      "node_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
+      "node_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
       "label": "Molde FK",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -46,7 +46,7 @@
       ]
     },
     {
-      "node_id": "f8c0cfb7-526a-4d4e-bf80-50fe46c56522",
+      "node_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
       "label": "2019–20 UEFA Champions League",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -55,7 +55,7 @@
       ]
     },
     {
-      "node_id": "3b5d2a5b-8a82-4871-ae6e-b7b6c5066fd9",
+      "node_id": "71c4f528-64f5-4409-9be2-d405ffc6ac8a",
       "label": "2019 FIFA U-20 World Cup",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -64,7 +64,7 @@
       ]
     },
     {
-      "node_id": "592ccdc1-c36b-4950-ae14-0b779ca39451",
+      "node_id": "66c63830-79ec-433a-9ce9-bf3939dd7f97",
       "label": "Golden Boot",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -73,7 +73,7 @@
       ]
     },
     {
-      "node_id": "8aa200fc-4033-437b-88eb-9147fdc56f6f",
+      "node_id": "cb352843-67db-4080-ad33-5d971149f9b0",
       "label": "Alf-Inge Håland",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -82,7 +82,7 @@
       ]
     },
     {
-      "node_id": "77918538-132c-4f1a-ab95-c30b0d28ef6c",
+      "node_id": "6cbde336-10f9-4b60-b80d-2e23a76ebad0",
       "label": "Bryne FK 2",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -91,7 +91,7 @@
       ]
     },
     {
-      "node_id": "8d8909f0-d855-417b-8e03-9632e3d054f8",
+      "node_id": "9c3a7741-5f4e-4878-983b-fd99e8b6ac90",
       "label": "Ranheim",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -100,7 +100,7 @@
       ]
     },
     {
-      "node_id": "a6d5f1f1-ce61-4887-883b-a3a765a11bb4",
+      "node_id": "f9940f16-ed82-43a1-b20e-c22dd1dc7172",
       "label": "TSG 1899 Hoffenheim",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -109,7 +109,16 @@
       ]
     },
     {
-      "node_id": "730d7a22-6958-4f88-957d-2a505e929682",
+      "node_id": "4d504bf7-8bab-4a36-a6a9-ed69443e1c2e",
+      "label": "1. divisjon match against Ranheim",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "8066c6ff-4202-49e7-a99f-5e53d51ced25",
       "label": "Volda TI",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -118,7 +127,7 @@
       ]
     },
     {
-      "node_id": "5658cfdb-c91d-4b27-8107-e9d7c6b0d009",
+      "node_id": "cc2b3658-3ecd-4c8a-a537-e8f046bbb5fc",
       "label": "Norwegian Cup match against Volda TI",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -127,7 +136,7 @@
       ]
     },
     {
-      "node_id": "2a5995b8-85a6-4bf5-b2bf-74d3e2b126f0",
+      "node_id": "40a18b46-6059-41ac-8fca-75990eb209eb",
       "label": "Sarpsborg 08",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -136,16 +145,7 @@
       ]
     },
     {
-      "node_id": "eb001f1b-09d7-41d3-9b33-eec2b93d7a11",
-      "label": "Eliteserien",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Competition"
-      ]
-    },
-    {
-      "node_id": "c408873c-4b0b-449e-99e8-687136bc5273",
+      "node_id": "22882b14-26ab-49c0-aa9f-307707594fe0",
       "label": "Viking",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -154,7 +154,7 @@
       ]
     },
     {
-      "node_id": "f8d7684a-0ef4-4e36-bf7f-6712a83e8d68",
+      "node_id": "db2b7fe9-30ab-4dc6-950f-f7dbc3dd10df",
       "label": "Björn Bergmann Sigurðarson",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -163,7 +163,25 @@
       ]
     },
     {
-      "node_id": "c35f7339-c172-486d-b053-4f3ce55010dd",
+      "node_id": "56968da5-b93e-43f7-b0cb-b296d3ae59d2",
+      "label": "Eliteserien",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "node_id": "d6402e94-2f60-4832-9dbe-7148185590f1",
+      "label": "Zenit Saint Petersburg",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "node_id": "17c6fa06-3452-49fa-a528-98fe213257c2",
       "label": "Brann",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -172,34 +190,16 @@
       ]
     },
     {
-      "node_id": "7603e70e-9302-4428-ae07-6f0d0f5eaa41",
-      "label": "Molde FK vs Brann",
+      "node_id": "9b45b861-c818-4439-b2e0-1d97d65620bf",
+      "label": "Manchester United",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "node_id": "cd0c3979-15eb-4c6b-856b-181787aea4cf",
-      "label": "4 goals against Brann",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "GoalEvent"
-      ]
-    },
-    {
-      "node_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "label": "hat-trick",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "GoalEvent"
-      ]
-    },
-    {
-      "node_id": "d550982a-2518-4f78-bdb0-dee3410f45d3",
+      "node_id": "2110dd60-7f9f-4c57-aaba-655b0c7e9f91",
       "label": "Ole Gunnar Solskjær",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -208,7 +208,7 @@
       ]
     },
     {
-      "node_id": "aa277062-c561-4bcd-bb2e-4ab6126b72fd",
+      "node_id": "dabf20ab-17c6-4582-abdd-fd5d61946a5f",
       "label": "Romelu Lukaku",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -217,7 +217,34 @@
       ]
     },
     {
-      "node_id": "2e31f5bc-7b35-4473-b100-9f99d6bbe43c",
+      "node_id": "8fa835d3-6495-4b46-b743-412c7508b051",
+      "label": "Europa League play-offs",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "node_id": "f6b52a27-d45f-45fe-96d6-50432bd7f086",
+      "label": "Molde vs Brann match",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "14223224-5495-4316-abfe-974dbc1ccbb1",
+      "label": "Håland's 4-goal performance",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "GoalEvent"
+      ]
+    },
+    {
+      "node_id": "117ec195-12fe-4c46-964d-ef5f47b9191d",
       "label": "Vålerenga",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -226,25 +253,7 @@
       ]
     },
     {
-      "node_id": "60e9f5f7-04e5-4c0d-899f-fa97e3adf3b9",
-      "label": "Molde vs Vålerenga match (8 July)",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "4a6dac56-da3d-4af3-b9a7-b4a39956fce0",
-      "label": "UEFA Europa League",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Competition"
-      ]
-    },
-    {
-      "node_id": "bd56a173-a605-4f9c-a2de-141fe1840fb0",
+      "node_id": "42e54bb2-46e9-4893-9242-7579e9b5fbef",
       "label": "KF Laçi",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -253,8 +262,8 @@
       ]
     },
     {
-      "node_id": "2e48adf6-baac-471b-bbc0-47ed5d6482be",
-      "label": "Molde vs KF Laçi match (26 July)",
+      "node_id": "c90e2cd9-8d43-4d67-baa8-961d5a7063a9",
+      "label": "Molde vs Vålerenga (8 July 2018)",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
         "Entity",
@@ -262,16 +271,16 @@
       ]
     },
     {
-      "node_id": "99110d52-c9f7-49b9-ad11-ddafd025f95b",
-      "label": "sprained ankle injury",
+      "node_id": "6f6891c7-6804-4215-82b3-244136c837da",
+      "label": "Molde vs KF Laçi (26 July 2018)",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
         "Entity",
-        "InjuryEvent"
+        "Match"
       ]
     },
     {
-      "node_id": "cc38b113-085f-4ffb-b023-85711df9c97d",
+      "node_id": "d173b984-f09f-4cdf-b809-417a8f635553",
       "label": "Eliteserien Breakthrough of the Year award",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -280,7 +289,16 @@
       ]
     },
     {
-      "node_id": "29e1bb34-d0f3-465f-bc54-ed191194360c",
+      "node_id": "ac363411-c455-4fc6-95ff-9c8ee67406a9",
+      "label": "sprained ankle injury",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "InjuryEvent"
+      ]
+    },
+    {
+      "node_id": "9828df77-366e-4dea-b42d-8582228084cf",
       "label": "SC-ESV Parndorf",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -289,7 +307,7 @@
       ]
     },
     {
-      "node_id": "9943b916-a45a-4e22-8c76-ca0bcb628724",
+      "node_id": "700bfc35-4f3b-4ba5-a0ef-0ca8d9ae4269",
       "label": "Wolfsberger AC",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -298,7 +316,7 @@
       ]
     },
     {
-      "node_id": "e341b870-7c9e-4e35-81f9-a49938f66892",
+      "node_id": "874e97e1-544b-4b84-8e3f-485f6c340a9a",
       "label": "TSV Hartberg",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -307,7 +325,7 @@
       ]
     },
     {
-      "node_id": "acb3e0b8-3631-4a71-8050-9d2ff836a829",
+      "node_id": "2b747ccd-ad8a-4248-9693-91f0ec9e947b",
       "label": "Genk",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -316,43 +334,7 @@
       ]
     },
     {
-      "node_id": "dd27f723-73e9-474a-b713-89be4164da47",
-      "label": "Red Bull Salzburg vs SC-ESV Parndorf (Austrian Cup)",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "2ed5fde1-8636-48ef-bb67-037b0970f2d1",
-      "label": "Red Bull Salzburg vs Wolfsberger AC (Austrian Bundesliga)",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "8fcc289d-1914-421b-8f9d-adfd9260008e",
-      "label": "Red Bull Salzburg vs TSV Hartberg (Austrian Bundesliga)",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "b9a29713-869f-48db-b88e-0da7dab62ef8",
-      "label": "Red Bull Salzburg vs Genk (UEFA Champions League)",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "50657034-05d8-4b71-86f3-e25ceeceb8ff",
+      "node_id": "4f549aaf-77b4-4a92-ae49-b8d905677a71",
       "label": "Austrian Cup",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -361,7 +343,7 @@
       ]
     },
     {
-      "node_id": "a5f60ed2-07e0-4213-91a5-b3a047c826cb",
+      "node_id": "168580c3-25c2-4433-b98f-142bc77f98e9",
       "label": "Austrian Bundesliga",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -370,7 +352,79 @@
       ]
     },
     {
-      "node_id": "a1ff255c-e215-48bd-b5b2-f98cb3467c89",
+      "node_id": "18f7a161-dff5-4cb5-b3e6-741b5055d503",
+      "label": "Austrian Cup match against SC-ESV Parndorf",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "ce4e0512-4b04-4096-8e5c-546c4f38b1b6",
+      "label": "Austrian Bundesliga match against Wolfsberger AC",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "cb6b410b-7585-4773-8260-3a8ae48fe6d9",
+      "label": "match against TSV Hartberg",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "c5ebca4d-11e0-4b77-99fe-770f8e30a605",
+      "label": "UEFA Champions League debut against Genk",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "node_id": "f1484286-28da-4a2b-ba3f-e8491bedd493",
+      "label": "hat-trick against SC-ESV Parndorf",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "GoalEvent"
+      ]
+    },
+    {
+      "node_id": "235d136f-7847-4dd8-82ac-446095079ad7",
+      "label": "hat-trick against Wolfsberger AC",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "GoalEvent"
+      ]
+    },
+    {
+      "node_id": "8bab64b8-c8c6-4f09-845e-0951c497c056",
+      "label": "hat-trick against TSV Hartberg",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "GoalEvent"
+      ]
+    },
+    {
+      "node_id": "ed32021a-c7c4-4c00-a7e7-718cc6e953dd",
+      "label": "hat-trick against Genk",
+      "created_at": "2019-12-26T00:00:00Z",
+      "labels": [
+        "Entity",
+        "GoalEvent"
+      ]
+    },
+    {
+      "node_id": "078bec9d-f6cb-428f-a9c9-4bd4e1ee538a",
       "label": "Karim Benzema",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -379,7 +433,7 @@
       ]
     },
     {
-      "node_id": "c517c604-f360-4c8a-8a88-48e84bf44eb0",
+      "node_id": "28e2b315-a340-4a5f-a3fa-c192d245b83f",
       "label": "Liverpool",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -388,7 +442,7 @@
       ]
     },
     {
-      "node_id": "b81add43-9acd-4415-b236-9935ba7a83ae",
+      "node_id": "c76b8f26-3896-4eba-8a2a-ea98777bacd0",
       "label": "Napoli",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -397,7 +451,7 @@
       ]
     },
     {
-      "node_id": "5a09a80e-bd45-4b21-b92c-81673bc7bd99",
+      "node_id": "6ea409d5-09c1-4fe0-a19e-bb9ffe5a6a99",
       "label": "Zé Carlos",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -406,7 +460,7 @@
       ]
     },
     {
-      "node_id": "9c6bf5f7-e51a-4171-a93e-8782daf3a16f",
+      "node_id": "1c35f9f3-0528-4914-a6e3-deeab18f8704",
       "label": "Alessandro Del Piero",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -415,7 +469,7 @@
       ]
     },
     {
-      "node_id": "9cf30ee8-5691-499c-abab-78ec3aefb764",
+      "node_id": "e7f51073-f4f4-47a5-9b78-10b8a3dcd442",
       "label": "Diego Costa",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -424,7 +478,7 @@
       ]
     },
     {
-      "node_id": "135e0c57-c750-4574-8fa3-b06ac6711849",
+      "node_id": "8680f25a-3f25-4e83-bda8-b0f6a98a61e0",
       "label": "Serhiy Rebrov",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -433,7 +487,7 @@
       ]
     },
     {
-      "node_id": "109aba48-e098-4846-bdac-e72aee605e43",
+      "node_id": "96fbc285-21eb-40d3-85fc-54400e33b4c3",
       "label": "Neymar",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -442,7 +496,7 @@
       ]
     },
     {
-      "node_id": "a1df708e-1c84-46fb-9853-1a1ed1a068c0",
+      "node_id": "9e98c9c4-2137-4a5e-8cc8-f6c7e09ac3b4",
       "label": "Cristiano Ronaldo",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -451,7 +505,7 @@
       ]
     },
     {
-      "node_id": "5f5ccf74-e1bb-4b28-9b9e-48b1413bf91d",
+      "node_id": "92f0407b-a93f-4a10-8424-218e7e725d32",
       "label": "Robert Lewandowski",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -460,7 +514,7 @@
       ]
     },
     {
-      "node_id": "8decb243-3375-4d4f-84c1-42ea7ca777ad",
+      "node_id": "e8aaed79-8287-49a4-b39b-c4d76da25ece",
       "label": "Norway U19",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -469,7 +523,7 @@
       ]
     },
     {
-      "node_id": "cec9b8bc-14e7-4a25-aaf9-967884883f28",
+      "node_id": "992c6d7b-66d5-4149-ad2c-74f9cb0356d8",
       "label": "Scotland",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -478,16 +532,16 @@
       ]
     },
     {
-      "node_id": "60e4cee6-673d-4dc6-bd1b-0329f042185c",
-      "label": "2018 UEFA European Under-19 Championship qualification match",
+      "node_id": "8dc37b24-e994-4f07-929e-b44602555d15",
+      "label": "2018 UEFA European Under-19 Championship",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
         "Entity",
-        "Match"
+        "Competition"
       ]
     },
     {
-      "node_id": "a819e8d9-a252-4dea-8969-2f791e03712c",
+      "node_id": "5b10b086-10bd-4c97-b7b2-286a783ffa1e",
       "label": "Italy",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -496,16 +550,7 @@
       ]
     },
     {
-      "node_id": "1c6b2807-c086-4bb3-b1b6-43f4d7f729e0",
-      "label": "2018 UEFA European Under-19 Championship match",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "950d2fd6-7d4b-417c-b99e-62caf698ee7e",
+      "node_id": "646f2e57-5f61-48f4-af6a-ca14d5c63ae2",
       "label": "Norway U20",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -514,7 +559,7 @@
       ]
     },
     {
-      "node_id": "a236b4b1-7d57-4baf-b203-e90e39af1074",
+      "node_id": "3267937c-a1f0-4f63-a1a4-c327e2039668",
       "label": "Honduras U20",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -523,16 +568,7 @@
       ]
     },
     {
-      "node_id": "87b44409-508b-4050-9905-f8511ee0dd72",
-      "label": "2019 FIFA U-20 World Cup match",
-      "created_at": "2019-12-26T00:00:00Z",
-      "labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "node_id": "e7fec30b-5d99-418d-af52-6ffc6d311351",
+      "node_id": "090d44ad-0b45-4607-bc99-14596a97ee0e",
       "label": "Lublin",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -541,7 +577,7 @@
       ]
     },
     {
-      "node_id": "3d473000-4c45-4aa6-92c4-4b904266cbe1",
+      "node_id": "7595392b-03f1-4048-815a-dd97c13235f1",
       "label": "Lars Lagerbäck",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -550,7 +586,7 @@
       ]
     },
     {
-      "node_id": "64b2b91f-cf57-43b1-af90-4f93043e7ae9",
+      "node_id": "8e878e0f-eef9-4a09-91bd-de30cb52af5f",
       "label": "Malta",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -559,7 +595,7 @@
       ]
     },
     {
-      "node_id": "e3cf48eb-9b5f-41e9-a584-8995e08b0f55",
+      "node_id": "bd3be391-c42d-42eb-b5c5-f3c187c4f039",
       "label": "Sweden",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -568,7 +604,7 @@
       ]
     },
     {
-      "node_id": "edf18dc8-d761-4803-b6f3-c2c72034ebbf",
+      "node_id": "b1708de6-064b-409d-bc8b-21872279f8a4",
       "label": "2020 Euro qualifying matches",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
@@ -577,29 +613,100 @@
       ]
     },
     {
-      "node_id": "0f677f66-4743-4213-8767-682fee03a038",
-      "label": "Norway vs Malta (5 September 2019)",
+      "node_id": "31bf7454-0dd6-4213-a8cc-51b05978a169",
+      "label": "Norway vs Malta",
       "created_at": "2019-12-26T00:00:00Z",
       "labels": [
         "Entity",
         "Match"
       ]
+    },
+    {
+      "node_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "label": "Borussia Dortmund",
+      "created_at": "2019-12-29T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "node_id": "b981af84-2083-4951-9194-5d6680191c36",
+      "label": "Champions League",
+      "created_at": "2019-12-29T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "node_id": "494c6a05-8ac9-457a-9d0a-0024d02b9b3e",
+      "label": "Bundesliga",
+      "created_at": "2019-12-29T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "node_id": "f52cf3fd-5a6c-4be7-844c-e4283c130ead",
+      "label": "Lucien Favre",
+      "created_at": "2019-12-29T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Coach"
+      ]
+    },
+    {
+      "node_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
+      "label": "Manchester City",
+      "created_at": "2019-12-29T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "node_id": "56c273c9-532a-4fd3-8d08-0f1381de43c1",
+      "label": "Premier League",
+      "created_at": "2022-06-13T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "node_id": "fd09bbda-80e9-440a-9f89-34b48de6f266",
+      "label": "TransferEvent",
+      "created_at": "2022-06-13T00:00:00Z",
+      "labels": [
+        "Entity",
+        "TransferEvent"
+      ]
+    },
+    {
+      "node_id": "be040f51-f07d-4f19-a7d3-fe6111dd36c5",
+      "label": "Timo Konietzka",
+      "created_at": "2022-06-13T00:00:00Z",
+      "labels": [
+        "Entity",
+        "Player"
+      ]
     }
   ],
   "edges": [
     {
-      "edge_id": "cd7258de-30fc-42fe-8e0a-7c1e11bdf8bb",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
+      "edge_id": "3ade94bb-8b9b-4ff5-bd09-7d1d76537b9d",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
       "source_label": "Erling Braut Haaland",
       "target_label": "Red Bull Salzburg",
-      "rel_name": "player_plays_for_team",
-      "valid_at": "2019-12-26T00:00:00Z",
+      "rel_name": "TRANSFER_EVENT_FROM_TEAM",
+      "valid_at": "2019-12-29T00:00:00Z",
       "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610",
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "f66aefe8-32f5-4bea-b948-f748faa67923"
       ],
       "source_labels": [
         "Entity",
@@ -611,9 +718,55 @@
       ]
     },
     {
-      "edge_id": "21da728d-66b0-4921-b11b-90da43fd10a6",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
+      "edge_id": "88564a2b-4421-4d23-bf80-0afaa61db59e",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": "2019-12-29T00:00:00Z",
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
+        "f66aefe8-32f5-4bea-b948-f748faa67923"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "a628cdc3-f75f-404b-b29d-0988eb3ae07e",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": null,
+      "invalid_at": "2019-12-29T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "b34830f8-85a6-4f04-89bd-430cd840b20e"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "20ba2761-33f4-4953-a7d1-8acbfd7041a2",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
       "source_label": "Erling Braut Haaland",
       "target_label": "Red Bull Salzburg",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -621,7 +774,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -633,9 +786,9 @@
       ]
     },
     {
-      "edge_id": "99838223-9836-41f9-8ed2-4612a5cb573e",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
+      "edge_id": "3e5a4f70-38f7-4832-9e38-5eb9d20b0386",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "45c478b7-230b-47a1-8749-685c771e1fd6",
       "source_label": "Erling Braut Haaland",
       "target_label": "Norway national team",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -643,7 +796,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -655,31 +808,9 @@
       ]
     },
     {
-      "edge_id": "22cb3731-6eb2-4f8f-9da4-6c26889906f6",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
-      "source_label": "Erling Braut Haaland",
-      "target_label": "Norway national team",
-      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
-      "valid_at": "2019-08-28T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
-      ],
-      "source_labels": [
-        "Entity",
-        "Player"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "f07188f0-f31d-475c-8ca6-0706e44e5196",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
+      "edge_id": "b60ba996-1905-43d1-95d1-fb422ec02a6b",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "45c478b7-230b-47a1-8749-685c771e1fd6",
       "source_label": "Erling Braut Haaland",
       "target_label": "Norway national team",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -687,7 +818,7 @@
       "invalid_at": "2019-09-05T00:00:00Z",
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -699,9 +830,9 @@
       ]
     },
     {
-      "edge_id": "d485b3e0-5853-40a6-b727-abe1575892bf",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "3fa06ea2-60e3-4e86-8bbb-437a02151d48",
+      "edge_id": "12fee9db-8b34-418c-8eb8-ef6f7abf64ca",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "adf3a1c9-5a06-49c1-a5d7-6c2debadd7a4",
       "source_label": "Erling Braut Haaland",
       "target_label": "Bryne FK",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -709,7 +840,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -721,9 +852,9 @@
       ]
     },
     {
-      "edge_id": "0427cd25-dacf-4baf-80a0-72658de7e9d1",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "3fa06ea2-60e3-4e86-8bbb-437a02151d48",
+      "edge_id": "82f6c1b2-2c01-4aef-8223-761aa7a34859",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "adf3a1c9-5a06-49c1-a5d7-6c2debadd7a4",
       "source_label": "Erling Braut Haaland",
       "target_label": "Bryne FK",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -731,7 +862,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+        "8774692a-6634-4ece-8331-67aa888870da"
       ],
       "source_labels": [
         "Entity",
@@ -743,31 +874,9 @@
       ]
     },
     {
-      "edge_id": "bf881b84-3ab0-4c92-a72c-108ac1f87215",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "3fa06ea2-60e3-4e86-8bbb-437a02151d48",
-      "source_label": "Erling Braut Haaland",
-      "target_label": "Bryne FK",
-      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
-      "valid_at": "2016-05-12T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "4ebb8cc7-92d4-47f3-8715-372acb222a39"
-      ],
-      "source_labels": [
-        "Entity",
-        "Player"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "c65babd2-ec4a-49c8-b093-ac9ceba172c6",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "3fa06ea2-60e3-4e86-8bbb-437a02151d48",
+      "edge_id": "20fb56d3-c161-4a70-8e00-21d25bdda258",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "adf3a1c9-5a06-49c1-a5d7-6c2debadd7a4",
       "source_label": "Erling Braut Haaland",
       "target_label": "Bryne FK",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -775,7 +884,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+        "8774692a-6634-4ece-8331-67aa888870da"
       ],
       "source_labels": [
         "Entity",
@@ -787,9 +896,9 @@
       ]
     },
     {
-      "edge_id": "7e17365d-f967-4af8-9f6c-a3750282fe6c",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
+      "edge_id": "7fd399c6-5b35-44ea-b66c-140620600f60",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
       "source_label": "Erling Braut Haaland",
       "target_label": "Molde FK",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
@@ -797,7 +906,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "45991c46-56c0-4112-87f3-c6271ae8d765"
+        "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
       ],
       "source_labels": [
         "Entity",
@@ -809,17 +918,17 @@
       ]
     },
     {
-      "edge_id": "c35ed9ac-3549-4a77-b459-dc7ca6081c62",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
+      "edge_id": "10a71e8f-3c1a-42b5-b8be-6f78a79a96ba",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
       "source_label": "Erling Braut Haaland",
       "target_label": "Molde FK",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
       "valid_at": "2017-01-01T00:00:00Z",
-      "invalid_at": null,
+      "invalid_at": "2019-01-01T00:00:00Z",
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -831,9 +940,31 @@
       ]
     },
     {
-      "edge_id": "ea3be462-5f1c-48ca-99d0-a8786b6b615e",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "f8c0cfb7-526a-4d4e-bf80-50fe46c56522",
+      "edge_id": "2a5bf3ce-e596-43a8-b76c-5bc0bf859ee8",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Molde FK",
+      "rel_name": "player_plays_for_team",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "8b432036-a356-4685-9acc-76b856fed1a6"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "369c0a5c-33f1-4a45-b487-39e3d9a1681a",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
       "source_label": "Erling Braut Haaland",
       "target_label": "2019–20 UEFA Champions League",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
@@ -841,7 +972,8 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "523b2ee2-1251-4099-be53-e65993dbfb78"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
       ],
       "source_labels": [
         "Entity",
@@ -853,39 +985,17 @@
       ]
     },
     {
-      "edge_id": "7da5fc0d-5982-47b5-bdbb-c6c4c4cb0413",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "f8c0cfb7-526a-4d4e-bf80-50fe46c56522",
-      "source_label": "Erling Braut Haaland",
-      "target_label": "2019–20 UEFA Champions League",
-      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
-      "valid_at": null,
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
-      ],
-      "source_labels": [
-        "Entity",
-        "Player"
-      ],
-      "target_labels": [
-        "Entity",
-        "Competition"
-      ]
-    },
-    {
-      "edge_id": "20854d48-0206-4223-8e33-bce6b855bba0",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "3b5d2a5b-8a82-4871-ae6e-b7b6c5066fd9",
+      "edge_id": "4c9c93eb-bab1-4580-897f-afa8096ac02a",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "71c4f528-64f5-4409-9be2-d405ffc6ac8a",
       "source_label": "Erling Braut Haaland",
       "target_label": "2019 FIFA U-20 World Cup",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -897,17 +1007,17 @@
       ]
     },
     {
-      "edge_id": "619456ab-ae8c-45c3-8827-2fd5fa290e5d",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "77918538-132c-4f1a-ab95-c30b0d28ef6c",
+      "edge_id": "bc2ad87b-09c9-424f-9e9c-396108d76db9",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "6cbde336-10f9-4b60-b80d-2e23a76ebad0",
       "source_label": "Erling Braut Haaland",
       "target_label": "Bryne FK 2",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
-      "valid_at": "2015-06-01T00:00:00Z",
+      "valid_at": "2015-07-01T00:00:00Z",
       "invalid_at": "2016-06-30T23:59:59Z",
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+        "8774692a-6634-4ece-8331-67aa888870da"
       ],
       "source_labels": [
         "Entity",
@@ -919,9 +1029,31 @@
       ]
     },
     {
-      "edge_id": "dd936470-9d42-43a7-abd3-168ed59fe8bd",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "5658cfdb-c91d-4b27-8107-e9d7c6b0d009",
+      "edge_id": "8b7787d7-d1bf-477f-a14a-00376ee2287b",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "4d504bf7-8bab-4a36-a6a9-ed69443e1c2e",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "1. divisjon match against Ranheim",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": "2016-05-12T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "8774692a-6634-4ece-8331-67aa888870da"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "1bc19d98-c79c-49ad-8305-2d85b29ac944",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "cc2b3658-3ecd-4c8a-a537-e8f046bbb5fc",
       "source_label": "Erling Braut Haaland",
       "target_label": "Norwegian Cup match against Volda TI",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
@@ -929,7 +1061,7 @@
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "45991c46-56c0-4112-87f3-c6271ae8d765"
+        "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
       ],
       "source_labels": [
         "Entity",
@@ -941,17 +1073,61 @@
       ]
     },
     {
-      "edge_id": "036d468f-6840-4198-88bc-12d2902a6aa4",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "7603e70e-9302-4428-ae07-6f0d0f5eaa41",
+      "edge_id": "d1c29f02-eff2-41a5-aa1e-c6669a5f7f67",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "cc2b3658-3ecd-4c8a-a537-e8f046bbb5fc",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Molde FK vs Brann",
+      "target_label": "Norwegian Cup match against Volda TI",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": "2017-06-04T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "9a403769-9a29-45ac-8a10-63949f92f58c",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "cc2b3658-3ecd-4c8a-a537-e8f046bbb5fc",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Norwegian Cup match against Volda TI",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": "2017-09-17T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "cf5372a2-7fc0-4bff-b123-9804f3ddfb9c",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "f6b52a27-d45f-45fe-96d6-50432bd7f086",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Molde vs Brann match",
       "rel_name": "player_participates_in_match",
       "valid_at": "2018-07-01T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
+        "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
       ],
       "source_labels": [
         "Entity",
@@ -963,17 +1139,17 @@
       ]
     },
     {
-      "edge_id": "b9939dd6-255e-491c-ad55-406c5833604c",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "60e9f5f7-04e5-4c0d-899f-fa97e3adf3b9",
+      "edge_id": "1c1cda00-8a94-482c-acd4-48f6f1016dcc",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "c90e2cd9-8d43-4d67-baa8-961d5a7063a9",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Molde vs Vålerenga match (8 July)",
+      "target_label": "Molde vs Vålerenga (8 July 2018)",
       "rel_name": "player_participates_in_match",
       "valid_at": "2018-07-08T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
       ],
       "source_labels": [
         "Entity",
@@ -985,17 +1161,17 @@
       ]
     },
     {
-      "edge_id": "934ecf28-5062-4abd-bdee-cacf1edbb92d",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "2e48adf6-baac-471b-bbc0-47ed5d6482be",
+      "edge_id": "fa37fbe1-d5e8-452d-9c63-b92aae7a1b78",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "6f6891c7-6804-4215-82b3-244136c837da",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Molde vs KF Laçi match (26 July)",
+      "target_label": "Molde vs KF Laçi (26 July 2018)",
       "rel_name": "player_participates_in_match",
       "valid_at": "2018-07-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
       ],
       "source_labels": [
         "Entity",
@@ -1007,17 +1183,17 @@
       ]
     },
     {
-      "edge_id": "4deebbee-2509-4718-a395-848b2d46c5ec",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "acb3e0b8-3631-4a71-8050-9d2ff836a829",
+      "edge_id": "0a3ada49-d0dc-4fd0-941d-df49e5431cda",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "2b747ccd-ad8a-4248-9693-91f0ec9e947b",
       "source_label": "Erling Braut Haaland",
       "target_label": "Genk",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "523b2ee2-1251-4099-be53-e65993dbfb78"
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
       ],
       "source_labels": [
         "Entity",
@@ -1029,17 +1205,17 @@
       ]
     },
     {
-      "edge_id": "69969d87-615c-4322-8a15-0afcc763e02b",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "dd27f723-73e9-474a-b713-89be4164da47",
+      "edge_id": "c68f118d-bf6d-4c74-8482-cb8f3761bd6e",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "18f7a161-dff5-4cb5-b3e6-741b5055d503",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Red Bull Salzburg vs SC-ESV Parndorf (Austrian Cup)",
+      "target_label": "Austrian Cup match against SC-ESV Parndorf",
       "rel_name": "player_participates_in_match",
       "valid_at": "2019-07-19T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1051,17 +1227,17 @@
       ]
     },
     {
-      "edge_id": "66d7e010-9388-41f8-b1ce-c1428a5ade60",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "2ed5fde1-8636-48ef-bb67-037b0970f2d1",
+      "edge_id": "12d3a6c3-970b-465e-9148-a960ca449c7b",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "ce4e0512-4b04-4096-8e5c-546c4f38b1b6",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Red Bull Salzburg vs Wolfsberger AC (Austrian Bundesliga)",
+      "target_label": "Austrian Bundesliga match against Wolfsberger AC",
       "rel_name": "player_participates_in_match",
       "valid_at": "2019-08-10T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1073,17 +1249,17 @@
       ]
     },
     {
-      "edge_id": "67b1d600-9793-4838-82da-8d005c40f2ee",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "8fcc289d-1914-421b-8f9d-adfd9260008e",
+      "edge_id": "7ecfef8c-0baa-4fa7-b87b-658fa65c036c",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "cb6b410b-7585-4773-8260-3a8ae48fe6d9",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Red Bull Salzburg vs TSV Hartberg (Austrian Bundesliga)",
+      "target_label": "match against TSV Hartberg",
       "rel_name": "player_participates_in_match",
       "valid_at": "2019-09-14T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1095,17 +1271,17 @@
       ]
     },
     {
-      "edge_id": "4e4c3415-f165-49d3-81b1-0016f3328972",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "b9a29713-869f-48db-b88e-0da7dab62ef8",
+      "edge_id": "1d35869a-6430-4d8c-925f-b04c0c291123",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "c5ebca4d-11e0-4b77-99fe-770f8e30a605",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Red Bull Salzburg vs Genk (UEFA Champions League)",
-      "rel_name": "player_participates_in_match",
+      "target_label": "UEFA Champions League debut against Genk",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-09-17T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1117,17 +1293,17 @@
       ]
     },
     {
-      "edge_id": "0ed92efa-a72e-4517-b5be-8c7aea1846ea",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "c517c604-f360-4c8a-8a88-48e84bf44eb0",
+      "edge_id": "8e532581-e0a7-4a83-85ef-d38e24e4f23c",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "28e2b315-a340-4a5f-a3fa-c192d245b83f",
       "source_label": "Erling Braut Haaland",
       "target_label": "Liverpool",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "523b2ee2-1251-4099-be53-e65993dbfb78"
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
       ],
       "source_labels": [
         "Entity",
@@ -1139,17 +1315,17 @@
       ]
     },
     {
-      "edge_id": "09de477e-6274-4738-9a45-5f9c249b0705",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "b81add43-9acd-4415-b236-9935ba7a83ae",
+      "edge_id": "0ce8bce9-de6a-4bb8-8702-83f3190f928d",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "c76b8f26-3896-4eba-8a2a-ea98777bacd0",
       "source_label": "Erling Braut Haaland",
       "target_label": "Napoli",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "523b2ee2-1251-4099-be53-e65993dbfb78"
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
       ],
       "source_labels": [
         "Entity",
@@ -1161,39 +1337,17 @@
       ]
     },
     {
-      "edge_id": "708d49e5-6c25-43f6-ac7f-55632e814be4",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "b81add43-9acd-4415-b236-9935ba7a83ae",
+      "edge_id": "95c36913-1dbf-4fca-bae2-b99dabcf824a",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "992c6d7b-66d5-4149-ad2c-74f9cb0356d8",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Napoli",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
-      "valid_at": "2019-12-26T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "523b2ee2-1251-4099-be53-e65993dbfb78"
-      ],
-      "source_labels": [
-        "Entity",
-        "Player"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "a38f407d-437a-4428-acbd-df3e629ca31a",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "60e4cee6-673d-4dc6-bd1b-0329f042185c",
-      "source_label": "Erling Braut Haaland",
-      "target_label": "2018 UEFA European Under-19 Championship qualification match",
+      "target_label": "Scotland",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2018-03-27T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1201,21 +1355,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "47eb87fa-59e9-4b4c-9855-5d4241329746",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "60e4cee6-673d-4dc6-bd1b-0329f042185c",
+      "edge_id": "26bf2f10-8ed9-4229-b93f-1f72ca2935f3",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "992c6d7b-66d5-4149-ad2c-74f9cb0356d8",
       "source_label": "Erling Braut Haaland",
-      "target_label": "2018 UEFA European Under-19 Championship qualification match",
+      "target_label": "Scotland",
       "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
       "valid_at": "2018-03-27T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1223,21 +1377,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "bcc4b726-5329-4463-a092-113cb5b68814",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "1c6b2807-c086-4bb3-b1b6-43f4d7f729e0",
+      "edge_id": "3a1ee84e-dc36-4946-9ce9-59c2e63c0495",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "5b10b086-10bd-4c97-b7b2-286a783ffa1e",
       "source_label": "Erling Braut Haaland",
-      "target_label": "2018 UEFA European Under-19 Championship match",
+      "target_label": "Italy",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2018-07-22T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1245,21 +1399,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "741abd2c-48e9-479e-a79b-553cbc3bd530",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "1c6b2807-c086-4bb3-b1b6-43f4d7f729e0",
+      "edge_id": "749adc8a-2edd-44c6-8860-57ce79fc4963",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "5b10b086-10bd-4c97-b7b2-286a783ffa1e",
       "source_label": "Erling Braut Haaland",
-      "target_label": "2018 UEFA European Under-19 Championship match",
+      "target_label": "Italy",
       "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
       "valid_at": "2018-07-22T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1267,21 +1421,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "a93bcb20-e841-4db4-aa96-4deb5c8e92a3",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "87b44409-508b-4050-9905-f8511ee0dd72",
+      "edge_id": "c7ecb7b9-b836-4851-a977-29f7feb5ffe8",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "3267937c-a1f0-4f63-a1a4-c327e2039668",
       "source_label": "Erling Braut Haaland",
-      "target_label": "2019 FIFA U-20 World Cup match",
-      "rel_name": "player_participates_in_match",
+      "target_label": "Honduras U20",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-05-30T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1289,21 +1443,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "1cd26063-ae06-4ceb-90e4-9ead97a5a0af",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "87b44409-508b-4050-9905-f8511ee0dd72",
+      "edge_id": "8cdd30ad-8146-4f03-8385-964a9bd7aeea",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "3267937c-a1f0-4f63-a1a4-c327e2039668",
       "source_label": "Erling Braut Haaland",
-      "target_label": "2019 FIFA U-20 World Cup match",
+      "target_label": "Honduras U20",
       "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
       "valid_at": "2019-05-30T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1311,21 +1465,21 @@
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Team"
       ]
     },
     {
-      "edge_id": "5b43d00d-2ecc-4b21-90f4-53f9ef3e25e3",
-      "source_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "target_id": "0f677f66-4743-4213-8767-682fee03a038",
+      "edge_id": "aa5eaec0-afa0-4dc7-b028-f9418438635e",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "31bf7454-0dd6-4213-a8cc-51b05978a169",
       "source_label": "Erling Braut Haaland",
-      "target_label": "Norway vs Malta (5 September 2019)",
+      "target_label": "Norway vs Malta",
       "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
       "valid_at": "2019-09-05T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+        "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
       ],
       "source_labels": [
         "Entity",
@@ -1337,17 +1491,262 @@
       ]
     },
     {
-      "edge_id": "70352db3-3792-4014-a610-fe2e9a3aafa3",
-      "source_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "target_id": "f8c0cfb7-526a-4d4e-bf80-50fe46c56522",
+      "edge_id": "100dec20-c3de-4a6f-ae96-6962e22b56cd",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": "2020-01-03T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "b34830f8-85a6-4f04-89bd-430cd840b20e",
+        "f66aefe8-32f5-4bea-b948-f748faa67923"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "b509a0be-e3eb-491e-91dc-089d4b277a84",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": "2020-01-03T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "f66aefe8-32f5-4bea-b948-f748faa67923",
+        "8b432036-a356-4685-9acc-76b856fed1a6"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "b5017af9-42b1-4952-bafd-ce9dd1180133",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "TRANSFER_EVENT_TO_TEAM",
+      "valid_at": "2020-01-03T00:00:00Z",
+      "invalid_at": "2022-06-13T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "a23b1b96-42b3-419d-9e87-a437febb00f5"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "a5281d77-2956-4ae4-8698-82d0fd696683",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2020-01-03T00:00:00Z",
+      "invalid_at": "2022-06-13T00:00:00Z",
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "a23b1b96-42b3-419d-9e87-a437febb00f5"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "92dbe263-b37d-41eb-b102-d13fe581e7a4",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "TRANSFER_EVENT_FROM_TEAM",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "39038c8f-17fc-4465-ab9a-9cfa0fe15f62"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "55ed42fb-677c-4135-84cb-db444070e1c1",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "PLAYER_PLAYS_FOR_TEAM",
+      "valid_at": null,
+      "invalid_at": "2022-06-13T00:00:00Z",
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "e495eba4-b383-4cf9-a40a-5fcd9798e519"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "8268648d-6577-458e-bcf0-bdd1b13d1a6b",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "b981af84-2083-4951-9194-5d6680191c36",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "f66aefe8-32f5-4bea-b948-f748faa67923"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "6d716bb3-8de1-444c-962d-ca0e7d4efdb6",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "494c6a05-8ac9-457a-9d0a-0024d02b9b3e",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Bundesliga",
+      "rel_name": "RECORD_HELD_BY_ENTITY",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "8940d2fe-6168-4941-a183-f4099a51ee3b"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "64fe98de-59cc-4dd1-9d46-7bb5dac9191c",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Manchester City",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "39038c8f-17fc-4465-ab9a-9cfa0fe15f62"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "2fffd885-1943-438e-aa0b-d5b0b4e07ee8",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Manchester City",
+      "rel_name": "TRANSFER_EVENT_TO_TEAM",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "39038c8f-17fc-4465-ab9a-9cfa0fe15f62"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "555723c4-0c8d-45ab-b9dd-8904d9e03193",
+      "source_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "target_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
+      "source_label": "Erling Braut Haaland",
+      "target_label": "Manchester City",
+      "rel_name": "player_plays_for_team",
+      "valid_at": "2022-06-13T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "e495eba4-b383-4cf9-a40a-5fcd9798e519",
+        "8940d2fe-6168-4941-a183-f4099a51ee3b"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "44f3181c-af41-4537-86ef-0cde6055aa7a",
+      "source_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
       "source_label": "Red Bull Salzburg",
       "target_label": "2019–20 UEFA Champions League",
       "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
       ],
       "source_labels": [
         "Entity",
@@ -1359,17 +1758,17 @@
       ]
     },
     {
-      "edge_id": "204a0571-5cf8-4799-b35b-cd68db442433",
-      "source_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "target_id": "f8c0cfb7-526a-4d4e-bf80-50fe46c56522",
+      "edge_id": "f398ec94-c973-40e4-b65a-4bdd25ec53f6",
+      "source_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
       "source_label": "Red Bull Salzburg",
       "target_label": "2019–20 UEFA Champions League",
       "rel_name": "team_participates_in_competition",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1381,17 +1780,39 @@
       ]
     },
     {
-      "edge_id": "e9e46885-d119-4fab-8ff9-0925757e9519",
-      "source_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "target_id": "a5f60ed2-07e0-4213-91a5-b3a047c826cb",
+      "edge_id": "aa08a800-3a21-4a21-9ab1-1c2dbbcfa0fc",
+      "source_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "target_id": "4f549aaf-77b4-4a92-ae49-b8d905677a71",
+      "source_label": "Red Bull Salzburg",
+      "target_label": "Austrian Cup",
+      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
+      "valid_at": "2019-12-26T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "Team"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "d964d9f9-965a-4379-a992-b449cefe0182",
+      "source_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "target_id": "168580c3-25c2-4433-b98f-142bc77f98e9",
       "source_label": "Red Bull Salzburg",
       "target_label": "Austrian Bundesliga",
       "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
@@ -1403,17 +1824,17 @@
       ]
     },
     {
-      "edge_id": "ad1135b3-5dc5-41ac-a397-9aa5a53e7fd0",
-      "source_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
-      "target_id": "edf18dc8-d761-4803-b6f3-c2c72034ebbf",
+      "edge_id": "fa410675-5d2d-42d6-902c-6f64eebd6ab3",
+      "source_id": "45c478b7-230b-47a1-8749-685c771e1fd6",
+      "target_id": "b1708de6-064b-409d-bc8b-21872279f8a4",
       "source_label": "Norway national team",
       "target_label": "2020 Euro qualifying matches",
       "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+        "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
       ],
       "source_labels": [
         "Entity",
@@ -1425,17 +1846,17 @@
       ]
     },
     {
-      "edge_id": "62d303f8-c9bb-4cb6-b0c8-d0f434cd1a35",
-      "source_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
-      "target_id": "4a6dac56-da3d-4af3-b9a7-b4a39956fce0",
+      "edge_id": "a6d8f3ff-7072-4a57-9961-82b272540f6c",
+      "source_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
+      "target_id": "56968da5-b93e-43f7-b0cb-b296d3ae59d2",
       "source_label": "Molde FK",
-      "target_label": "UEFA Europa League",
-      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
-      "valid_at": null,
+      "target_label": "Eliteserien",
+      "rel_name": "team_participates_in_competition",
+      "valid_at": "2018-12-31T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
       ],
       "source_labels": [
         "Entity",
@@ -1447,18 +1868,40 @@
       ]
     },
     {
-      "edge_id": "0b1cefe3-0f39-48d6-9640-8121b0a44318",
-      "source_id": "592ccdc1-c36b-4950-ae14-0b779ca39451",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
+      "edge_id": "831301ee-c56b-4d9a-a9d1-bf01edecaafe",
+      "source_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
+      "target_id": "8fa835d3-6495-4b46-b743-412c7508b051",
+      "source_label": "Molde FK",
+      "target_label": "Europa League play-offs",
+      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
+      "valid_at": "2018-07-26T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
+      ],
+      "source_labels": [
+        "Entity",
+        "Team"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "92eadc79-97b7-432b-a4d5-64ae67a99427",
+      "source_id": "66c63830-79ec-433a-9ce9-bf3939dd7f97",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
       "source_label": "Golden Boot",
       "target_label": "Erling Braut Haaland",
       "rel_name": "award_to_recipient",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610",
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1470,17 +1913,17 @@
       ]
     },
     {
-      "edge_id": "8464de91-9372-41cd-97aa-717a6996a846",
-      "source_id": "8aa200fc-4033-437b-88eb-9147fdc56f6f",
-      "target_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
+      "edge_id": "3232960d-75fb-4120-8093-12c6614f9f01",
+      "source_id": "cb352843-67db-4080-ad33-5d971149f9b0",
+      "target_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
       "source_label": "Alf-Inge Håland",
-      "target_label": "Norway national team",
+      "target_label": "Manchester City",
       "rel_name": "PLAYER_PLAYS_FOR_TEAM",
-      "valid_at": null,
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
+      "valid_at": "2000-01-01T00:00:00Z",
+      "invalid_at": "2003-12-31T23:59:59Z",
+      "created_at": "2022-06-13T00:00:00Z",
       "episode_uuids": [
-        "81344984-c8c9-4a39-a57a-81652cc17610"
+        "8940d2fe-6168-4941-a183-f4099a51ee3b"
       ],
       "source_labels": [
         "Entity",
@@ -1492,413 +1935,17 @@
       ]
     },
     {
-      "edge_id": "d8c22174-87b9-478a-b186-68e5e9a81109",
-      "source_id": "cd0c3979-15eb-4c6b-856b-181787aea4cf",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "4 goals against Brann",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "202e7896-5fed-4cb5-9b37-c3ea0eda2dfe",
-      "source_id": "cd0c3979-15eb-4c6b-856b-181787aea4cf",
-      "target_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
-      "source_label": "4 goals against Brann",
-      "target_label": "Molde FK",
-      "rel_name": "GOAL_EVENT_SCORED_FOR_TEAM",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": "2019-09-14T00:00:00Z",
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "0464460e-4aa0-473d-8f99-bb0a4d6a475f",
-      "source_id": "cd0c3979-15eb-4c6b-856b-181787aea4cf",
-      "target_id": "7603e70e-9302-4428-ae07-6f0d0f5eaa41",
-      "source_label": "4 goals against Brann",
-      "target_label": "Molde FK vs Brann",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": "2019-09-14T00:00:00Z",
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "c8eeb702-82e5-4034-87ed-b9dcd5d5b502",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "hat-trick",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "player_part_of_goal_event",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "124ed984-368f-4941-9b0f-aa0b175ab47b",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "hat-trick",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "player_part_of_goal_event",
-      "valid_at": "2019-07-19T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "ca35b47d-01ec-442e-be8c-5ec3ed1ae194",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "hat-trick",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
-      "valid_at": "2019-08-10T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "e7619879-aa48-4469-bada-d5e176e423de",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "hat-trick",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "player_part_of_goal_event",
-      "valid_at": "2019-09-14T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "8dcef653-41a0-440e-82c2-e69c69f3d95a",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "hat-trick",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
-      "valid_at": "2019-09-17T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Player"
-      ]
-    },
-    {
-      "edge_id": "490c5a67-9d08-4695-81b2-342de8b15378",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg",
-      "rel_name": "goal_event_scored_for_team",
-      "valid_at": "2019-07-19T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "fb0966f7-8fc2-4e9b-ad3c-2ce86e12a06b",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg",
-      "rel_name": "GOAL_EVENT_SCORED_FOR_TEAM",
-      "valid_at": "2019-08-10T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "f8c12820-7c75-4d6c-a334-4817d8491cb8",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg",
-      "rel_name": "goal_event_scored_for_team",
-      "valid_at": "2019-09-14T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "97d9ce2f-fba9-48d3-8154-68410cc8651d",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "6d98a4d3-dd7d-471c-92f7-e7000476d085",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg",
-      "rel_name": "goal_event_scored_for_team",
-      "valid_at": "2019-09-17T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "a38dc831-7663-41f8-9d9d-232d61a6f2fc",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
-      "source_label": "hat-trick",
-      "target_label": "Molde FK",
-      "rel_name": "goal_event_scored_for_team",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": "2019-09-14T00:00:00Z",
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Team"
-      ]
-    },
-    {
-      "edge_id": "952044c1-d63e-48b4-a2b6-33146ff95fd9",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "7603e70e-9302-4428-ae07-6f0d0f5eaa41",
-      "source_label": "hat-trick",
-      "target_label": "Molde FK vs Brann",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2018-07-01T00:00:00Z",
-      "invalid_at": "2019-09-14T00:00:00Z",
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "34843672-b0e6-47af-a8e5-8410b9ba6581",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "dd27f723-73e9-474a-b713-89be4164da47",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg vs SC-ESV Parndorf (Austrian Cup)",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2019-07-19T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "cc565f04-702a-4821-b747-820ab85204b1",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "2ed5fde1-8636-48ef-bb67-037b0970f2d1",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg vs Wolfsberger AC (Austrian Bundesliga)",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2019-08-10T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "53f81181-6e67-47f8-8ac6-2d63e327ba5e",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "8fcc289d-1914-421b-8f9d-adfd9260008e",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg vs TSV Hartberg (Austrian Bundesliga)",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2019-09-14T00:00:00Z",
-      "invalid_at": "2019-12-26T00:00:00Z",
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "818eec1b-8654-4e95-b5bc-a2bdc996b89e",
-      "source_id": "e17e1fff-5e66-419b-9939-d9da0a2be911",
-      "target_id": "b9a29713-869f-48db-b88e-0da7dab62ef8",
-      "source_label": "hat-trick",
-      "target_label": "Red Bull Salzburg vs Genk (UEFA Champions League)",
-      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
-      "valid_at": "2019-09-17T00:00:00Z",
-      "invalid_at": null,
-      "created_at": "2019-12-26T00:00:00Z",
-      "episode_uuids": [
-        "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
-      ],
-      "source_labels": [
-        "Entity",
-        "GoalEvent"
-      ],
-      "target_labels": [
-        "Entity",
-        "Match"
-      ]
-    },
-    {
-      "edge_id": "33aee85b-bdc0-4a8f-98cd-1e35e8c6cfd5",
-      "source_id": "d550982a-2518-4f78-bdb0-dee3410f45d3",
-      "target_id": "fb86a538-15d1-4834-896e-ac1da8f939b6",
+      "edge_id": "fc21601e-f928-4ac7-8c96-6cbea62999c7",
+      "source_id": "2110dd60-7f9f-4c57-aaba-655b0c7e9f91",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
       "source_label": "Ole Gunnar Solskjær",
       "target_label": "Molde FK",
       "rel_name": "coach_manages_team",
       "valid_at": "2019-12-26T00:00:00Z",
-      "invalid_at": null,
+      "invalid_at": "2019-12-29T00:00:00Z",
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "3d862b53-10cf-4652-96ab-38750db9eaa7"
+        "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
       ],
       "source_labels": [
         "Entity",
@@ -1910,17 +1957,149 @@
       ]
     },
     {
-      "edge_id": "5fef717d-ea1e-4167-a03b-96dae5c3b4e3",
-      "source_id": "99110d52-c9f7-49b9-ad11-ddafd025f95b",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "sprained ankle injury",
-      "target_label": "Erling Braut Haaland",
-      "rel_name": "injury_of_player",
+      "edge_id": "baf3a38d-7864-445a-afad-7cb89e19716e",
+      "source_id": "2110dd60-7f9f-4c57-aaba-655b0c7e9f91",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
+      "source_label": "Ole Gunnar Solskjær",
+      "target_label": "Molde FK",
+      "rel_name": "COACH_MANAGES_TEAM",
       "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "8b432036-a356-4685-9acc-76b856fed1a6"
+      ],
+      "source_labels": [
+        "Entity",
+        "Coach"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "48969f1e-c436-4aa6-a9e4-3fdc337ad4eb",
+      "source_id": "2110dd60-7f9f-4c57-aaba-655b0c7e9f91",
+      "target_id": "9b45b861-c818-4439-b2e0-1d97d65620bf",
+      "source_label": "Ole Gunnar Solskjær",
+      "target_label": "Manchester United",
+      "rel_name": "coach_manages_team",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "8b432036-a356-4685-9acc-76b856fed1a6"
+      ],
+      "source_labels": [
+        "Entity",
+        "Coach"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "bebed9ca-d22d-4059-b378-3735e7be19da",
+      "source_id": "14223224-5495-4316-abfe-974dbc1ccbb1",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "Håland's 4-goal performance",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "valid_at": "2018-07-01T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+        "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "c462cdda-54eb-4530-9961-5cfe71142201",
+      "source_id": "14223224-5495-4316-abfe-974dbc1ccbb1",
+      "target_id": "e4157242-aa7b-40bb-b7e2-beeabc65b072",
+      "source_label": "Håland's 4-goal performance",
+      "target_label": "Molde FK",
+      "rel_name": "GOAL_EVENT_SCORED_FOR_TEAM",
+      "valid_at": "2018-07-01T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "136110a2-bd7a-4792-9cec-b5a0eee05fe6",
+      "source_id": "14223224-5495-4316-abfe-974dbc1ccbb1",
+      "target_id": "f6b52a27-d45f-45fe-96d6-50432bd7f086",
+      "source_label": "Håland's 4-goal performance",
+      "target_label": "Molde vs Brann match",
+      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
+      "valid_at": "2018-07-01T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "2507a553-62bb-489c-9b27-3e4789dd3d77",
+      "source_id": "d173b984-f09f-4cdf-b809-417a8f635553",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "Eliteserien Breakthrough of the Year award",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "award_to_recipient",
+      "valid_at": "2018-12-31T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
+      ],
+      "source_labels": [
+        "Entity",
+        "Award"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "d43c6eff-3b73-4f68-b3de-c801c8f2e43d",
+      "source_id": "ac363411-c455-4fc6-95ff-9c8ee67406a9",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "sprained ankle injury",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "injury_of_player",
+      "valid_at": "2018-12-31T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "3e8b59e3-142a-44d4-9699-b23167f218ed"
       ],
       "source_labels": [
         "Entity",
@@ -1932,21 +2111,21 @@
       ]
     },
     {
-      "edge_id": "fbbbfce3-f343-4bcf-9587-ddeb30d65834",
-      "source_id": "cc38b113-085f-4ffb-b023-85711df9c97d",
-      "target_id": "8a21bdb0-67d6-431a-ad70-ef865c6936ad",
-      "source_label": "Eliteserien Breakthrough of the Year award",
+      "edge_id": "912820a0-6048-455c-89f3-776fe28efd1f",
+      "source_id": "f1484286-28da-4a2b-ba3f-e8491bedd493",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "hat-trick against SC-ESV Parndorf",
       "target_label": "Erling Braut Haaland",
-      "rel_name": "award_to_recipient",
-      "valid_at": "2018-12-31T00:00:00Z",
+      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "valid_at": "2019-07-19T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
       ],
       "source_labels": [
         "Entity",
-        "Award"
+        "GoalEvent"
       ],
       "target_labels": [
         "Entity",
@@ -1954,17 +2133,435 @@
       ]
     },
     {
-      "edge_id": "d36abb44-3a6a-49d6-97e1-4cdc14f28135",
-      "source_id": "950d2fd6-7d4b-417c-b99e-62caf698ee7e",
-      "target_id": "3b5d2a5b-8a82-4871-ae6e-b7b6c5066fd9",
-      "source_label": "Norway U20",
-      "target_label": "2019 FIFA U-20 World Cup",
-      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
-      "valid_at": "2019-05-30T00:00:00Z",
+      "edge_id": "d4aed5be-41e1-4dc7-a41e-0b898f4d41a8",
+      "source_id": "f1484286-28da-4a2b-ba3f-e8491bedd493",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "hat-trick against SC-ESV Parndorf",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "goal_event_scored_for_team",
+      "valid_at": "2019-07-19T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "f6c9d5a7-ce3a-47e5-9185-260a0f75e584",
+      "source_id": "f1484286-28da-4a2b-ba3f-e8491bedd493",
+      "target_id": "18f7a161-dff5-4cb5-b3e6-741b5055d503",
+      "source_label": "hat-trick against SC-ESV Parndorf",
+      "target_label": "Austrian Cup match against SC-ESV Parndorf",
+      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
+      "valid_at": "2019-07-19T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "7487dc39-c0fa-4795-82b6-ef9a48b9f172",
+      "source_id": "235d136f-7847-4dd8-82ac-446095079ad7",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "hat-trick against Wolfsberger AC",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "valid_at": "2019-08-10T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "f4cfde4d-bb6c-4884-a088-33676627839b",
+      "source_id": "235d136f-7847-4dd8-82ac-446095079ad7",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "hat-trick against Wolfsberger AC",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "goal_event_scored_for_team",
+      "valid_at": "2019-08-10T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "2c648402-f5dc-47b8-beb3-7d8d9a664f4a",
+      "source_id": "235d136f-7847-4dd8-82ac-446095079ad7",
+      "target_id": "ce4e0512-4b04-4096-8e5c-546c4f38b1b6",
+      "source_label": "hat-trick against Wolfsberger AC",
+      "target_label": "Austrian Bundesliga match against Wolfsberger AC",
+      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
+      "valid_at": "2019-08-10T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "d71fedae-a0bf-4b4d-aa69-0cb80c4204f7",
+      "source_id": "8bab64b8-c8c6-4f09-845e-0951c497c056",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "hat-trick against TSV Hartberg",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "valid_at": "2019-09-14T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "3dea104c-80f0-4872-bf53-5535f0e9cde6",
+      "source_id": "8bab64b8-c8c6-4f09-845e-0951c497c056",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "hat-trick against TSV Hartberg",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "GOAL_EVENT_SCORED_FOR_TEAM",
+      "valid_at": "2019-09-14T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "cd659942-0948-44fc-b153-8cc73bb74090",
+      "source_id": "8bab64b8-c8c6-4f09-845e-0951c497c056",
+      "target_id": "cb6b410b-7585-4773-8260-3a8ae48fe6d9",
+      "source_label": "hat-trick against TSV Hartberg",
+      "target_label": "match against TSV Hartberg",
+      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
+      "valid_at": "2019-09-14T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "f9b0551c-87b3-4e4f-962e-be1a8747f1e2",
+      "source_id": "ed32021a-c7c4-4c00-a7e7-718cc6e953dd",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "hat-trick against Genk",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "PLAYER_PART_OF_GOAL_EVENT",
+      "valid_at": "2019-09-17T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "994bd8a6-e386-4ac4-a099-5500986c9174",
+      "source_id": "ed32021a-c7c4-4c00-a7e7-718cc6e953dd",
+      "target_id": "8867bfca-2135-43d3-b356-250a34a0af6e",
+      "source_label": "hat-trick against Genk",
+      "target_label": "Red Bull Salzburg",
+      "rel_name": "goal_event_scored_for_team",
+      "valid_at": "2019-09-17T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "f41166a8-fa8b-4d88-b989-58b611027120",
+      "source_id": "ed32021a-c7c4-4c00-a7e7-718cc6e953dd",
+      "target_id": "c5ebca4d-11e0-4b77-99fe-770f8e30a605",
+      "source_label": "hat-trick against Genk",
+      "target_label": "UEFA Champions League debut against Genk",
+      "rel_name": "GOAL_EVENT_PART_OF_MATCH",
+      "valid_at": "2019-09-17T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+      ],
+      "source_labels": [
+        "Entity",
+        "GoalEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Match"
+      ]
+    },
+    {
+      "edge_id": "08ca4401-d0ea-4896-8dba-63477d5054bb",
+      "source_id": "078bec9d-f6cb-428f-a9c9-4bd4e1ee538a",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Karim Benzema",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "39d203fe-daa3-4169-b74e-15fb2c6cf877",
+      "source_id": "6ea409d5-09c1-4fe0-a19e-bb9ffe5a6a99",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Zé Carlos",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "0d525e9c-6668-41b6-aa10-003cb96e72be",
+      "source_id": "1c35f9f3-0528-4914-a6e3-deeab18f8704",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Alessandro Del Piero",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "d664c682-a881-457c-9aac-340a18530aa8",
+      "source_id": "e7f51073-f4f4-47a5-9b78-10b8a3dcd442",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Diego Costa",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "451b1524-6837-4afa-952d-99fac3c43387",
+      "source_id": "8680f25a-3f25-4e83-bda8-b0f6a98a61e0",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Serhiy Rebrov",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "7170cc7b-cf0f-4210-8e55-722a1f4eff6b",
+      "source_id": "96fbc285-21eb-40d3-85fc-54400e33b4c3",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Neymar",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "dbf81ec7-ffbb-45e6-b188-581d8dfbec70",
+      "source_id": "9e98c9c4-2137-4a5e-8cc8-f6c7e09ac3b4",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Cristiano Ronaldo",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "316f929f-a0f8-4769-97fc-ae90e5e4a581",
+      "source_id": "92f0407b-a93f-4a10-8424-218e7e725d32",
+      "target_id": "ea6419df-91e3-4fec-bde0-bbb64cd68f07",
+      "source_label": "Robert Lewandowski",
+      "target_label": "2019–20 UEFA Champions League",
+      "rel_name": "PLAYER_PARTICIPATES_IN_MATCH",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "968806e8-5c34-43d0-a6b3-ac2edf1fb84e",
+      "source_id": "e8aaed79-8287-49a4-b39b-c4d76da25ece",
+      "target_id": "8dc37b24-e994-4f07-929e-b44602555d15",
+      "source_label": "Norway U19",
+      "target_label": "2018 UEFA European Under-19 Championship",
+      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
+      "valid_at": "2018-03-27T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-26T00:00:00Z",
+      "episode_uuids": [
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
@@ -1976,39 +2573,39 @@
       ]
     },
     {
-      "edge_id": "369750fb-5f3f-4c71-974e-7917ca14ae6e",
-      "source_id": "e7fec30b-5d99-418d-af52-6ffc6d311351",
-      "target_id": "87b44409-508b-4050-9905-f8511ee0dd72",
-      "source_label": "Lublin",
-      "target_label": "2019 FIFA U-20 World Cup match",
-      "rel_name": "stadium_hosts_match",
+      "edge_id": "f8f86c9f-c3f2-4c85-9ee1-224d5d33faf0",
+      "source_id": "646f2e57-5f61-48f4-af6a-ca14d5c63ae2",
+      "target_id": "71c4f528-64f5-4409-9be2-d405ffc6ac8a",
+      "source_label": "Norway U20",
+      "target_label": "2019 FIFA U-20 World Cup",
+      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
       "valid_at": "2019-05-30T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "6917b981-4143-4257-abb5-775bfeca2c56"
+        "a1a874c1-e389-41de-bda3-b1b17ebe9019"
       ],
       "source_labels": [
         "Entity",
-        "Stadium"
+        "Team"
       ],
       "target_labels": [
         "Entity",
-        "Match"
+        "Competition"
       ]
     },
     {
-      "edge_id": "b7993862-cbae-4f40-82da-4a837e4c9af8",
-      "source_id": "3d473000-4c45-4aa6-92c4-4b904266cbe1",
-      "target_id": "a8ea2466-6145-4170-a785-90da6db1b6be",
+      "edge_id": "3d7905d9-ed5d-406e-b12e-eb1d3eab19f9",
+      "source_id": "7595392b-03f1-4048-815a-dd97c13235f1",
+      "target_id": "45c478b7-230b-47a1-8749-685c771e1fd6",
       "source_label": "Lars Lagerbäck",
       "target_label": "Norway national team",
       "rel_name": "COACH_MANAGES_TEAM",
-      "valid_at": null,
+      "valid_at": "2019-12-26T00:00:00Z",
       "invalid_at": null,
       "created_at": "2019-12-26T00:00:00Z",
       "episode_uuids": [
-        "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+        "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
       ],
       "source_labels": [
         "Entity",
@@ -2018,289 +2615,512 @@
         "Entity",
         "Team"
       ]
+    },
+    {
+      "edge_id": "330f2833-f045-41fa-bbdd-9c2f03ae8496",
+      "source_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "target_id": "494c6a05-8ac9-457a-9d0a-0024d02b9b3e",
+      "source_label": "Borussia Dortmund",
+      "target_label": "Bundesliga",
+      "rel_name": "TEAM_PARTICIPATES_IN_COMPETITION",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "f66aefe8-32f5-4bea-b948-f748faa67923"
+      ],
+      "source_labels": [
+        "Entity",
+        "Team"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
+    },
+    {
+      "edge_id": "c8f5ad53-fd5b-45be-8e39-404f024dfc7f",
+      "source_id": "f52cf3fd-5a6c-4be7-844c-e4283c130ead",
+      "target_id": "30720e70-86f8-4527-b540-912a8586bdd4",
+      "source_label": "Lucien Favre",
+      "target_label": "Borussia Dortmund",
+      "rel_name": "coach_manages_team",
+      "valid_at": "2019-12-29T00:00:00Z",
+      "invalid_at": null,
+      "created_at": "2019-12-29T00:00:00Z",
+      "episode_uuids": [
+        "a23b1b96-42b3-419d-9e87-a437febb00f5"
+      ],
+      "source_labels": [
+        "Entity",
+        "Coach"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "4fb55490-cb42-4bda-b982-814cc984eb92",
+      "source_id": "fd09bbda-80e9-440a-9f89-34b48de6f266",
+      "target_id": "b7519695-1510-4b02-a9a9-e7335ba6643c",
+      "source_label": "TransferEvent",
+      "target_label": "Erling Braut Haaland",
+      "rel_name": "player_part_of_transfer_event",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "e495eba4-b383-4cf9-a40a-5fcd9798e519"
+      ],
+      "source_labels": [
+        "Entity",
+        "TransferEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Player"
+      ]
+    },
+    {
+      "edge_id": "a6772913-cd58-4e2a-9753-39ef05e71020",
+      "source_id": "fd09bbda-80e9-440a-9f89-34b48de6f266",
+      "target_id": "6eb45968-e4bb-4490-b289-8d83592133d5",
+      "source_label": "TransferEvent",
+      "target_label": "Manchester City",
+      "rel_name": "transfer_event_to_team",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "e495eba4-b383-4cf9-a40a-5fcd9798e519"
+      ],
+      "source_labels": [
+        "Entity",
+        "TransferEvent"
+      ],
+      "target_labels": [
+        "Entity",
+        "Team"
+      ]
+    },
+    {
+      "edge_id": "65161002-46f1-426b-8646-dccf9894a6fa",
+      "source_id": "be040f51-f07d-4f19-a7d3-fe6111dd36c5",
+      "target_id": "494c6a05-8ac9-457a-9d0a-0024d02b9b3e",
+      "source_label": "Timo Konietzka",
+      "target_label": "Bundesliga",
+      "rel_name": "RECORD_HELD_BY_ENTITY",
+      "valid_at": null,
+      "invalid_at": null,
+      "created_at": "2022-06-13T00:00:00Z",
+      "episode_uuids": [
+        "8940d2fe-6168-4941-a183-f4099a51ee3b"
+      ],
+      "source_labels": [
+        "Entity",
+        "Player"
+      ],
+      "target_labels": [
+        "Entity",
+        "Competition"
+      ]
     }
   ],
   "episodes": {
-    "81344984-c8c9-4a39-a57a-81652cc17610": {
-      "uuid": "81344984-c8c9-4a39-a57a-81652cc17610",
+    "e7f27ca1-a5aa-4a8a-afaa-34a101487e31": {
+      "uuid": "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
       "source_text_name": "haaland_2019",
       "context": "[Section: Early life]\n\nErling Braut Haaland (/ˈhɔːlɑːnd/; né Håland, born 21 July 2000) is a Norwegian footballer who plays as a striker for Austrian football club Red Bull Salzburg and the Norway national team.\n\nHaaland started his career at his hometown club Bryne FK in 2016, and moved to Molde FK the next year where he spent two years. In January 2019, Austrian side Red Bull Salzburg signed him on a five-year contract. In the 2019–20 UEFA Champions League, he became the first teenager to score in five consecutive UEFA Champions League matches.\n\nAfter impressive performances in the 2019 FIFA U-20 World Cup, in which he won the Golden Boot, Håland made his debut for the Norway senior team in September 2019.\n\nHåland was born in Leeds, England as his footballer father, Alf-Inge Håland, was playing in England at the time.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "4ebb8cc7-92d4-47f3-8715-372acb222a39": {
-      "uuid": "4ebb8cc7-92d4-47f3-8715-372acb222a39",
+    "8774692a-6634-4ece-8331-67aa888870da": {
+      "uuid": "8774692a-6634-4ece-8331-67aa888870da",
       "source_text_name": "haaland_2019",
       "context": "[Section: Club career]\n\nBryne\nHe joined the academy of his hometown club Bryne FK. During the 2015–16 seasons, Håland played for the reserve side Bryne FK 2 where he impressed scoring 18 goals in 14 games. His performances for the Reserve side led him to his senior debut, 15 years of age, Håland made his Bryne debut on 12 May 2016 in a 1. divisjon match against Ranheim. Whilst at Bryne, he also had an unsuccessful trial at German Bundesliga side TSG 1899 Hoffenheim, Håland played 16 games for Bryne.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "45991c46-56c0-4112-87f3-c6271ae8d765": {
-      "uuid": "45991c46-56c0-4112-87f3-c6271ae8d765",
+    "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b": {
+      "uuid": "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b",
       "source_text_name": "haaland_2019",
       "context": "[Section: Molde]\n\n2017 season\nOn 1 February 2017, Molde FK announced the signing of Erling Braut Håland. He made his debut on 26 April 2017 in the Norwegian Cup match against Volda TI. Håland scored his first goal for Molde in his debut in the 3–2 win against Volda. His league debut came on 4 June 2017 when he came on as a substitute in the 71st minute against Sarpsborg 08. He received a yellow card after 65 seconds on the pitch. Håland scored the winner in the 77th minute, a goal which was his first Eliteserien goal. Håland scored his second league goal of the season on 17 September, a match-winning goal against Viking in a 3–2 win. In the aftermath of the goal, he received criticism from teammate Björn Bergmann Sigurðarson for celebrating towards Viking supporters. Håland finished his first season at Molde with 4 goals in 20 appearances.\n\n2018 season",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "3d862b53-10cf-4652-96ab-38750db9eaa7": {
-      "uuid": "3d862b53-10cf-4652-96ab-38750db9eaa7",
+    "0a91ac51-76c3-406c-ae3c-acfe41d25c65": {
+      "uuid": "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
       "source_text_name": "haaland_2019",
       "context": "[Section: Molde]\n\nHåland (right) in the Europa League play-offs against Zenit Saint Petersburg in August 2018\nOn 1 July 2018, Håland scored 4 goals against Brann within the first 21 minutes of the game, securing his team a 4–0 away win over the unbeaten league leaders at the time. The hat-trick was scored in 11 minutes and 2 seconds and all four goals in 17 minutes and 4 seconds. A Manchester United scout was present at the match. Molde FK manager Ole Gunnar Solskjær after the game compared Håland style of play to Romelu Lukaku and revealed the club had rejected several bids for Håland from different clubs.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "f3dc3b45-3262-4579-8512-bdd3fc34b211": {
-      "uuid": "f3dc3b45-3262-4579-8512-bdd3fc34b211",
+    "3e8b59e3-142a-44d4-9699-b23167f218ed": {
+      "uuid": "3e8b59e3-142a-44d4-9699-b23167f218ed",
       "source_text_name": "haaland_2019",
       "context": "[Section: Molde]\n\nIn the following game on 8 July, Håland continued his scoring run when he scored two goals and gained an assist in the 5–1 victory against Vålerenga. Håland scored in Molde's UEFA Europa League victory against KF Laçi in a 3–0 win on 26 July. Due to a sprained ankle, Håland did not participate in Molde's three last league games of the season. For his performances in the 2018 Eliteserien, Håland received the Eliteserien Breakthrough of the Year award. He finished the 2018 season as Molde's top goalscorer with 16 goals in 30 matches in all competitions.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "942b4fc6-80be-4f17-9074-b0dd9de7ce9d": {
-      "uuid": "942b4fc6-80be-4f17-9074-b0dd9de7ce9d",
+    "290dfd6c-86ad-4e9b-8f2a-e2241065d375": {
+      "uuid": "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
       "source_text_name": "haaland_2019",
       "context": "[Section: Red Bull Salzburg]\n\nHåland (right) playing for RB Salzburg in 2019.\nOn 19 August 2018, Austrian club Red Bull Salzburg announced that Håland would join the club on 1 January 2019, signing a five-year contract. On 19 July 2019, Håland scored his first hat-trick for the club in a 7–1 Austrian Cup win against SC-ESV Parndorf, and followed it on 10 August with his first Austrian Bundesliga hat-trick in a 5–2 win against Wolfsberger AC. Håland scored his third hat-trick for Red Bull Salzburg on 14 September, in a 7–2 victory over TSV Hartberg, taking his seasonal record to eleven league goals in seven games, and three days later, he got another in his 2019–20 UEFA Champions League debut against Genk in a 6–2 victory, his fourth overall for the club.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "523b2ee2-1251-4099-be53-e65993dbfb78": {
-      "uuid": "523b2ee2-1251-4099-be53-e65993dbfb78",
+    "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae": {
+      "uuid": "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae",
       "source_text_name": "haaland_2019",
       "context": "[Section: Red Bull Salzburg]\n\nHåland then went on to become only the second teenager in Champions League history to score in each of his first three appearances in the competition, after Karim Benzema, with 1 goal against Liverpool and 2 against Napoli. Thereby he also became the first player ever to score as many as six goals in his first 3 matches in the Champions League. Later on, he scored a goal against Napoli to be the first teenager to score in four consecutive matches, and fourth player to achieve that feat, following Zé Carlos, Alessandro Del Piero and Diego Costa. On 27 November, he scored another goal against Genk, to reach five consecutive matches, and to join Alessandro Del Piero, Serhiy Rebrov, Neymar, Cristiano Ronaldo and Robert Lewandowski in doing so.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "6917b981-4143-4257-abb5-775bfeca2c56": {
-      "uuid": "6917b981-4143-4257-abb5-775bfeca2c56",
+    "a1a874c1-e389-41de-bda3-b1b17ebe9019": {
+      "uuid": "a1a874c1-e389-41de-bda3-b1b17ebe9019",
       "source_text_name": "haaland_2019",
       "context": "[Section: International career]\n\nHåland has represented Norway at various age groups. With Norway U19, on 27 March 2018 he scored a hat-trick against Scotland in a 5–4 victory to help Norway secure their qualification to the 2018 UEFA European Under-19 Championship.\n\nOn 22 July 2018, Håland scored for Norway U19 in a 1–1 draw against Italy in the 2018 UEFA European Under-19 Championship.\n\nOn 30 May 2019, Håland scored nine goals in Norway U20's 12–0 win against Honduras U20 at the 2019 FIFA U-20 World Cup in Lublin, Poland. This was Norway U20's biggest ever win and Honduras U20's heaviest ever defeat. This also set a new U-20 World Cup record for most goals scored by a single player in a match, and also the biggest win by any team in the history of the tournament. Despite the Norwegians being eliminated in the group stage, and Håland not scoring in any other games in the tournament, he won its Golden Boot.",
       "created_at": "2019-12-26T00:00:00Z"
     },
-    "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8": {
-      "uuid": "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8",
+    "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2": {
+      "uuid": "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2",
       "source_text_name": "haaland_2019",
       "context": "[Section: International career]\n\nAfter the impressive performance in 2019 FIFA U-20 World Cup, a good run of form with Red Bull Salzburg and scoring six goals in the first four games of the 2019–20 Austrian Bundesliga, on 28 August 2019 Håland was named by manager Lars Lagerbäck in the Norway senior team squad to face Malta and Sweden in 2020 Euro qualifying matches, and made his debut on 5 September 2019 against Malta.",
       "created_at": "2019-12-26T00:00:00Z"
+    },
+    "b34830f8-85a6-4f04-89bd-430cd840b20e": {
+      "uuid": "b34830f8-85a6-4f04-89bd-430cd840b20e",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nSalzburg starlet Haaland signs for Borussia Dortmund - €20m deal",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "f66aefe8-32f5-4bea-b948-f748faa67923": {
+      "uuid": "f66aefe8-32f5-4bea-b948-f748faa67923",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nBorussia Dortmund have announced the signing of RB Salzburg striker Erling Haaland on a contract until 2024.\n\nHaaland, 19, had been linked with a switch to Manchester United after impressing with eight goals in the Champions League this season.\n\nDortmund said the Bundesliga club had “notified Haaland’s current employer to meet all the contractual conditions necessary for a transfer in good time” ahead of the transfer window opening.",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "a23b1b96-42b3-419d-9e87-a437febb00f5": {
+      "uuid": "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nHaaland will officially join the Germans on January 3 and then head out to the club’s training camp in Marbella.\n“I had intensive discussions with the club management and the sports management, especially with Hans-Joachim Watzke, Michael Zorc and trainer Lucien Favre,” Haaland said on the Dortmund website.\n“There was a feeling right from the start that I absolutely wanted to switch to this club, go this route and play football in this incredible Dortmund atmosphere in front of more than 80,000 spectators.\n\nI’m already burning for it.”\nHaaland, the son of former Manchester City midfielder Alf-Inge, had been among Manchester United’s transfer targets after making an outstanding start to his first season at the Austrian champions.",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "8b432036-a356-4685-9acc-76b856fed1a6": {
+      "uuid": "8b432036-a356-4685-9acc-76b856fed1a6",
+      "source_text_name": "transfermarkt_2019",
+      "context": "[Section: Introduction]\n\nUnited had been hopeful Ole Gunnar Solskjaer’s personal relationship with striker Haaland from their time together at Molde would have helped get a deal over the line.\n\nDortmund chief executive Hans-Joachim Watzke feels the transfer is something of a coup.\n“Despite many offers from absolute top clubs from all over Europe, Erling Haaland decided on the sporting task at BVB and the perspective that we have shown him,” he said. “Our tenacity has paid off.”",
+      "created_at": "2019-12-29T00:00:00Z"
+    },
+    "39038c8f-17fc-4465-ab9a-9cfa0fe15f62": {
+      "uuid": "39038c8f-17fc-4465-ab9a-9cfa0fe15f62",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nMan City announce Haaland - Exit clause doubled from Dortmund days",
+      "created_at": "2022-06-13T00:00:00Z"
+    },
+    "e495eba4-b383-4cf9-a40a-5fcd9798e519": {
+      "uuid": "e495eba4-b383-4cf9-a40a-5fcd9798e519",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nOne month after Borussia Dortmund have confirmed the deal Manchester City announced that Erling Haaland will join the club.\n\nThe €60 million transfer is now a done deal as the Premier League club confirmed on Monday.\n\nHaaland's contract will run until 2027.\n“This is a proud day for me and my family,” Haaland said in a club statement after signing his new contract. “I have always watched City and have loved doing so in recent seasons.\n\nYou can’t help but admire their style of play, it’s exciting and they create a lot of chances, which is perfect for a player like me.\n\nMan City announce Haaland - Deal includes €150m exit clause \nAccording to German newspaper, Bild Haaland will have the opportunity to leave Man City after two years—in the summer of 2024, three years before his contract expires.\n\nHaaland's contract includes an exit clause that allows him to leave for €150 million.",
+      "created_at": "2022-06-13T00:00:00Z"
+    },
+    "8940d2fe-6168-4941-a183-f4099a51ee3b": {
+      "uuid": "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "source_text_name": "transfermarkt_2022",
+      "context": "[Section: Introduction]\n\nA clause negotiated by his star agent Mino Raiola, who has recently passed away.\n\nHaaland's contract option at Dortmund was less than half.\n\nHaaland broke several records at BVB, including the record for the fastest 60 goals in Bundesliga history.\n\nHaaland needed just 65 games to score 60 goals in Germany's topflight—the previous record dated back to 1966 and was held by Timo Konietzka, who needed 76 games.\n\nAt Man City, Haaland will follow in his father's footsteps.\n\nBetween 2000 and 2003, Alf-Inge played 45 games for Man City.",
+      "created_at": "2022-06-13T00:00:00Z"
     }
   },
   "node_to_episode_uuids": {
-    "8a21bdb0-67d6-431a-ad70-ef865c6936ad": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7",
-      "45991c46-56c0-4112-87f3-c6271ae8d765",
-      "4ebb8cc7-92d4-47f3-8715-372acb222a39",
-      "523b2ee2-1251-4099-be53-e65993dbfb78",
-      "6917b981-4143-4257-abb5-775bfeca2c56",
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d",
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8",
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+    "b7519695-1510-4b02-a9a9-e7335ba6643c": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
+      "39038c8f-17fc-4465-ab9a-9cfa0fe15f62",
+      "3e8b59e3-142a-44d4-9699-b23167f218ed",
+      "8774692a-6634-4ece-8331-67aa888870da",
+      "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "8b432036-a356-4685-9acc-76b856fed1a6",
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2",
+      "b34830f8-85a6-4f04-89bd-430cd840b20e",
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae",
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b",
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
+    ],
+    "e4157242-aa7b-40bb-b7e2-beeabc65b072": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
+      "3e8b59e3-142a-44d4-9699-b23167f218ed",
+      "8b432036-a356-4685-9acc-76b856fed1a6",
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
+    ],
+    "d6402e94-2f60-4832-9dbe-7148185590f1": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+    ],
+    "17c6fa06-3452-49fa-a528-98fe213257c2": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+    ],
+    "9b45b861-c818-4439-b2e0-1d97d65620bf": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
+      "8b432036-a356-4685-9acc-76b856fed1a6",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
+    ],
+    "2110dd60-7f9f-4c57-aaba-655b0c7e9f91": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
+      "8b432036-a356-4685-9acc-76b856fed1a6"
+    ],
+    "dabf20ab-17c6-4582-abdd-fd5d61946a5f": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+    ],
+    "8fa835d3-6495-4b46-b743-412c7508b051": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65",
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
+    ],
+    "f6b52a27-d45f-45fe-96d6-50432bd7f086": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+    ],
+    "14223224-5495-4316-abfe-974dbc1ccbb1": [
+      "0a91ac51-76c3-406c-ae3c-acfe41d25c65"
+    ],
+    "8867bfca-2135-43d3-b356-250a34a0af6e": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2",
+      "b34830f8-85a6-4f04-89bd-430cd840b20e",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31",
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
+    ],
+    "ea6419df-91e3-4fec-bde0-bbb64cd68f07": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
+    ],
+    "9828df77-366e-4dea-b42d-8582228084cf": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "700bfc35-4f3b-4ba5-a0ef-0ca8d9ae4269": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "874e97e1-544b-4b84-8e3f-485f6c340a9a": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "2b747ccd-ad8a-4248-9693-91f0ec9e947b": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375",
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
+    ],
+    "4f549aaf-77b4-4a92-ae49-b8d905677a71": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "168580c3-25c2-4433-b98f-142bc77f98e9": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "18f7a161-dff5-4cb5-b3e6-741b5055d503": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "ce4e0512-4b04-4096-8e5c-546c4f38b1b6": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "cb6b410b-7585-4773-8260-3a8ae48fe6d9": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "c5ebca4d-11e0-4b77-99fe-770f8e30a605": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
+    ],
+    "f1484286-28da-4a2b-ba3f-e8491bedd493": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
     ],
-    "fb86a538-15d1-4834-896e-ac1da8f939b6": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7",
-      "45991c46-56c0-4112-87f3-c6271ae8d765",
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+    "235d136f-7847-4dd8-82ac-446095079ad7": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
     ],
-    "c35f7339-c172-486d-b053-4f3ce55010dd": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "8bab64b8-c8c6-4f09-845e-0951c497c056": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
     ],
-    "7603e70e-9302-4428-ae07-6f0d0f5eaa41": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "ed32021a-c7c4-4c00-a7e7-718cc6e953dd": [
+      "290dfd6c-86ad-4e9b-8f2a-e2241065d375"
     ],
-    "cd0c3979-15eb-4c6b-856b-181787aea4cf": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "30720e70-86f8-4527-b540-912a8586bdd4": [
+      "39038c8f-17fc-4465-ab9a-9cfa0fe15f62",
+      "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "8b432036-a356-4685-9acc-76b856fed1a6",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "b34830f8-85a6-4f04-89bd-430cd840b20e",
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519",
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
     ],
-    "e17e1fff-5e66-419b-9939-d9da0a2be911": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7",
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "6eb45968-e4bb-4490-b289-8d83592133d5": [
+      "39038c8f-17fc-4465-ab9a-9cfa0fe15f62",
+      "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519"
     ],
-    "01697443-3105-4da5-afdf-46e1dbccc688": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "56968da5-b93e-43f7-b0cb-b296d3ae59d2": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed",
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "d550982a-2518-4f78-bdb0-dee3410f45d3": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "117ec195-12fe-4c46-964d-ef5f47b9191d": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "aa277062-c561-4bcd-bb2e-4ab6126b72fd": [
-      "3d862b53-10cf-4652-96ab-38750db9eaa7"
+    "42e54bb2-46e9-4893-9242-7579e9b5fbef": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "730d7a22-6958-4f88-957d-2a505e929682": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765"
+    "c90e2cd9-8d43-4d67-baa8-961d5a7063a9": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "5658cfdb-c91d-4b27-8107-e9d7c6b0d009": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765"
+    "6f6891c7-6804-4215-82b3-244136c837da": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "2a5995b8-85a6-4bf5-b2bf-74d3e2b126f0": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765"
+    "d173b984-f09f-4cdf-b809-417a8f635553": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "eb001f1b-09d7-41d3-9b33-eec2b93d7a11": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765",
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+    "ac363411-c455-4fc6-95ff-9c8ee67406a9": [
+      "3e8b59e3-142a-44d4-9699-b23167f218ed"
     ],
-    "c408873c-4b0b-449e-99e8-687136bc5273": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765"
+    "adf3a1c9-5a06-49c1-a5d7-6c2debadd7a4": [
+      "8774692a-6634-4ece-8331-67aa888870da",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
     ],
-    "f8d7684a-0ef4-4e36-bf7f-6712a83e8d68": [
-      "45991c46-56c0-4112-87f3-c6271ae8d765"
+    "6cbde336-10f9-4b60-b80d-2e23a76ebad0": [
+      "8774692a-6634-4ece-8331-67aa888870da"
     ],
-    "3fa06ea2-60e3-4e86-8bbb-437a02151d48": [
-      "4ebb8cc7-92d4-47f3-8715-372acb222a39",
-      "81344984-c8c9-4a39-a57a-81652cc17610"
+    "9c3a7741-5f4e-4878-983b-fd99e8b6ac90": [
+      "8774692a-6634-4ece-8331-67aa888870da"
     ],
-    "77918538-132c-4f1a-ab95-c30b0d28ef6c": [
-      "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+    "f9940f16-ed82-43a1-b20e-c22dd1dc7172": [
+      "8774692a-6634-4ece-8331-67aa888870da"
     ],
-    "8d8909f0-d855-417b-8e03-9632e3d054f8": [
-      "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+    "4d504bf7-8bab-4a36-a6a9-ed69443e1c2e": [
+      "8774692a-6634-4ece-8331-67aa888870da"
     ],
-    "a6d5f1f1-ce61-4887-883b-a3a765a11bb4": [
-      "4ebb8cc7-92d4-47f3-8715-372acb222a39"
+    "cb352843-67db-4080-ad33-5d971149f9b0": [
+      "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
     ],
-    "f8c0cfb7-526a-4d4e-bf80-50fe46c56522": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78",
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "494c6a05-8ac9-457a-9d0a-0024d02b9b3e": [
+      "8940d2fe-6168-4941-a183-f4099a51ee3b",
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
     ],
-    "acb3e0b8-3631-4a71-8050-9d2ff836a829": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78",
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "fafb0424-bd00-46c9-b7e0-258c2e7e8fec": [
+      "8940d2fe-6168-4941-a183-f4099a51ee3b"
     ],
-    "a1ff255c-e215-48bd-b5b2-f98cb3467c89": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "be040f51-f07d-4f19-a7d3-fe6111dd36c5": [
+      "8940d2fe-6168-4941-a183-f4099a51ee3b"
     ],
-    "c517c604-f360-4c8a-8a88-48e84bf44eb0": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "ea3dfc59-22ba-4713-9689-d02076611f55": [
+      "8b432036-a356-4685-9acc-76b856fed1a6",
+      "a23b1b96-42b3-419d-9e87-a437febb00f5"
     ],
-    "b81add43-9acd-4415-b236-9935ba7a83ae": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "71c4f528-64f5-4409-9be2-d405ffc6ac8a": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
     ],
-    "5a09a80e-bd45-4b21-b92c-81673bc7bd99": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "66c63830-79ec-433a-9ce9-bf3939dd7f97": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
     ],
-    "9c6bf5f7-e51a-4171-a93e-8782daf3a16f": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "e8aaed79-8287-49a4-b39b-c4d76da25ece": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "9cf30ee8-5691-499c-abab-78ec3aefb764": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "992c6d7b-66d5-4149-ad2c-74f9cb0356d8": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "135e0c57-c750-4574-8fa3-b06ac6711849": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "8dc37b24-e994-4f07-929e-b44602555d15": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "109aba48-e098-4846-bdac-e72aee605e43": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "5b10b086-10bd-4c97-b7b2-286a783ffa1e": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "a1df708e-1c84-46fb-9853-1a1ed1a068c0": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "646f2e57-5f61-48f4-af6a-ca14d5c63ae2": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "5f5ccf74-e1bb-4b28-9b9e-48b1413bf91d": [
-      "523b2ee2-1251-4099-be53-e65993dbfb78"
+    "3267937c-a1f0-4f63-a1a4-c327e2039668": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "3b5d2a5b-8a82-4871-ae6e-b7b6c5066fd9": [
-      "6917b981-4143-4257-abb5-775bfeca2c56",
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "090d44ad-0b45-4607-bc99-14596a97ee0e": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "592ccdc1-c36b-4950-ae14-0b779ca39451": [
-      "6917b981-4143-4257-abb5-775bfeca2c56",
-      "81344984-c8c9-4a39-a57a-81652cc17610"
+    "7deba6df-dc70-4db0-8de1-d0b77408ae69": [
+      "a1a874c1-e389-41de-bda3-b1b17ebe9019"
     ],
-    "8decb243-3375-4d4f-84c1-42ea7ca777ad": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "201d5acd-91e5-4c4f-a214-156da3a381a0": [
+      "a23b1b96-42b3-419d-9e87-a437febb00f5"
     ],
-    "cec9b8bc-14e7-4a25-aaf9-967884883f28": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "f52cf3fd-5a6c-4be7-844c-e4283c130ead": [
+      "a23b1b96-42b3-419d-9e87-a437febb00f5"
     ],
-    "60e4cee6-673d-4dc6-bd1b-0329f042185c": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "45c478b7-230b-47a1-8749-685c771e1fd6": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2",
+      "e7f27ca1-a5aa-4a8a-afaa-34a101487e31"
     ],
-    "a819e8d9-a252-4dea-8969-2f791e03712c": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "7595392b-03f1-4048-815a-dd97c13235f1": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
     ],
-    "1c6b2807-c086-4bb3-b1b6-43f4d7f729e0": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "8e878e0f-eef9-4a09-91bd-de30cb52af5f": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
     ],
-    "950d2fd6-7d4b-417c-b99e-62caf698ee7e": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "bd3be391-c42d-42eb-b5c5-f3c187c4f039": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
     ],
-    "a236b4b1-7d57-4baf-b203-e90e39af1074": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "b1708de6-064b-409d-bc8b-21872279f8a4": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
     ],
-    "87b44409-508b-4050-9905-f8511ee0dd72": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "31bf7454-0dd6-4213-a8cc-51b05978a169": [
+      "aac8d51f-c4f0-4f96-9fdc-4caf851e1ad2"
     ],
-    "e7fec30b-5d99-418d-af52-6ffc6d311351": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "078bec9d-f6cb-428f-a9c9-4bd4e1ee538a": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "92306245-93f3-46d1-9376-fb294cea09cc": [
-      "6917b981-4143-4257-abb5-775bfeca2c56"
+    "28e2b315-a340-4a5f-a3fa-c192d245b83f": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "6d98a4d3-dd7d-471c-92f7-e7000476d085": [
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d",
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "c76b8f26-3896-4eba-8a2a-ea98777bacd0": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "a8ea2466-6145-4170-a785-90da6db1b6be": [
-      "81344984-c8c9-4a39-a57a-81652cc17610",
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "6ea409d5-09c1-4fe0-a19e-bb9ffe5a6a99": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "8aa200fc-4033-437b-88eb-9147fdc56f6f": [
-      "81344984-c8c9-4a39-a57a-81652cc17610"
+    "1c35f9f3-0528-4914-a6e3-deeab18f8704": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "29e1bb34-d0f3-465f-bc54-ed191194360c": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "e7f51073-f4f4-47a5-9b78-10b8a3dcd442": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "9943b916-a45a-4e22-8c76-ca0bcb628724": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "8680f25a-3f25-4e83-bda8-b0f6a98a61e0": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "e341b870-7c9e-4e35-81f9-a49938f66892": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "96fbc285-21eb-40d3-85fc-54400e33b4c3": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "dd27f723-73e9-474a-b713-89be4164da47": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "9e98c9c4-2137-4a5e-8cc8-f6c7e09ac3b4": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "2ed5fde1-8636-48ef-bb67-037b0970f2d1": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "92f0407b-a93f-4a10-8424-218e7e725d32": [
+      "dc51676d-8fdc-46c3-9a7d-3ed24a8b7fae"
     ],
-    "8fcc289d-1914-421b-8f9d-adfd9260008e": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "8066c6ff-4202-49e7-a99f-5e53d51ced25": [
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "b9a29713-869f-48db-b88e-0da7dab62ef8": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "cc2b3658-3ecd-4c8a-a537-e8f046bbb5fc": [
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "50657034-05d8-4b71-86f3-e25ceeceb8ff": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d"
+    "40a18b46-6059-41ac-8fca-75990eb209eb": [
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "a5f60ed2-07e0-4213-91a5-b3a047c826cb": [
-      "942b4fc6-80be-4f17-9074-b0dd9de7ce9d",
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "22882b14-26ab-49c0-aa9f-307707594fe0": [
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "3d473000-4c45-4aa6-92c4-4b904266cbe1": [
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "db2b7fe9-30ab-4dc6-950f-f7dbc3dd10df": [
+      "e1107c65-50a6-4aa4-a3c9-5bbe05ce9b6b"
     ],
-    "64b2b91f-cf57-43b1-af90-4f93043e7ae9": [
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "56c273c9-532a-4fd3-8d08-0f1381de43c1": [
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519"
     ],
-    "e3cf48eb-9b5f-41e9-a584-8995e08b0f55": [
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "a8866395-d6ea-469e-8ece-b2a741b00735": [
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519"
     ],
-    "edf18dc8-d761-4803-b6f3-c2c72034ebbf": [
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
+    "fd09bbda-80e9-440a-9f89-34b48de6f266": [
+      "e495eba4-b383-4cf9-a40a-5fcd9798e519"
     ],
-    "0f677f66-4743-4213-8767-682fee03a038": [
-      "ade5e44e-ff80-41c7-897d-29e1b1bbc7f8"
-    ],
-    "2e31f5bc-7b35-4473-b100-9f99d6bbe43c": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "60e9f5f7-04e5-4c0d-899f-fa97e3adf3b9": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "4a6dac56-da3d-4af3-b9a7-b4a39956fce0": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "bd56a173-a605-4f9c-a2de-141fe1840fb0": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "2e48adf6-baac-471b-bbc0-47ed5d6482be": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "99110d52-c9f7-49b9-ad11-ddafd025f95b": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
-    ],
-    "cc38b113-085f-4ffb-b023-85711df9c97d": [
-      "f3dc3b45-3262-4579-8512-bdd3fc34b211"
+    "b981af84-2083-4951-9194-5d6680191c36": [
+      "f66aefe8-32f5-4bea-b948-f748faa67923"
     ]
   },
   "source_docs": {
