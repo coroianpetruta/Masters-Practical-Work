@@ -337,6 +337,7 @@ const timelineSliderSpikesSvg = d3.select("#timelineSliderSpikes").attr("viewBox
 const tooltip = d3.select("#tt");
 const sourcePane = document.getElementById("sourcePane");
 const sourceToggle = document.getElementById("sourceToggle");
+const graphPane = document.getElementById("graphPane");
 const srcTabs = document.getElementById("srcTabs");
 const srcMeta = document.getElementById("srcMeta");
 const srcBody = document.getElementById("srcBody");
@@ -1016,6 +1017,21 @@ function symbolForKind(kind) {{
   return ICON_IDS[k] || ICON_IDS.generic;
 }}
 
+function showTooltip(event, html) {{
+  const paneRect = graphPane.getBoundingClientRect();
+  const x = event.clientX - paneRect.left;
+  const y = event.clientY - paneRect.top;
+  tooltip
+    .style("display", "block")
+    .style("left", `${{x}}px`)
+    .style("top", `${{y}}px`)
+    .html(html);
+}}
+
+function hideTooltip() {{
+  tooltip.style("display", "none");
+}}
+
 function renderGraph() {{
   const frame = currentFramePayload();
   const {{ renderNodes, renderLinks }} = makeRenderData(frame);
@@ -1089,6 +1105,11 @@ function renderGraph() {{
   const iconGroups = node.append("g")
     .attr("class", "node-icon");
 
+  node.append("circle")
+    .attr("r", NODE_R + 3)
+    .attr("fill", "transparent")
+    .attr("stroke", "none");
+
   iconGroups.each(function(d) {{
     const iconHref = symbolForKind(d.kind);
     const group = d3.select(this);
@@ -1153,34 +1174,34 @@ function renderGraph() {{
   resetGraphEpisodeHover();
 
   node.on("mousemove", (event, d) => {{
-    tooltip.style("display", "block")
-      .style("left", (event.offsetX) + "px")
-      .style("top", (event.offsetY) + "px")
-      .html(`<b>${{d.label}}</b>`);
+    showTooltip(event, `<b>${{d.label}}</b>`);
     setHighlightForEpisodeUuids(d.episode_uuids || []);
   }}).on("mouseleave", () => {{
-    tooltip.style("display", "none");
+    hideTooltip();
     setHighlightForEpisodeUuids([]);
     if (!graphEpisodeHoverActive) resetGraphEpisodeHover();
   }});
 
   link.on("mousemove", (event, d) => {{
-    tooltip.style("display", "block")
-      .style("left", (event.offsetX) + "px")
-      .style("top", (event.offsetY) + "px")
-      .html(`<b>${{d.label}}</b>`);
+    showTooltip(event, `<b>${{d.label}}</b>`);
     setHighlightForEpisodeUuids(d.episode_uuids || []);
   }}).on("mouseleave", () => {{
-    tooltip.style("display", "none");
+    hideTooltip();
     setHighlightForEpisodeUuids([]);
     if (!graphEpisodeHoverActive) resetGraphEpisodeHover();
   }});
 
   function dragstarted(event) {{
+    if (event.sourceEvent) {{
+      event.sourceEvent.stopPropagation();
+      event.sourceEvent.preventDefault();
+    }}
     d3.select(event.currentTarget).classed("dragging", true);
+    hideTooltip();
   }}
 
   function dragged(event, d) {{
+    if (event.sourceEvent) event.sourceEvent.stopPropagation();
     d.x = event.x; d.y = event.y;
     posById.set(d.id, {{ x: d.x, y: d.y }});
     nodePos.set(d.id, {{ x: d.x, y: d.y }});
@@ -1199,6 +1220,7 @@ function renderGraph() {{
   }}
 
   function dragended(event) {{
+    if (event.sourceEvent) event.sourceEvent.stopPropagation();
     d3.select(event.currentTarget).classed("dragging", false);
   }}
 }}
