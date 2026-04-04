@@ -226,8 +226,18 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       position: absolute; left: 10px; top: 10px; background: rgba(255,255,255,0.95);
       border: 1px solid #ddd; border-radius: 10px; padding: 8px 10px; font-size: 12px; z-index: 11;
     }}
+    .legend-title {{ font-weight: 700; margin-bottom: 4px; }}
+    .legend-section {{ margin-top: 8px; }}
     .legend-row {{ display:flex; gap:8px; align-items:center; margin: 4px 0; }}
     .swatch {{ width: 14px; height: 14px; border-radius: 3px; display:inline-block; }}
+    .legend-icon-grid {{
+      display: grid; grid-template-columns: auto 1fr; gap: 4px 8px; align-items: center;
+      margin-top: 4px;
+    }}
+    .legend-icon {{
+      width: 14px; height: 14px; display: inline-block; color: #5f6b78;
+    }}
+    .legend-label {{ white-space: nowrap; }}
 
     .src-head {{ padding: 10px 12px; border-bottom: 1px solid #ddd; background: #fff; }}
     .src-title {{ font-size: 13px; font-weight: 700; margin-bottom: 8px; }}
@@ -279,10 +289,26 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     <div class="graph-pane" id="graphPane">
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
-        <div><b>Legend</b></div>
+        <div class="legend-title">Legend</div>
         <div class="legend-row"><span class="swatch" style="background:#2ecc71;"></span> new (this timestep)</div>
         <div class="legend-row"><span class="swatch" style="background:#95a5a6;"></span> active (existing)</div>
         <div class="legend-row"><span class="swatch" style="background:#e74c3c;"></span> invalid (retracted now)</div>
+        <div class="legend-section">
+          <div class="legend-title">Node Types</div>
+          <div class="legend-icon-grid">
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{player_icon_id}"></use></svg><span class="legend-label">Player / Coach</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{team_icon_id}"></use></svg><span class="legend-label">Team</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{match_icon_id}"></use></svg><span class="legend-label">Match</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{competition_icon_id}"></use></svg><span class="legend-label">Competition</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{goal_icon_id}"></use></svg><span class="legend-label">GoalEvent</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{injury_icon_id}"></use></svg><span class="legend-label">InjuryEvent</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{transfer_icon_id}"></use></svg><span class="legend-label">TransferEvent</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{retirement_icon_id}"></use></svg><span class="legend-label">RetirementEvent</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{award_icon_id}"></use></svg><span class="legend-label">Award</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{record_icon_id}"></use></svg><span class="legend-label">Record</span>
+            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{stadium_icon_id}"></use></svg><span class="legend-label">Stadium</span>
+          </div>
+        </div>
       </div>
       <div class="tooltip" id="tt"></div>
       <svg class="graph-svg" id="svg"></svg>
@@ -361,9 +387,14 @@ let customWindow = null;
 let customWindowFrameCache = null;
 let suppressBrushSync = false;
 const monthNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
+const YEAR_WINDOW_SIZE = 10;
 const isMonthGranularity =
   payloadGranularity === "month" ||
   (timestepLabels.length > 0 && timestepLabels.every(l => /^\\d{4}-\\d{2}$/.test(String(l))));
+const isYearGranularity =
+  !isMonthGranularity &&
+  (payloadGranularity === "year" ||
+   (timestepLabels.length > 0 && timestepLabels.every(l => /^\\d{4}$/.test(String(l)))));
 const monthMeta = isMonthGranularity
   ? timestepLabels.map((l, i) => {{
       const [y, m] = String(l).split("-");
@@ -373,6 +404,21 @@ const monthMeta = isMonthGranularity
 const availableYears = isMonthGranularity ? Array.from(new Set(monthMeta.map(m => m.year))).sort((a, b) => a - b) : [];
 let activeYear = isMonthGranularity
   ? (monthMeta[currentIdx] ? monthMeta[currentIdx].year : availableYears[0])
+  : null;
+const yearMeta = isYearGranularity
+  ? timestepLabels.map((l, i) => ({{
+      frameIdx: i,
+      year: Number(String(l)),
+    }}))
+  : [];
+const availableTimelineYears = isYearGranularity ? yearMeta.map(m => m.year).sort((a, b) => a - b) : [];
+function decadeStart(year) {{
+  const y = Number(year);
+  if (!Number.isFinite(y)) return 0;
+  return Math.floor(y / YEAR_WINDOW_SIZE) * YEAR_WINDOW_SIZE;
+}}
+let activeYearWindowStart = isYearGranularity
+  ? decadeStart(yearMeta[currentIdx] ? yearMeta[currentIdx].year : availableTimelineYears[0])
   : null;
 
 function colorForStatus(status) {{
@@ -503,6 +549,21 @@ function renderWithHighlights(rawText, ranges) {{
 }}
 
 function visibleTimelineItems() {{
+  if (isYearGranularity) {{
+    const startYear = Number(activeYearWindowStart ?? (availableTimelineYears[0] ?? 0));
+    const byYear = new Map(yearMeta.map(m => [m.year, m.frameIdx]));
+    const out = [];
+    for (let y = 0; y < YEAR_WINDOW_SIZE; y += 1) {{
+      const year = startYear + y;
+      out.push({{
+        slot: y,
+        frameIdx: byYear.has(year) ? byYear.get(year) : null,
+        tickLabel: String(year),
+      }});
+    }}
+    return out;
+  }}
+
   if (!isMonthGranularity) {{
     return frames.map((_, i) => ({{
       slot: i,
@@ -670,15 +731,31 @@ function slotForFrameIdx(idx, visibleItems) {{
 }}
 
 function updateYearNav() {{
+  if (isMonthGranularity) {{
+    yearNav.style.display = "flex";
+    yearLabel.textContent = String(activeYear ?? "");
+    const idx = availableYears.indexOf(activeYear);
+    yearPrev.disabled = idx <= 0;
+    yearNext.disabled = idx >= availableYears.length - 1;
+    return;
+  }}
+
+  if (isYearGranularity) {{
+    yearNav.style.display = "flex";
+    const startYear = Number(activeYearWindowStart ?? (availableTimelineYears[0] ?? 0));
+    const endYear = startYear + YEAR_WINDOW_SIZE - 1;
+    yearLabel.textContent = `${{startYear}}-${{endYear}}`;
+    const minYear = availableTimelineYears[0] ?? startYear;
+    const maxYear = availableTimelineYears[availableTimelineYears.length - 1] ?? endYear;
+    yearPrev.disabled = startYear <= minYear;
+    yearNext.disabled = endYear >= maxYear;
+    return;
+  }}
+
   if (!isMonthGranularity) {{
     yearNav.style.display = "none";
     return;
   }}
-  yearNav.style.display = "flex";
-  yearLabel.textContent = String(activeYear ?? "");
-  const idx = availableYears.indexOf(activeYear);
-  yearPrev.disabled = idx <= 0;
-  yearNext.disabled = idx >= availableYears.length - 1;
 }}
 
 function docsForActiveEpisodeHover() {{
@@ -1441,6 +1518,13 @@ function setCurrentIdx(idx) {{
   if (isMonthGranularity && monthMeta[currentIdx]) {{
     activeYear = monthMeta[currentIdx].year;
   }}
+  if (isYearGranularity && yearMeta[currentIdx]) {{
+    const currentYear = yearMeta[currentIdx].year;
+    const currentStart = Number(activeYearWindowStart ?? currentYear);
+    if (currentYear < currentStart || currentYear >= currentStart + YEAR_WINDOW_SIZE) {{
+      activeYearWindowStart = decadeStart(currentYear);
+    }}
+  }}
   const visible = visibleTimelineItems();
   timelineSlider.min = "0";
   timelineSlider.max = String(Math.max(0, visible.length - 1));
@@ -1468,38 +1552,79 @@ if (windowClearBtn) {{
 }}
 
 yearPrev.addEventListener("click", () => {{
-  if (!isMonthGranularity) return;
-  const i = availableYears.indexOf(activeYear);
-  if (i <= 0) return;
-  activeYear = availableYears[i - 1];
-  const visible = visibleTimelineItems();
-  const monthMatch = visible.find(v => v.frameIdx !== null && monthMeta[v.frameIdx] && monthMeta[v.frameIdx].month === 1);
-  const fallback = visible.find(v => v.frameIdx !== null);
-  if (monthMatch) setCurrentIdx(monthMatch.frameIdx);
-  else if (fallback) setCurrentIdx(fallback.frameIdx);
-  else {{
-    updateYearNav();
-    renderTimeline();
-    renderSliderSpikes();
-    renderTabs();
+  if (isMonthGranularity) {{
+    const i = availableYears.indexOf(activeYear);
+    if (i <= 0) return;
+    activeYear = availableYears[i - 1];
+    const visible = visibleTimelineItems();
+    const monthMatch = visible.find(v => v.frameIdx !== null && monthMeta[v.frameIdx] && monthMeta[v.frameIdx].month === 1);
+    const fallback = visible.find(v => v.frameIdx !== null);
+    if (monthMatch) setCurrentIdx(monthMatch.frameIdx);
+    else if (fallback) setCurrentIdx(fallback.frameIdx);
+    else {{
+      updateYearNav();
+      renderTimeline();
+      renderSliderSpikes();
+      renderTabs();
+    }}
+    return;
+  }}
+
+  if (isYearGranularity) {{
+    const minYear = availableTimelineYears[0];
+    if (minYear === undefined) return;
+    const nextStart = Math.max(minYear, Number(activeYearWindowStart ?? minYear) - YEAR_WINDOW_SIZE);
+    if (nextStart === activeYearWindowStart) return;
+    activeYearWindowStart = nextStart;
+    const visible = visibleTimelineItems();
+    const fallback = visible.find(v => v.frameIdx !== null);
+    if (fallback) setCurrentIdx(fallback.frameIdx);
+    else {{
+      updateYearNav();
+      renderTimeline();
+      renderSliderSpikes();
+      renderTabs();
+    }}
   }}
 }});
 
 yearNext.addEventListener("click", () => {{
-  if (!isMonthGranularity) return;
-  const i = availableYears.indexOf(activeYear);
-  if (i < 0 || i >= availableYears.length - 1) return;
-  activeYear = availableYears[i + 1];
-  const visible = visibleTimelineItems();
-  const monthMatch = visible.find(v => v.frameIdx !== null && monthMeta[v.frameIdx] && monthMeta[v.frameIdx].month === 1);
-  const fallback = visible.find(v => v.frameIdx !== null);
-  if (monthMatch) setCurrentIdx(monthMatch.frameIdx);
-  else if (fallback) setCurrentIdx(fallback.frameIdx);
-  else {{
-    updateYearNav();
-    renderTimeline();
-    renderSliderSpikes();
-    renderTabs();
+  if (isMonthGranularity) {{
+    const i = availableYears.indexOf(activeYear);
+    if (i < 0 || i >= availableYears.length - 1) return;
+    activeYear = availableYears[i + 1];
+    const visible = visibleTimelineItems();
+    const monthMatch = visible.find(v => v.frameIdx !== null && monthMeta[v.frameIdx] && monthMeta[v.frameIdx].month === 1);
+    const fallback = visible.find(v => v.frameIdx !== null);
+    if (monthMatch) setCurrentIdx(monthMatch.frameIdx);
+    else if (fallback) setCurrentIdx(fallback.frameIdx);
+    else {{
+      updateYearNav();
+      renderTimeline();
+      renderSliderSpikes();
+      renderTabs();
+    }}
+    return;
+  }}
+
+  if (isYearGranularity) {{
+    const minYear = availableTimelineYears[0];
+    const maxYear = availableTimelineYears[availableTimelineYears.length - 1];
+    if (minYear === undefined || maxYear === undefined) return;
+    const candidate = Number(activeYearWindowStart ?? minYear) + YEAR_WINDOW_SIZE;
+    const maxStart = Math.max(minYear, maxYear - YEAR_WINDOW_SIZE + 1);
+    const nextStart = Math.min(candidate, maxStart);
+    if (nextStart === activeYearWindowStart) return;
+    activeYearWindowStart = nextStart;
+    const visible = visibleTimelineItems();
+    const fallback = visible.find(v => v.frameIdx !== null);
+    if (fallback) setCurrentIdx(fallback.frameIdx);
+    else {{
+      updateYearNav();
+      renderTimeline();
+      renderSliderSpikes();
+      renderTabs();
+    }}
   }}
 }});
 
