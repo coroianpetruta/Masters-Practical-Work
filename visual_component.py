@@ -882,7 +882,20 @@ defs.append("marker")
   .attr("fill","#999");
 
 const g = svg.append("g");
-svg.call(d3.zoom().scaleExtent([0.2, 3]).on("zoom", (event) => g.attr("transform", event.transform)));
+let currentZoomTransform = d3.zoomIdentity;
+const zoomBehavior = d3.zoom()
+  .scaleExtent([0.2, 3])
+  .filter((event) => {{
+    if (event.type === "wheel") return true;
+    const target = event.target;
+    if (target && target.closest && (target.closest(".node") || target.closest(".edge"))) return false;
+    return true;
+  }})
+  .on("zoom", (event) => {{
+    currentZoomTransform = event.transform;
+    g.attr("transform", currentZoomTransform);
+  }});
+svg.call(zoomBehavior);
 
 function makeRenderData(frame) {{
   const renderNodes = (frame.nodes || []).map(n => {{
@@ -1100,7 +1113,13 @@ function renderGraph() {{
     .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
       ? invalidOpacity(d.invalid_age)
       : 1))
-    .call(d3.drag().on("start", dragstarted).on("drag", dragged).on("end", dragended));
+    .call(
+      d3.drag()
+        .container(svg.node())
+        .on("start", dragstarted)
+        .on("drag", dragged)
+        .on("end", dragended)
+    );
 
   const iconGroups = node.append("g")
     .attr("class", "node-icon");
@@ -1197,12 +1216,15 @@ function renderGraph() {{
       event.sourceEvent.preventDefault();
     }}
     d3.select(event.currentTarget).classed("dragging", true);
+    d3.select(event.currentTarget).raise();
     hideTooltip();
   }}
 
   function dragged(event, d) {{
     if (event.sourceEvent) event.sourceEvent.stopPropagation();
-    d.x = event.x; d.y = event.y;
+    const [sx, sy] = d3.pointer(event, svg.node());
+    d.x = currentZoomTransform.invertX(sx);
+    d.y = currentZoomTransform.invertY(sy);
     posById.set(d.id, {{ x: d.x, y: d.y }});
     nodePos.set(d.id, {{ x: d.x, y: d.y }});
     d3.select(event.currentTarget).attr("transform", `translate(${{d.x}},${{d.y}})`);
