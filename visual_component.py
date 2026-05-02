@@ -116,6 +116,12 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       font-size: 11px; padding: 4px 10px; cursor: pointer;
     }}
     .window-clear-btn:disabled {{ opacity: 0.35; cursor: default; }}
+    .timeline-skip-btn {{
+      border: 1px solid #6e7a8f; border-radius: 6px;
+      background: #102033; color: #dce6f1;
+      font-size: 11px; padding: 4px 10px; cursor: pointer;
+    }}
+    .timeline-skip-btn:disabled {{ opacity: 0.35; cursor: default; }}
     .year-nav {{
       display: none; align-items: center; gap: 6px;
       font-size: 11px; color: #c4d1e0;
@@ -277,6 +283,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
     <div class="timeline-actions" id="timelineActions">
+      <button class="timeline-skip-btn" id="nextEventBtn" title="Jump to the next timestep with changes">Next event</button>
       <button class="window-clear-btn" id="windowClear" title="Drag over the bars to pick a window" disabled>Clear window</button>
       <div class="year-nav" id="yearNav">
         <button id="yearPrev" title="Previous year">◀</button>
@@ -372,6 +379,7 @@ const yearNav = document.getElementById("yearNav");
 const yearPrev = document.getElementById("yearPrev");
 const yearNext = document.getElementById("yearNext");
 const yearLabel = document.getElementById("yearLabel");
+const nextEventBtn = document.getElementById("nextEventBtn");
 const windowClearBtn = document.getElementById("windowClear");
 
 let activeDoc = null;
@@ -595,6 +603,25 @@ function frameMods(frameIdx) {{
   const del = (f.nodes || []).filter(x => x.is_invalid).length +
     (f.links || []).filter(x => x.is_invalid).length;
   return {{ add, del, total: add + del }};
+}}
+
+function findNextEventFrameIdx(fromIdx) {{
+  const start = Math.max(-1, Number(fromIdx ?? -1));
+  for (let i = start + 1; i < frames.length; i += 1) {{
+    if (frameMods(i).total > 0) return i;
+  }}
+  return null;
+}}
+
+function updateNextEventButton() {{
+  if (!nextEventBtn) return;
+  const nextIdx = findNextEventFrameIdx(currentIdx);
+  nextEventBtn.disabled = nextIdx === null;
+  if (nextIdx === null) {{
+    nextEventBtn.title = "No later timestep has new events";
+    return;
+  }}
+  nextEventBtn.title = `Jump to next timestep with changes (${{labelForFrameIdx(nextIdx)}})`;
 }}
 
 function labelForFrameIdx(idx) {{
@@ -1531,6 +1558,7 @@ function setCurrentIdx(idx) {{
   const slotPos = Math.max(0, visible.findIndex(v => v.frameIdx === currentIdx));
   timelineSlider.value = String(slotPos);
   setHighlightForEpisodeUuids([]);
+  updateNextEventButton();
   updateYearNav();
   renderTimeline();
   renderSliderSpikes();
@@ -1549,6 +1577,15 @@ timelineSlider.addEventListener("input", (e) => {{
 
 if (windowClearBtn) {{
   windowClearBtn.addEventListener("click", () => clearCustomWindow());
+}}
+
+if (nextEventBtn) {{
+  nextEventBtn.addEventListener("click", () => {{
+    const nextIdx = findNextEventFrameIdx(currentIdx);
+    if (nextIdx === null) return;
+    if (customWindow) clearCustomWindow(false);
+    setCurrentIdx(nextIdx);
+  }});
 }}
 
 yearPrev.addEventListener("click", () => {{
