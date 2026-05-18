@@ -1,5 +1,6 @@
 import importlib
 import os
+import re
 from pathlib import Path
 
 import streamlit as st
@@ -44,6 +45,18 @@ def secret_or_env(name: str, default: str = "") -> str:
     except st.errors.StreamlitSecretNotFoundError:
         value = None
     return str(value if value is not None else os.getenv(name, default))
+
+
+def infer_granularity_for_time_range(start_label: object, end_label: object) -> str | None:
+    labels = [str(label or "") for label in (start_label, end_label)]
+    labels = [label for label in labels if label]
+    if not labels:
+        return None
+    if any(re.match(r"^\d{4}-\d{2}", label) for label in labels):
+        return "Month"
+    if any(re.match(r"^\d{4}$", label) for label in labels):
+        return "Year"
+    return None
 
 
 def load_graph_source(limit: int) -> tuple[dict, str]:
@@ -118,7 +131,7 @@ st.markdown(
     [data-testid="stMain"] div[data-testid="stButton"] {
       position: fixed;
       top: 4px;
-      right: 304px;
+      left: 28px;
       z-index: 100000;
       width: auto !important;
     }
@@ -341,11 +354,16 @@ if st.session_state.raw_payload:
             else:
                 try:
                     with st.spinner("Interpreting query..."):
+                        available_time_labels = sorted({
+                            str(label)
+                            for payload in st.session_state.payload_by_granularity.values()
+                            for label in payload.get("labels", [])
+                        })
                         intent = interpret_filter_query(
                             llm_query,
                             node_kinds=node_kind_options,
                             edge_labels=edge_label_options,
-                            time_labels=[str(label) for label in st.session_state.raw_payload.get("labels", [])],
+                            time_labels=available_time_labels,
                             api_key=secret_or_env("DEEPSEEK_API_KEY"),
                             model=secret_or_env("DEEPSEEK_MODEL", "deepseek-chat"),
                             base_url=secret_or_env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
@@ -395,6 +413,12 @@ if st.session_state.raw_payload:
                 resolved_labels.append(choice)
 
             if st.button("Apply interpreted filter", key="llm_filter_apply", disabled=bool(unresolved)):
+                inferred_granularity = infer_granularity_for_time_range(
+                    intent.get("time_start_label"),
+                    intent.get("time_end_label"),
+                )
+                if inferred_granularity:
+                    st.session_state.timeline_granularity = inferred_granularity
                 st.session_state.llm_filter_spec = {
                     "selected_labels": resolved_labels,
                     "selected_kinds": intent.get("selected_kinds", []),

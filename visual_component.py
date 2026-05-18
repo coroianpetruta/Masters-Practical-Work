@@ -777,6 +777,9 @@ function setCustomWindow(startIdx, endIdx) {{
   if (isYearGranularity && yearMeta[start]) {{
     activeYearWindowStart = decadeStart(yearMeta[start].year);
   }}
+  if (isMonthGranularity && monthMeta[start]) {{
+    activeYear = monthMeta[start].year;
+  }}
   customWindow = {{ startIdx: start, endIdx: end }};
   customWindowFrameCache = composeWindowFrame(start, end);
   updateWindowSummary();
@@ -1469,7 +1472,7 @@ function renderTimeline() {{
   const tlHeight = 34;
   timelineSvg.attr("viewBox", [0, 0, tlWidth, tlHeight]);
 
-  const margin = {{ left: 0, right: 0, top: 3, bottom: 3 }};
+  const margin = {{ left: 0, right: 0, top: 3, bottom: 11 }};
   const innerW = tlWidth - margin.left - margin.right;
   const innerH = tlHeight - margin.top - margin.bottom;
   const gT = timelineSvg.append("g").attr("transform", `translate(${{margin.left}},${{margin.top}})`);
@@ -1533,6 +1536,19 @@ function renderTimeline() {{
     .attr("y", 0)
     .attr("width", barWidth + 4)
     .attr("height", innerH);
+
+  gT.append("g")
+    .selectAll("text.detail-tick")
+    .data(visible.filter(v => v.frameIdx !== null && v.frameIdx !== undefined))
+    .join("text")
+    .attr("class", "detail-tick")
+    .attr("x", d => band(d.slot) + band.bandwidth() / 2)
+    .attr("y", tlHeight - margin.top - 1)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "8px")
+    .attr("font-weight", d => d.frameIdx === currentIdx ? 700 : 500)
+    .attr("fill", d => d.frameIdx === currentIdx ? "#dbe7ff" : "#8fa2bc")
+    .text(d => d.tickLabel);
 
   const slotFromX = (x) => {{
     const domain = band.domain();
@@ -1598,7 +1614,7 @@ function renderTimeline() {{
 function renderSliderSpikes() {{
   timelineSliderSpikesSvg.selectAll("*").remove();
   renderTimelineOverview();
-  if (isYearGranularity && availableTimelineYears.length > YEAR_WINDOW_SIZE) {{
+  if ((isYearGranularity && availableTimelineYears.length > YEAR_WINDOW_SIZE) || isMonthGranularity) {{
     timelineSliderSpikesSvg.style("display", "none");
     timelineSlider.style.display = "none";
     return;
@@ -1660,7 +1676,9 @@ function renderSliderSpikes() {{
 
 function renderTimelineOverview() {{
   timelineOverviewSvg.selectAll("*").remove();
-  if (!isYearGranularity || availableTimelineYears.length <= YEAR_WINDOW_SIZE) {{
+  const showYearOverview = isYearGranularity && availableTimelineYears.length > YEAR_WINDOW_SIZE;
+  const showMonthOverview = isMonthGranularity && monthMeta.length > 0;
+  if (!showYearOverview && !showMonthOverview) {{
     timelineOverviewSvg.style("display", "none");
     return;
   }}
@@ -1671,7 +1689,23 @@ function renderTimelineOverview() {{
   const oh = 28;
   timelineOverviewSvg.attr("viewBox", [0, 0, ow, oh]);
 
-  const items = yearMeta.filter(m => Number.isFinite(m.year));
+  const items = showMonthOverview
+    ? monthMeta
+        .filter(m => Number.isFinite(m.year) && Number.isFinite(m.month))
+        .map(m => ({{
+          frameIdx: m.frameIdx,
+          year: m.year,
+          month: m.month,
+          label: m.month === 1 ? String(m.year) : "",
+        }}))
+    : yearMeta
+        .filter(m => Number.isFinite(m.year))
+        .map(m => ({{
+          frameIdx: m.frameIdx,
+          year: m.year,
+          month: null,
+          label: String(m.year),
+        }}));
   const x = d3.scaleBand()
     .domain(items.map(m => m.frameIdx))
     .range([0, ow])
@@ -1681,6 +1715,9 @@ function renderTimelineOverview() {{
   const gO = timelineOverviewSvg.append("g");
   const activeStart = Number(activeYearWindowStart ?? (availableTimelineYears[0] ?? 0));
   const activeEnd = activeStart + YEAR_WINDOW_SIZE - 1;
+  const isInActiveDetail = d => showMonthOverview
+    ? d.year === activeYear
+    : (d.year >= activeStart && d.year <= activeEnd);
 
   gO.append("line")
     .attr("x1", 0)
@@ -1690,10 +1727,10 @@ function renderTimelineOverview() {{
     .attr("stroke", "#506176")
     .attr("stroke-width", 1);
 
-  gO.selectAll("line.overview-year")
+  gO.selectAll("line.overview-step")
     .data(items)
     .join("line")
-    .attr("class", "overview-year")
+    .attr("class", "overview-step")
     .attr("x1", d => x(d.frameIdx) + x.bandwidth() / 2)
     .attr("x2", d => x(d.frameIdx) + x.bandwidth() / 2)
     .attr("y1", d => (d.frameIdx === currentIdx ? 4 : 7))
@@ -1701,13 +1738,15 @@ function renderTimelineOverview() {{
     .attr("stroke", d => {{
       if (customWindow && d.frameIdx >= customWindow.startIdx && d.frameIdx <= customWindow.endIdx) return "#f8b4ff";
       if (d.frameIdx === currentIdx) return "#dbe7ff";
-      if (d.year >= activeStart && d.year <= activeEnd) return "#9fb4d0";
+      if (isInActiveDetail(d)) return "#9fb4d0";
       return "#58687c";
     }})
     .attr("stroke-width", d => (d.frameIdx === currentIdx ? 2 : 1.2))
-    .attr("opacity", d => (d.year >= activeStart && d.year <= activeEnd ? 0.95 : 0.65));
+    .attr("opacity", d => (isInActiveDetail(d) ? 0.95 : 0.65));
 
-  const labelItems = items.filter((d, i) => i === 0 || i === items.length - 1 || d.year % 5 === 0);
+  const labelItems = showMonthOverview
+    ? items.filter((d, i) => i === 0 || i === items.length - 1 || d.month === 1)
+    : items.filter((d, i) => i === 0 || i === items.length - 1 || d.year % 5 === 0);
   gO.selectAll("text.overview-label")
     .data(labelItems)
     .join("text")
@@ -1717,7 +1756,7 @@ function renderTimelineOverview() {{
     .attr("text-anchor", "middle")
     .attr("font-size", "8px")
     .attr("fill", "#98a7bc")
-    .text(d => String(d.year));
+    .text(d => showMonthOverview ? d.label : String(d.year));
 
   const frameFromX = (px) => {{
     if (!items.length) return null;
