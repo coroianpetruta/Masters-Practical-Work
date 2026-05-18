@@ -36,7 +36,6 @@ requested_granularity = str(query_params.get("granularity", "Year")).title()
 if requested_granularity not in {"Year", "Month"}:
     requested_granularity = "Year"
 granularity = requested_granularity
-filter_panel_open = str(query_params.get("filter", "")).lower() == "open"
 
 
 def use_neo4j_runtime() -> bool:
@@ -104,13 +103,10 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
 st.set_page_config(
     page_title="Temporal KG Timeline (Neo4j + D3)",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
 next_granularity = "Month" if granularity == "Year" else "Year"
-filter_toggle_label = "Hide Filters" if filter_panel_open else "Show Filters"
-next_filter_state = "closed" if filter_panel_open else "open"
-filter_button_left = "348px" if filter_panel_open else "12px"
 st.markdown(
     f"""
     <style>
@@ -134,47 +130,15 @@ st.markdown(
       text-decoration: none !important;
       font-family: sans-serif;
     }}
-    .app-filter-control {{
-      position: fixed;
-      top: 104px;
-      left: {filter_button_left};
-      z-index: 100000;
-      border: 1px solid #cfcfcf;
-      border-radius: 8px;
-      background: #ffffff;
-      color: #111827 !important;
-      font-size: 12px;
-      line-height: 1;
-      padding: 8px 10px;
-      text-decoration: none !important;
-      font-family: sans-serif;
-    }}
     </style>
     <div class="app-top-controls">
-      <a target="_self" href="?granularity={next_granularity}&filter={'open' if filter_panel_open else 'closed'}">
+      <a target="_self" href="?granularity={next_granularity}">
         {granularity}: switch to {next_granularity}
       </a>
     </div>
-    <a class="app-filter-control" target="_self" href="?granularity={granularity}&filter={next_filter_state}">
-      {filter_toggle_label}
-    </a>
     """,
     unsafe_allow_html=True,
 )
-if not filter_panel_open:
-    st.markdown(
-        """
-        <style>
-        [data-testid="stSidebar"] {
-          display: none !important;
-        }
-        [data-testid="stSidebarCollapsedControl"] {
-          display: none !important;
-        }
-        </style>
-        """,
-        unsafe_allow_html=True,
-    )
 
 if "graph_source" not in st.session_state:
     st.session_state.graph_source = None
@@ -437,6 +401,5 @@ else:
         width=1380,
         height=780,
         initial_time_window=initial_time_window,
-        filter_panel_open=filter_panel_open,
     )
     components.html(html, height=1000, scrolling=False)

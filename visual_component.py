@@ -81,7 +81,6 @@ def d3_html(
     width: int = 1380,
     height: int = 780,
     initial_time_window: Dict[str, Any] | None = None,
-    filter_panel_open: bool = False,
 ) -> str:
     data_json = json.dumps(payload)
     initial_time_window_json = json.dumps(initial_time_window or {})
@@ -244,6 +243,11 @@ def d3_html(
       border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
       padding: 6px 10px; font-size: 12px; cursor: pointer;
     }}
+    .filter-toggle {{
+      position: absolute; left: 12px; top: 10px; z-index: 12;
+      border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
+      padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }}
 
     .tooltip {{
       position: absolute; padding: 8px 10px; background: rgba(0,0,0,0.75);
@@ -319,6 +323,7 @@ def d3_html(
   </div>
   <div class="layout" id="layout">
     <div class="graph-pane" id="graphPane">
+      <button class="filter-toggle" id="filterToggle">Show Filters</button>
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
         <div class="legend-title">Legend</div>
@@ -396,6 +401,7 @@ const timelineSliderSpikesSvg = d3.select("#timelineSliderSpikes").attr("viewBox
 const tooltip = d3.select("#tt");
 const sourcePane = document.getElementById("sourcePane");
 const sourceToggle = document.getElementById("sourceToggle");
+const filterToggle = document.getElementById("filterToggle");
 const graphPane = document.getElementById("graphPane");
 const srcTabs = document.getElementById("srcTabs");
 const srcMeta = document.getElementById("srcMeta");
@@ -412,6 +418,7 @@ const windowClearBtn = document.getElementById("windowClear");
 let activeDoc = null;
 let activeHighlightEpisodeUuids = [];
 let sourceOpen = false;
+let filterOpen = false;
 let nodeSelection = null;
 let edgeGroupSelection = null;
 let edgePathSelection = null;
@@ -512,6 +519,37 @@ function frameIdxForTimeLabel(label, preferLast = false) {{
   }});
   if (!matches.length) return null;
   return preferLast ? matches[matches.length - 1] : matches[0];
+}}
+
+function clickParentSidebarControl(open) {{
+  let doc = null;
+  try {{
+    doc = window.parent && window.parent.document;
+  }} catch (err) {{
+    doc = null;
+  }}
+  if (!doc) return false;
+
+  const selectors = open
+    ? [
+        '[data-testid="stSidebarCollapsedControl"] button',
+        '[data-testid="stSidebarCollapsedControl"]',
+        'button[aria-label="Open sidebar"]',
+      ]
+    : [
+        '[data-testid="stSidebarCollapseButton"] button',
+        '[data-testid="stSidebarCollapseButton"]',
+        'button[aria-label="Close sidebar"]',
+      ];
+
+  for (const selector of selectors) {{
+    const el = doc.querySelector(selector);
+    if (el) {{
+      el.click();
+      return true;
+    }}
+  }}
+  return false;
 }}
 
 function collectDocContexts(docName, episodeUuids) {{
@@ -935,6 +973,16 @@ function setSourceOpen(open) {{
   sourceToggle.textContent = open ? "Hide source" : "See source";
 }}
 sourceToggle.onclick = () => setSourceOpen(!sourceOpen);
+
+if (filterToggle) {{
+  filterToggle.onclick = () => {{
+    const nextOpen = !filterOpen;
+    if (clickParentSidebarControl(nextOpen)) {{
+      filterOpen = nextOpen;
+      filterToggle.textContent = filterOpen ? "Hide Filters" : "Show Filters";
+    }}
+  }};
+}}
 
 function setHighlightForEpisodeUuids(epUuids) {{
   activeHighlightEpisodeUuids = Array.from(new Set(epUuids || []));
