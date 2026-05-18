@@ -119,7 +119,7 @@ if "timeline_granularity" not in st.session_state:
 granularity = st.session_state.timeline_granularity
 next_granularity = "Month" if granularity == "Year" else "Year"
 if st.button(
-    f"{granularity}: switch to {next_granularity}",
+    f"Switch to {next_granularity}ly View",
     key="timeline_granularity_toggle",
 ):
     st.session_state.timeline_granularity = next_granularity
@@ -130,9 +130,9 @@ st.markdown(
     <style>
     [data-testid="stMain"] div[data-testid="stButton"] {
       position: fixed;
-      top: 4px;
-      left: 28px;
-      z-index: 100000;
+      top: 10px;
+      left: 12px;
+      z-index: 100001;
       width: auto !important;
     }
     [data-testid="stMain"] div[data-testid="stButton"] > button {

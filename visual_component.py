@@ -104,13 +104,13 @@ def d3_html(
   <style>
     html, body {{ margin: 0; padding: 0; width: 100%; height: 100%; font-family: sans-serif; background: #fff; overflow: hidden; }}
     .wrap {{ width: 100%; height: 100%; position: relative; }}
-    .layout {{ position: absolute; left: 0; right: 0; top: 94px; bottom: 0; display: flex; }}
+    .layout {{ position: absolute; left: 0; right: 0; top: 132px; bottom: 0; display: flex; }}
     .graph-pane {{ position: relative; flex: 1 1 auto; min-width: 0; border-right: 1px solid #e7e7e7; overflow: hidden; }}
     .source-pane {{ width: 42%; min-width: 380px; max-width: 620px; background: #fafafa; display: flex; flex-direction: column; }}
     .source-pane.hidden {{ display: none; }}
 
     .timeline-shell {{
-      position: absolute; left: 0; right: 0; top: 0; height: 94px;
+      position: absolute; left: 0; right: 0; top: 0; height: 132px;
       z-index: 14; background: #060d1a; border-bottom: 1px solid #1c2a3b;
     }}
     .timeline-actions {{
@@ -139,10 +139,14 @@ def d3_html(
     }}
     .year-nav button:disabled {{ opacity: 0.35; cursor: default; }}
     .year-nav .year-label {{ min-width: 44px; text-align: center; font-weight: 600; }}
-    .timeline {{ position: absolute; left: 8px; right: 8px; top: 30px; height: 34px; pointer-events: auto; overflow: hidden; }}
+    .timeline {{ position: absolute; left: 8px; right: 8px; top: 40px; height: 46px; pointer-events: auto; overflow: hidden; }}
     .timeline-overview {{
-      position: absolute; left: 8px; right: 8px; bottom: 2px; height: 28px;
+      position: absolute; left: 8px; right: 8px; bottom: 4px; height: 34px;
       display: none; pointer-events: auto; overflow: hidden;
+    }}
+    .overview-title {{
+      font-size: 8px; font-weight: 700; fill: #9fb4d0; text-transform: uppercase;
+      letter-spacing: 0.5px; pointer-events: none;
     }}
     .timeline-slider-spikes {{
       position: absolute; left: 8px; right: 8px; bottom: 0px; height: 24px;
@@ -384,12 +388,12 @@ let currentIdx = Math.max(0, Math.min({frame_idx}, Math.max(0, frames.length - 1
 const wrapEl = document.getElementById("wrap");
 const W = Math.max(640, wrapEl.clientWidth || {width});
 const H = Math.max(420, wrapEl.clientHeight || {height});
-const TL_H = 94;
+const TL_H = 132;
 const GH = H - TL_H;
 const svg = d3.select("#svg").attr("viewBox", [0,0,W,GH]);
 svg.selectAll("*").remove();
 const timelineSvg = d3.select("#timeline").attr("viewBox", [0,0,W,TL_H]);
-const timelineOverviewSvg = d3.select("#timelineOverview").attr("viewBox", [0,0,W,28]);
+const timelineOverviewSvg = d3.select("#timelineOverview").attr("viewBox", [0,0,W,34]);
 const timelineSliderSpikesSvg = d3.select("#timelineSliderSpikes").attr("viewBox", [0,0,W,24]);
 
 const tooltip = d3.select("#tt");
@@ -1469,10 +1473,10 @@ function renderTimeline() {{
   timelineSvg.selectAll("*").remove();
   const paneWidth = Math.max(240, timelineShell.clientWidth);
   const tlWidth = Math.max(220, paneWidth - 16);
-  const tlHeight = 34;
+  const tlHeight = 46;
   timelineSvg.attr("viewBox", [0, 0, tlWidth, tlHeight]);
 
-  const margin = {{ left: 0, right: 0, top: 3, bottom: 11 }};
+  const margin = {{ left: 0, right: 0, top: 4, bottom: 13 }};
   const innerW = tlWidth - margin.left - margin.right;
   const innerH = tlHeight - margin.top - margin.bottom;
   const gT = timelineSvg.append("g").attr("transform", `translate(${{margin.left}},${{margin.top}})`);
@@ -1686,7 +1690,7 @@ function renderTimelineOverview() {{
   timelineOverviewSvg.style("display", "block");
   const paneWidth = Math.max(240, timelineShell.clientWidth);
   const ow = Math.max(220, paneWidth - 16);
-  const oh = 28;
+  const oh = 34;
   timelineOverviewSvg.attr("viewBox", [0, 0, ow, oh]);
 
   const items = showMonthOverview
@@ -1719,11 +1723,17 @@ function renderTimelineOverview() {{
     ? d.year === activeYear
     : (d.year >= activeStart && d.year <= activeEnd);
 
+  gO.append("text")
+    .attr("class", "overview-title")
+    .attr("x", 0)
+    .attr("y", 8)
+    .text("Overview");
+
   gO.append("line")
     .attr("x1", 0)
     .attr("x2", ow)
-    .attr("y1", 13)
-    .attr("y2", 13)
+    .attr("y1", 17)
+    .attr("y2", 17)
     .attr("stroke", "#506176")
     .attr("stroke-width", 1);
 
@@ -1733,8 +1743,8 @@ function renderTimelineOverview() {{
     .attr("class", "overview-step")
     .attr("x1", d => x(d.frameIdx) + x.bandwidth() / 2)
     .attr("x2", d => x(d.frameIdx) + x.bandwidth() / 2)
-    .attr("y1", d => (d.frameIdx === currentIdx ? 4 : 7))
-    .attr("y2", 20)
+    .attr("y1", d => (d.frameIdx === currentIdx ? 9 : 12))
+    .attr("y2", 25)
     .attr("stroke", d => {{
       if (customWindow && d.frameIdx >= customWindow.startIdx && d.frameIdx <= customWindow.endIdx) return "#f8b4ff";
       if (d.frameIdx === currentIdx) return "#dbe7ff";
@@ -1752,7 +1762,7 @@ function renderTimelineOverview() {{
     .join("text")
     .attr("class", "overview-label")
     .attr("x", d => x(d.frameIdx) + x.bandwidth() / 2)
-    .attr("y", 27)
+    .attr("y", 33)
     .attr("text-anchor", "middle")
     .attr("font-size", "8px")
     .attr("fill", "#98a7bc")
@@ -1774,7 +1784,7 @@ function renderTimelineOverview() {{
   }};
 
   const overviewBrush = d3.brushX()
-    .extent([[0, 0], [ow, 22]])
+    .extent([[0, 9], [ow, 27]])
     .on("end", (event) => {{
       if (suppressBrushSync) return;
       const sel = event.selection;
