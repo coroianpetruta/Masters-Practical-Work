@@ -107,6 +107,60 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
+next_granularity = "Month" if granularity == "Year" else "Year"
+filter_toggle_label = "Hide Filters" if filter_panel_open else "Show Filters"
+next_filter_state = "closed" if filter_panel_open else "open"
+filter_button_left = "348px" if filter_panel_open else "12px"
+st.markdown(
+    f"""
+    <style>
+    .app-top-controls {{
+      position: fixed;
+      top: 4px;
+      right: 304px;
+      z-index: 100000;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }}
+    .app-top-controls a {{
+      border: 1px solid #6e7a8f;
+      border-radius: 6px;
+      background: #102033;
+      color: #dce6f1 !important;
+      font-size: 11px;
+      line-height: 1;
+      padding: 6px 10px;
+      text-decoration: none !important;
+      font-family: sans-serif;
+    }}
+    .app-filter-control {{
+      position: fixed;
+      top: 104px;
+      left: {filter_button_left};
+      z-index: 100000;
+      border: 1px solid #cfcfcf;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #111827 !important;
+      font-size: 12px;
+      line-height: 1;
+      padding: 8px 10px;
+      text-decoration: none !important;
+      font-family: sans-serif;
+    }}
+    </style>
+    <div class="app-top-controls">
+      <a href="?granularity={next_granularity}&filter={'open' if filter_panel_open else 'closed'}">
+        {granularity}: switch to {next_granularity}
+      </a>
+    </div>
+    <a class="app-filter-control" href="?granularity={granularity}&filter={next_filter_state}">
+      {filter_toggle_label}
+    </a>
+    """,
+    unsafe_allow_html=True,
+)
 if not filter_panel_open:
     st.markdown(
         """

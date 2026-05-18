@@ -96,11 +96,6 @@ def d3_html(
     record_icon_id = "#icon-record" if RECORD_SYMBOL else "#icon-generic"
     stadium_icon_id = "#icon-stadium" if STADIUM_SYMBOL else "#icon-generic"
     transfer_icon_id = "#icon-transfer"
-    current_granularity_label = str(payload.get("granularity") or "year").title()
-    next_granularity_label = "Month" if current_granularity_label.lower() == "year" else "Year"
-    filter_toggle_label = "Hide Filters" if filter_panel_open else "Show Filters"
-    next_filter_state = "closed" if filter_panel_open else "open"
-    current_filter_state = "open" if filter_panel_open else "closed"
     return f"""
 <!doctype html>
 <html>
@@ -135,11 +130,6 @@ def d3_html(
       font-size: 11px; padding: 4px 10px; cursor: pointer;
     }}
     .timeline-skip-btn:disabled {{ opacity: 0.35; cursor: default; }}
-    .granularity-toggle-btn {{
-      border: 1px solid #6e7a8f; border-radius: 6px;
-      background: #102033; color: #dce6f1;
-      font-size: 11px; padding: 4px 10px; cursor: pointer; text-decoration: none;
-    }}
     .year-nav {{
       display: none; align-items: center; gap: 6px;
       font-size: 11px; color: #c4d1e0;
@@ -254,11 +244,6 @@ def d3_html(
       border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
       padding: 6px 10px; font-size: 12px; cursor: pointer;
     }}
-    .filter-toggle {{
-      position: absolute; left: 12px; top: 10px; z-index: 12;
-      border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
-      padding: 6px 10px; font-size: 12px; cursor: pointer; text-decoration: none; color: #111;
-    }}
 
     .tooltip {{
       position: absolute; padding: 8px 10px; background: rgba(0,0,0,0.75);
@@ -323,7 +308,6 @@ def d3_html(
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
     <div class="timeline-actions" id="timelineActions">
-      <a class="granularity-toggle-btn" id="granularityToggle" target="_parent" href="?granularity={next_granularity_label}&filter={current_filter_state}" title="Switch timeline granularity">{current_granularity_label}: switch to {next_granularity_label}</a>
       <button class="timeline-skip-btn" id="nextEventBtn" title="Jump to the next timestep with changes">Next event</button>
       <button class="window-clear-btn" id="windowClear" title="Drag over the bars to pick a window" disabled>Clear window</button>
       <div class="year-nav" id="yearNav">
@@ -335,7 +319,6 @@ def d3_html(
   </div>
   <div class="layout" id="layout">
     <div class="graph-pane" id="graphPane">
-      <a class="filter-toggle" id="filterToggle" target="_parent" href="?granularity={current_granularity_label}&filter={next_filter_state}">{filter_toggle_label}</a>
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
         <div class="legend-title">Legend</div>
@@ -425,8 +408,6 @@ const yearNext = document.getElementById("yearNext");
 const yearLabel = document.getElementById("yearLabel");
 const nextEventBtn = document.getElementById("nextEventBtn");
 const windowClearBtn = document.getElementById("windowClear");
-const granularityToggleBtn = document.getElementById("granularityToggle");
-const filterToggleBtn = document.getElementById("filterToggle");
 
 let activeDoc = null;
 let activeHighlightEpisodeUuids = [];
@@ -518,29 +499,6 @@ function escapeHtml(text) {{
 
 function frameAt(i) {{
   return frames[i] || {{ nodes: [], links: [], doc_names: [] }};
-}}
-
-function updateParentQueryParam(key, value) {{
-  const targetWindow = window.parent || window;
-  let parentHref = "";
-  try {{
-    parentHref = targetWindow.location.href;
-  }} catch (err) {{
-    parentHref = document.referrer || window.location.href;
-  }}
-  const url = new URL(parentHref);
-  url.searchParams.set(key, value);
-  try {{
-    targetWindow.location.assign(url.toString());
-  }} catch (err) {{
-    const a = document.createElement("a");
-    a.href = url.toString();
-    a.target = "_parent";
-    a.rel = "noreferrer";
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-  }}
 }}
 
 function frameIdxForTimeLabel(label, preferLast = false) {{
@@ -1852,20 +1810,6 @@ if (nextEventBtn) {{
     if (nextIdx === null) return;
     if (customWindow) clearCustomWindow(false);
     setCurrentIdx(nextIdx);
-  }});
-}}
-
-if (granularityToggleBtn) {{
-  granularityToggleBtn.addEventListener("click", () => {{
-    if (granularityToggleBtn.tagName === "A") return;
-    updateParentQueryParam("granularity", "{next_granularity_label}");
-  }});
-}}
-
-if (filterToggleBtn) {{
-  filterToggleBtn.addEventListener("click", () => {{
-    if (filterToggleBtn.tagName === "A") return;
-    updateParentQueryParam("filter", "{next_filter_state}");
   }});
 }}
 
