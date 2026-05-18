@@ -81,6 +81,7 @@ def d3_html(
     width: int = 1380,
     height: int = 780,
     initial_time_window: Dict[str, Any] | None = None,
+    filter_panel_open: bool = False,
 ) -> str:
     data_json = json.dumps(payload)
     initial_time_window_json = json.dumps(initial_time_window or {})
@@ -97,6 +98,8 @@ def d3_html(
     transfer_icon_id = "#icon-transfer"
     current_granularity_label = str(payload.get("granularity") or "year").title()
     next_granularity_label = "Month" if current_granularity_label.lower() == "year" else "Year"
+    filter_toggle_label = "Hide Filters" if filter_panel_open else "Show Filters"
+    next_filter_state = "closed" if filter_panel_open else "open"
     return f"""
 <!doctype html>
 <html>
@@ -331,7 +334,7 @@ def d3_html(
   </div>
   <div class="layout" id="layout">
     <div class="graph-pane" id="graphPane">
-      <button class="filter-toggle" id="filterToggle">Filters</button>
+      <button class="filter-toggle" id="filterToggle">{filter_toggle_label}</button>
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
         <div class="legend-title">Legend</div>
@@ -1843,7 +1846,7 @@ if (granularityToggleBtn) {{
 
 if (filterToggleBtn) {{
   filterToggleBtn.addEventListener("click", () => {{
-    updateParentQueryParam("filter", "open");
+    updateParentQueryParam("filter", "{next_filter_state}");
   }});
 }}
 

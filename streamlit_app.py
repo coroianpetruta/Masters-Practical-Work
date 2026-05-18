@@ -107,6 +107,20 @@ st.set_page_config(
     initial_sidebar_state="expanded" if filter_panel_open else "collapsed",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
+if not filter_panel_open:
+    st.markdown(
+        """
+        <style>
+        [data-testid="stSidebar"] {
+          display: none !important;
+        }
+        [data-testid="stSidebarCollapsedControl"] {
+          display: none !important;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
 
 if "graph_source" not in st.session_state:
     st.session_state.graph_source = None
@@ -170,9 +184,6 @@ if st.session_state.raw_payload:
         st.session_state.pending_filter_widget_values = None
 
     with st.sidebar:
-        if st.button("Close filter panel", key="close_filter_panel"):
-            st.query_params["filter"] = "closed"
-            st.rerun()
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         node_kind_options = collect_node_kinds(st.session_state.raw_payload)
         edge_label_options = collect_edge_labels(st.session_state.raw_payload)
@@ -233,12 +244,13 @@ if st.session_state.raw_payload:
             help="Keeps selected nodes visible even when node type filters would otherwise hide them.",
         )
 
-        st.subheader("LLM Filter")
+        st.subheader("AI Filter")
         llm_query = st.text_area(
-            "Natural-language filter",
+            "Query",
             key="llm_filter_query",
             placeholder='Example: "In what games did Haaland and Mbappe both play?"',
             height=82,
+            label_visibility="collapsed",
         )
         col_interpret, col_clear = st.columns(2)
         with col_interpret:
@@ -256,7 +268,7 @@ if st.session_state.raw_payload:
                 st.warning("Enter a filter query first.")
             else:
                 try:
-                    with st.spinner("Interpreting filter query with DeepSeek..."):
+                    with st.spinner("Interpreting query..."):
                         intent = interpret_filter_query(
                             llm_query,
                             node_kinds=node_kind_options,
@@ -307,9 +319,6 @@ if st.session_state.raw_payload:
                     f'Resolve "{mention}"',
                     options=labels,
                     key=f"llm_resolve_{mention_idx}",
-                    format_func=lambda label, candidates=candidates: (
-                        f"{label} ({next((c.reason for c in candidates if c.label == label), 'match')})"
-                    ),
                 )
                 resolved_labels.append(choice)
 
@@ -374,5 +383,6 @@ else:
         width=1380,
         height=780,
         initial_time_window=initial_time_window,
+        filter_panel_open=filter_panel_open,
     )
     components.html(html, height=1000, scrolling=False)
