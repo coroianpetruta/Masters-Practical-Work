@@ -129,10 +129,11 @@ st.markdown(
       color: #dce6f1 !important;
       font-size: 11px !important;
       line-height: 1 !important;
-      padding: 6px 10px !important;
+      padding: 4px 10px !important;
       min-height: 0 !important;
-      height: auto !important;
+      height: 23px !important;
       font-family: sans-serif !important;
+      box-sizing: border-box !important;
     }
     #filter-panel-toggle {
       display: none;
@@ -183,6 +184,7 @@ if "graph_source" not in st.session_state:
     st.session_state.edges_loaded = 0
     st.session_state.last_granularity = None
     st.session_state.last_limit = None
+    st.session_state.payload_by_granularity = {}
     st.session_state.llm_filter_intent = None
     st.session_state.llm_filter_candidates = {}
     st.session_state.llm_filter_spec = None
@@ -201,32 +203,37 @@ if needs_graph_reload:
     st.session_state.graph_source_mode = source_mode
     st.session_state.edges_loaded = len(graph_source["edges"])
     st.session_state.last_limit = DEFAULT_REL_LIMIT
+    st.session_state.payload_by_granularity = {}
 
-needs_payload_recompute = (
-    needs_graph_reload
-    or st.session_state.raw_payload is None
-    or st.session_state.last_granularity != granularity
-)
+missing_granularities = [
+    option for option in ("Year", "Month")
+    if option not in st.session_state.payload_by_granularity
+]
 
-if needs_payload_recompute and st.session_state.graph_source is not None:
+if missing_granularities and st.session_state.graph_source is not None:
     with st.spinner("Computing temporal frames..."):
-        _, payload = compute_timestep_states(
-            st.session_state.graph_source["nodes"],
-            st.session_state.graph_source["edges"],
-            episode_map=st.session_state.graph_source["episode_map"],
-            node_to_episode_uuids=st.session_state.graph_source["node_to_episode_uuids"],
-            source_docs=st.session_state.graph_source["source_docs"],
-            granularity=granularity,
-        )
+        for option in missing_granularities:
+            _, payload = compute_timestep_states(
+                st.session_state.graph_source["nodes"],
+                st.session_state.graph_source["edges"],
+                episode_map=st.session_state.graph_source["episode_map"],
+                node_to_episode_uuids=st.session_state.graph_source["node_to_episode_uuids"],
+                source_docs=st.session_state.graph_source["source_docs"],
+                granularity=option,
+            )
+            st.session_state.payload_by_granularity[option] = payload
 
+if granularity in st.session_state.payload_by_granularity:
+    payload = st.session_state.payload_by_granularity[granularity]
     st.session_state.payload = payload
     st.session_state.raw_payload = payload
     st.session_state.labels = payload.get("labels", [])
-    st.session_state.last_granularity = granularity
-    st.session_state.llm_filter_intent = None
-    st.session_state.llm_filter_candidates = {}
-    st.session_state.llm_filter_spec = None
-    st.session_state.pending_filter_widget_values = None
+    if st.session_state.last_granularity != granularity:
+        st.session_state.last_granularity = granularity
+        st.session_state.llm_filter_intent = None
+        st.session_state.llm_filter_candidates = {}
+        st.session_state.llm_filter_spec = None
+        st.session_state.pending_filter_widget_values = None
 
 if st.session_state.raw_payload:
     pending_filter_widget_values = st.session_state.get("pending_filter_widget_values")
