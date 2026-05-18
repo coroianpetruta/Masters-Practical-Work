@@ -103,17 +103,37 @@ st.markdown(APP_STYLE, unsafe_allow_html=True)
 if "timeline_granularity" not in st.session_state:
     st.session_state.timeline_granularity = "Year"
 
-with st.sidebar:
-    granularity = st.selectbox(
-        "Timeline granularity",
-        ["Year", "Month"],
-        index=0 if st.session_state.timeline_granularity == "Year" else 1,
-        key="timeline_granularity",
-    )
+granularity = st.session_state.timeline_granularity
+next_granularity = "Month" if granularity == "Year" else "Year"
+if st.button(
+    f"{granularity}: switch to {next_granularity}",
+    key="timeline_granularity_toggle",
+):
+    st.session_state.timeline_granularity = next_granularity
+    granularity = next_granularity
 
 st.markdown(
     """
     <style>
+    [data-testid="stMain"] div[data-testid="stButton"] {
+      position: fixed;
+      top: 4px;
+      right: 304px;
+      z-index: 100000;
+      width: auto !important;
+    }
+    [data-testid="stMain"] div[data-testid="stButton"] > button {
+      border: 1px solid #6e7a8f !important;
+      border-radius: 6px !important;
+      background: #102033 !important;
+      color: #dce6f1 !important;
+      font-size: 11px !important;
+      line-height: 1 !important;
+      padding: 6px 10px !important;
+      min-height: 0 !important;
+      height: auto !important;
+      font-family: sans-serif !important;
+    }
     #filter-panel-toggle {
       display: none;
     }
