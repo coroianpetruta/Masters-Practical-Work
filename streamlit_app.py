@@ -151,11 +151,11 @@ st.markdown(
     }}
     </style>
     <div class="app-top-controls">
-      <a href="?granularity={next_granularity}&filter={'open' if filter_panel_open else 'closed'}">
+      <a target="_self" href="?granularity={next_granularity}&filter={'open' if filter_panel_open else 'closed'}">
         {granularity}: switch to {next_granularity}
       </a>
     </div>
-    <a class="app-filter-control" href="?granularity={granularity}&filter={next_filter_state}">
+    <a class="app-filter-control" target="_self" href="?granularity={granularity}&filter={next_filter_state}">
       {filter_toggle_label}
     </a>
     """,
