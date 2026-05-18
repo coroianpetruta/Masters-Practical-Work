@@ -394,10 +394,21 @@ def apply_node_filter(
     end_idx = max(0, len(frames) - 1)
     if frames and has_time_filter:
         label_to_idx = {str(label): idx for idx, label in enumerate(all_labels)}
+        def resolve_time_idx(value: Any, fallback: int, prefer_last: bool = False) -> int:
+            if value is None:
+                return fallback
+            text = str(value)
+            if text in label_to_idx:
+                return label_to_idx[text]
+            prefix_matches = [idx for idx, label in enumerate(all_labels) if str(label).startswith(text)]
+            if prefix_matches:
+                return prefix_matches[-1] if prefer_last else prefix_matches[0]
+            return fallback
+
         if time_start_label is not None:
-            start_idx = label_to_idx.get(str(time_start_label), start_idx)
+            start_idx = resolve_time_idx(time_start_label, start_idx)
         if time_end_label is not None:
-            end_idx = label_to_idx.get(str(time_end_label), end_idx)
+            end_idx = resolve_time_idx(time_end_label, end_idx, prefer_last=True)
         if start_idx > end_idx:
             start_idx, end_idx = end_idx, start_idx
 

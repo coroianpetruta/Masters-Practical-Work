@@ -123,6 +123,7 @@ if "graph_source" not in st.session_state:
     st.session_state.llm_filter_intent = None
     st.session_state.llm_filter_candidates = {}
     st.session_state.llm_filter_spec = None
+    st.session_state.pending_filter_widget_values = None
 
 needs_graph_reload = (
     st.session_state.graph_source is None
@@ -162,8 +163,15 @@ if needs_payload_recompute and st.session_state.graph_source is not None:
     st.session_state.llm_filter_intent = None
     st.session_state.llm_filter_candidates = {}
     st.session_state.llm_filter_spec = None
+    st.session_state.pending_filter_widget_values = None
 
 if st.session_state.raw_payload:
+    pending_filter_widget_values = st.session_state.get("pending_filter_widget_values")
+    if pending_filter_widget_values:
+        for key, value in pending_filter_widget_values.items():
+            st.session_state[key] = value
+        st.session_state.pending_filter_widget_values = None
+
     with st.sidebar:
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         node_kind_options = collect_node_kinds(st.session_state.raw_payload)
@@ -281,7 +289,7 @@ if st.session_state.raw_payload:
                         intent.get("time_start_label"),
                         intent.get("time_end_label"),
                     ],
-                    "note": "Detected time ranges are shown here; use the timeline above the graph to select the visible timestep/window.",
+                    "note": "When applied, the detected time range is used to fit the timeline to that span.",
                 },
                 expanded=False,
             )
@@ -313,9 +321,18 @@ if st.session_state.raw_payload:
                     "relationship_mode": intent.get("relationship_mode", "union"),
                     "hop_depth": int(intent.get("hop_depth", 1)),
                     "include_seed_nodes": bool(intent.get("include_seed_nodes", True)),
-                    "time_start_label": None,
-                    "time_end_label": None,
+                    "time_start_label": intent.get("time_start_label"),
+                    "time_end_label": intent.get("time_end_label"),
                 }
+                st.session_state.pending_filter_widget_values = {
+                    "node_filter_labels": resolved_labels,
+                    "node_filter_kinds": intent.get("selected_kinds", []),
+                    "edge_filter_labels": intent.get("selected_edge_labels", []),
+                    "relationship_filter_mode": intent.get("relationship_mode", "union"),
+                    "filter_hop_depth": int(intent.get("hop_depth", 1)),
+                    "filter_include_seed_nodes": bool(intent.get("include_seed_nodes", True)),
+                }
+                st.rerun()
     filter_spec = {
         "selected_labels": selected_node_labels,
         "selected_kinds": selected_node_kinds,
@@ -330,6 +347,12 @@ if st.session_state.raw_payload:
         filter_spec = st.session_state.llm_filter_spec
         with st.sidebar:
             st.info("Using the applied LLM filter. Clear it to return to manual filters.")
+            if filter_spec.get("time_start_label") or filter_spec.get("time_end_label"):
+                st.caption(
+                    "LLM time range: "
+                    f"{filter_spec.get('time_start_label') or 'start'} "
+                    f"to {filter_spec.get('time_end_label') or 'end'}"
+                )
     st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, filter_spec)
 
 if not st.session_state.payload or not st.session_state.labels:
