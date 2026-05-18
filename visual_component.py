@@ -75,8 +75,15 @@ SVG_SYMBOL_DEFS = "".join(
   )
 ) + CLIP_HALF_DEFS
 
-def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: int = 780) -> str:
+def d3_html(
+    payload: Dict[str, Any],
+    frame_idx: int,
+    width: int = 1380,
+    height: int = 780,
+    initial_time_window: Dict[str, Any] | None = None,
+) -> str:
     data_json = json.dumps(payload)
+    initial_time_window_json = json.dumps(initial_time_window or {})
     player_icon_id = "#icon-player" if PLAYER_SYMBOL else "#icon-generic"
     team_icon_id = "#icon-team" if TEAM_SYMBOL else "#icon-generic"
     match_icon_id = "#icon-match" if MATCH_SYMBOL else "#icon-generic"
@@ -88,6 +95,8 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     record_icon_id = "#icon-record" if RECORD_SYMBOL else "#icon-generic"
     stadium_icon_id = "#icon-stadium" if STADIUM_SYMBOL else "#icon-generic"
     transfer_icon_id = "#icon-transfer"
+    current_granularity_label = str(payload.get("granularity") or "year").title()
+    next_granularity_label = "Month" if current_granularity_label.lower() == "year" else "Year"
     return f"""
 <!doctype html>
 <html>
@@ -122,6 +131,11 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       font-size: 11px; padding: 4px 10px; cursor: pointer;
     }}
     .timeline-skip-btn:disabled {{ opacity: 0.35; cursor: default; }}
+    .granularity-toggle-btn {{
+      border: 1px solid #6e7a8f; border-radius: 6px;
+      background: #102033; color: #dce6f1;
+      font-size: 11px; padding: 4px 10px; cursor: pointer;
+    }}
     .year-nav {{
       display: none; align-items: center; gap: 6px;
       font-size: 11px; color: #c4d1e0;
@@ -236,6 +250,11 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
       padding: 6px 10px; font-size: 12px; cursor: pointer;
     }}
+    .filter-toggle {{
+      position: absolute; left: 12px; top: 10px; z-index: 12;
+      border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
+      padding: 6px 10px; font-size: 12px; cursor: pointer;
+    }}
 
     .tooltip {{
       position: absolute; padding: 8px 10px; background: rgba(0,0,0,0.75);
@@ -300,6 +319,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
     <div class="timeline-actions" id="timelineActions">
+      <button class="granularity-toggle-btn" id="granularityToggle" title="Switch timeline granularity">{current_granularity_label}: switch to {next_granularity_label}</button>
       <button class="timeline-skip-btn" id="nextEventBtn" title="Jump to the next timestep with changes">Next event</button>
       <button class="window-clear-btn" id="windowClear" title="Drag over the bars to pick a window" disabled>Clear window</button>
       <div class="year-nav" id="yearNav">
@@ -311,6 +331,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
   </div>
   <div class="layout" id="layout">
     <div class="graph-pane" id="graphPane">
+      <button class="filter-toggle" id="filterToggle">Filters</button>
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
         <div class="legend-title">Legend</div>
@@ -351,6 +372,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
 
 <script>
 const payload = {data_json};
+const initialTimeWindow = {initial_time_window_json};
 const sources = payload.sources || {{}};
 const episodes = payload.episodes || {{}};
 const frames = payload.frames || [];
@@ -399,6 +421,8 @@ const yearNext = document.getElementById("yearNext");
 const yearLabel = document.getElementById("yearLabel");
 const nextEventBtn = document.getElementById("nextEventBtn");
 const windowClearBtn = document.getElementById("windowClear");
+const granularityToggleBtn = document.getElementById("granularityToggle");
+const filterToggleBtn = document.getElementById("filterToggle");
 
 let activeDoc = null;
 let activeHighlightEpisodeUuids = [];
@@ -490,6 +514,26 @@ function escapeHtml(text) {{
 
 function frameAt(i) {{
   return frames[i] || {{ nodes: [], links: [], doc_names: [] }};
+}}
+
+function updateParentQueryParam(key, value) {{
+  const targetWindow = window.parent || window;
+  const url = new URL(targetWindow.location.href);
+  url.searchParams.set(key, value);
+  targetWindow.location.href = url.toString();
+}}
+
+function frameIdxForTimeLabel(label, preferLast = false) {{
+  if (label === null || label === undefined || label === "") return null;
+  const text = String(label);
+  const exact = timestepLabels.findIndex(l => String(l) === text);
+  if (exact >= 0) return exact;
+  const matches = [];
+  timestepLabels.forEach((l, idx) => {{
+    if (String(l).startsWith(text)) matches.push(idx);
+  }});
+  if (!matches.length) return null;
+  return preferLast ? matches[matches.length - 1] : matches[0];
 }}
 
 function collectDocContexts(docName, episodeUuids) {{
@@ -1791,6 +1835,18 @@ if (nextEventBtn) {{
   }});
 }}
 
+if (granularityToggleBtn) {{
+  granularityToggleBtn.addEventListener("click", () => {{
+    updateParentQueryParam("granularity", "{next_granularity_label}");
+  }});
+}}
+
+if (filterToggleBtn) {{
+  filterToggleBtn.addEventListener("click", () => {{
+    updateParentQueryParam("filter", "open");
+  }});
+}}
+
 yearPrev.addEventListener("click", () => {{
   if (isMonthGranularity) {{
     const i = availableYears.indexOf(activeYear);
@@ -1880,6 +1936,16 @@ timelineSlider.max = String(Math.max(0, initVisible.length - 1));
 timelineSlider.step = "1";
 timelineSlider.value = "0";
 setCurrentIdx(currentIdx);
+if (initialTimeWindow && (initialTimeWindow.start_label || initialTimeWindow.end_label)) {{
+  const startIdx = frameIdxForTimeLabel(initialTimeWindow.start_label, false);
+  const endIdx = frameIdxForTimeLabel(initialTimeWindow.end_label, true);
+  if (startIdx !== null || endIdx !== null) {{
+    setCustomWindow(
+      startIdx !== null ? startIdx : 0,
+      endIdx !== null ? endIdx : Math.max(0, frames.length - 1)
+    );
+  }}
+}}
 updateWindowSummary();
 </script>
 </body>

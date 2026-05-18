@@ -31,6 +31,14 @@ DEMO_DATA_PATH = Path(__file__).resolve().parent / "data" / "demo_payload.json"
 DEFAULT_REL_LIMIT = 5000
 
 
+query_params = st.query_params
+requested_granularity = str(query_params.get("granularity", "Year")).title()
+if requested_granularity not in {"Year", "Month"}:
+    requested_granularity = "Year"
+granularity = requested_granularity
+filter_panel_open = str(query_params.get("filter", "")).lower() == "open"
+
+
 def use_neo4j_runtime() -> bool:
     try:
         return bool(st.secrets.get("USE_NEO4J", False))
@@ -96,20 +104,9 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
 st.set_page_config(
     page_title="Temporal KG Timeline (Neo4j + D3)",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="expanded" if filter_panel_open else "collapsed",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
-
-with st.sidebar:
-    st.header("Timeline")
-    granularity = st.selectbox("Granularity", ["Year", "Month"], index=0)
-    limit = st.number_input(
-        "Max relationships to load",
-        min_value=1,
-        max_value=200000,
-        value=DEFAULT_REL_LIMIT,
-        step=1000,
-    )
 
 if "graph_source" not in st.session_state:
     st.session_state.graph_source = None
@@ -127,17 +124,17 @@ if "graph_source" not in st.session_state:
 
 needs_graph_reload = (
     st.session_state.graph_source is None
-    or st.session_state.last_limit != int(limit)
+    or st.session_state.last_limit != DEFAULT_REL_LIMIT
 )
 
 if needs_graph_reload:
     source_label = "Neo4j" if use_neo4j_runtime() else "demo dataset"
     with st.spinner(f"Loading graph data from {source_label}..."):
-        graph_source, source_mode = load_graph_source(int(limit))
+        graph_source, source_mode = load_graph_source(DEFAULT_REL_LIMIT)
     st.session_state.graph_source = graph_source
     st.session_state.graph_source_mode = source_mode
     st.session_state.edges_loaded = len(graph_source["edges"])
-    st.session_state.last_limit = int(limit)
+    st.session_state.last_limit = DEFAULT_REL_LIMIT
 
 needs_payload_recompute = (
     needs_graph_reload
@@ -173,6 +170,9 @@ if st.session_state.raw_payload:
         st.session_state.pending_filter_widget_values = None
 
     with st.sidebar:
+        if st.button("Close filter panel", key="close_filter_panel"):
+            st.query_params["filter"] = "closed"
+            st.rerun()
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         node_kind_options = collect_node_kinds(st.session_state.raw_payload)
         edge_label_options = collect_edge_labels(st.session_state.raw_payload)
@@ -353,11 +353,26 @@ if st.session_state.raw_payload:
                     f"{filter_spec.get('time_start_label') or 'start'} "
                     f"to {filter_spec.get('time_end_label') or 'end'}"
                 )
-    st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, filter_spec)
+    initial_time_window = {
+        "start_label": filter_spec.get("time_start_label"),
+        "end_label": filter_spec.get("time_end_label"),
+    }
+    structural_filter_spec = dict(filter_spec)
+    structural_filter_spec["time_start_label"] = None
+    structural_filter_spec["time_end_label"] = None
+    st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, structural_filter_spec)
+else:
+    initial_time_window = None
 
 if not st.session_state.payload or not st.session_state.labels:
     st.info("Load data to see the timeline visualization.")
 else:
     vc_module = importlib.reload(visual_component_module)
-    html = vc_module.d3_html(st.session_state.payload, 0, width=1380, height=780)
+    html = vc_module.d3_html(
+        st.session_state.payload,
+        0,
+        width=1380,
+        height=780,
+        initial_time_window=initial_time_window,
+    )
     components.html(html, height=1000, scrolling=False)
