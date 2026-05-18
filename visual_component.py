@@ -143,6 +143,10 @@ def d3_html(
     .timeline-overview {{
       position: absolute; left: 8px; right: 8px; bottom: 4px; height: 34px;
       display: none; pointer-events: auto; overflow: hidden;
+      background: rgba(16, 32, 51, 0.42);
+      border: 1px solid rgba(95, 117, 145, 0.45);
+      border-radius: 4px;
+      box-sizing: border-box;
     }}
     .overview-title {{
       font-size: 8px; font-weight: 700; fill: #9fb4d0; text-transform: uppercase;
@@ -271,6 +275,17 @@ def d3_html(
       width: 14px; height: 14px; display: inline-block; color: #5f6b78;
     }}
     .legend-label {{ white-space: nowrap; }}
+    .legend-type {{
+      cursor: pointer; border-radius: 4px; padding: 1px 3px;
+      user-select: none;
+    }}
+    .legend-type.is-muted {{ opacity: 0.42; background: rgba(95,107,120,0.08); }}
+    .legend-type.is-focus {{ background: rgba(46,204,113,0.12); }}
+    .aggregate-count {{
+      font-size: 9px; font-weight: 800; fill: #ffffff; text-anchor: middle;
+      dominant-baseline: central; pointer-events: none;
+      paint-order: stroke; stroke: rgba(0,0,0,0.35); stroke-width: 2px;
+    }}
 
     .src-head {{ padding: 10px 12px; border-bottom: 1px solid #ddd; background: #fff; }}
     .src-title {{ font-size: 13px; font-weight: 700; margin-bottom: 8px; }}
@@ -331,17 +346,17 @@ def d3_html(
         <div class="legend-section">
           <div class="legend-title">Node Types</div>
           <div class="legend-icon-grid">
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{player_icon_id}"></use></svg><span class="legend-label">Player / Coach</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{team_icon_id}"></use></svg><span class="legend-label">Team</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{match_icon_id}"></use></svg><span class="legend-label">Match</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{competition_icon_id}"></use></svg><span class="legend-label">Competition</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{goal_icon_id}"></use></svg><span class="legend-label">GoalEvent</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{injury_icon_id}"></use></svg><span class="legend-label">InjuryEvent</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{transfer_icon_id}"></use></svg><span class="legend-label">TransferEvent</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{retirement_icon_id}"></use></svg><span class="legend-label">RetirementEvent</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{award_icon_id}"></use></svg><span class="legend-label">Award</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{record_icon_id}"></use></svg><span class="legend-label">Record</span>
-            <svg class="legend-icon" viewBox="0 0 24 24"><use href="{stadium_icon_id}"></use></svg><span class="legend-label">Stadium</span>
+            <svg class="legend-icon legend-type" data-kinds="player,coach" viewBox="0 0 24 24"><use href="{player_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="player,coach">Player / Coach</span>
+            <svg class="legend-icon legend-type" data-kinds="team" viewBox="0 0 24 24"><use href="{team_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="team">Team</span>
+            <svg class="legend-icon legend-type" data-kinds="match" viewBox="0 0 24 24"><use href="{match_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="match">Match</span>
+            <svg class="legend-icon legend-type" data-kinds="competition" viewBox="0 0 24 24"><use href="{competition_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="competition">Competition</span>
+            <svg class="legend-icon legend-type" data-kinds="goalevent" viewBox="0 0 24 24"><use href="{goal_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="goalevent">GoalEvent</span>
+            <svg class="legend-icon legend-type" data-kinds="injuryevent" viewBox="0 0 24 24"><use href="{injury_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="injuryevent">InjuryEvent</span>
+            <svg class="legend-icon legend-type" data-kinds="transferevent" viewBox="0 0 24 24"><use href="{transfer_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="transferevent">TransferEvent</span>
+            <svg class="legend-icon legend-type" data-kinds="retirementevent" viewBox="0 0 24 24"><use href="{retirement_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="retirementevent">RetirementEvent</span>
+            <svg class="legend-icon legend-type" data-kinds="award" viewBox="0 0 24 24"><use href="{award_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="award">Award</span>
+            <svg class="legend-icon legend-type" data-kinds="record" viewBox="0 0 24 24"><use href="{record_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="record">Record</span>
+            <svg class="legend-icon legend-type" data-kinds="stadium" viewBox="0 0 24 24"><use href="{stadium_icon_id}"></use></svg><span class="legend-label legend-type" data-kinds="stadium">Stadium</span>
           </div>
         </div>
       </div>
@@ -424,6 +439,12 @@ let graphEpisodeHoverActive = false;
 let customWindow = null;
 let customWindowFrameCache = null;
 let suppressBrushSync = false;
+const FOCUSABLE_KINDS = new Set([
+  "player", "coach", "team", "match", "competition", "goalevent", "injuryevent",
+  "transferevent", "retirementevent", "award", "record", "stadium"
+]);
+let focusKinds = new Set(FOCUSABLE_KINDS);
+let expandedAggregateIds = new Set();
 const monthNames = ["jan","feb","mar","apr","may","jun","jul","aug","sep","oct","nov","dec"];
 const YEAR_WINDOW_SIZE = 10;
 const isMonthGranularity =
@@ -942,6 +963,21 @@ function setSourceOpen(open) {{
 }}
 sourceToggle.onclick = () => setSourceOpen(!sourceOpen);
 
+document.querySelectorAll(".legend-type").forEach(el => {{
+  el.addEventListener("click", () => {{
+    const kinds = String(el.dataset.kinds || "").split(",").map(k => k.trim()).filter(Boolean);
+    const active = kinds.some(k => focusKinds.has(k));
+    kinds.forEach(k => {{
+      if (active) focusKinds.delete(k);
+      else focusKinds.add(k);
+    }});
+    expandedAggregateIds = new Set();
+    updateLegendFocusState();
+    renderGraph();
+  }});
+}});
+updateLegendFocusState();
+
 function setHighlightForEpisodeUuids(epUuids) {{
   activeHighlightEpisodeUuids = Array.from(new Set(epUuids || []));
   if (!sourceOpen) return;
@@ -1050,10 +1086,41 @@ const NODE_ICON_SIZE = 46;
 const NODE_ICON_HALF = NODE_ICON_SIZE / 2;
 const NODE_LABEL_OFFSET = NODE_ICON_HALF + 12;
 const NODE_R = NODE_ICON_HALF + 4;
+const MUTED_NODE_ICON_SIZE = 20;
+const AGGREGATE_NODE_ICON_SIZE = 32;
 const NODE_LABEL_FONT_SIZE = 6.8;
 const NODE_LABEL_LINE_HEIGHT = NODE_LABEL_FONT_SIZE * 1.1;
 const NODE_LABEL_CHAR_WIDTH = NODE_LABEL_FONT_SIZE * 0.62;
 const NODE_BOUNDS_PAD = 5;
+
+function normalizedKind(kind) {{
+  return String(kind || "entity").trim().toLowerCase();
+}}
+
+function isFocusKind(kind) {{
+  return focusKinds.has(normalizedKind(kind));
+}}
+
+function nodeIconSize(d) {{
+  if (d && d.is_aggregate) return AGGREGATE_NODE_ICON_SIZE;
+  return isFocusKind(d && d.kind) ? NODE_ICON_SIZE : MUTED_NODE_ICON_SIZE;
+}}
+
+function nodeIconHalf(d) {{
+  return nodeIconSize(d) / 2;
+}}
+
+function nodeRadius(d) {{
+  return nodeIconHalf(d) + 4;
+}}
+
+function showNodeLabel(d) {{
+  return Boolean(d && (isFocusKind(d.kind) || d.is_aggregate));
+}}
+
+function nodeLabelOffset(d) {{
+  return nodeIconHalf(d) + 12;
+}}
 
 const defs = svg.append("defs");
 defs.append("marker")
@@ -1086,14 +1153,83 @@ svg.call(zoomBehavior);
 
 function makeRenderData(frame) {{
   const displayFrameIdx = customWindow ? customWindow.endIdx : currentIdx;
-  const renderNodes = (frame.nodes || []).map(n => {{
+  const baseNodes = (frame.nodes || []).map(n => {{
     const p = posById.get(n.id) || {{ x: W / 2, y: GH / 2 }};
     const lastActivityIdx = latestNodeActivityIdx(n.id, displayFrameIdx);
     const displayAge = lastActivityIdx === undefined ? null : Math.max(0, displayFrameIdx - lastActivityIdx);
     return {{ ...n, x: p.x, y: p.y, display_age: displayAge }};
   }});
+  const renderNodesById = new Map(baseNodes.map(n => [String(n.id), n]));
+  const baseLinks = (frame.links || []).map(l => ({{ ...l }}));
 
-  const renderLinks = (frame.links || []).map(l => ({{ ...l }}));
+  const degreeById = new Map();
+  for (const n of baseNodes) degreeById.set(String(n.id), 0);
+  for (const l of baseLinks) {{
+    degreeById.set(String(l.source), (degreeById.get(String(l.source)) || 0) + 1);
+    degreeById.set(String(l.target), (degreeById.get(String(l.target)) || 0) + 1);
+  }}
+
+  const groups = new Map();
+  for (const l of baseLinks) {{
+    const source = String(l.source);
+    const target = String(l.target);
+    for (const [leafId, neighborId, direction] of [[source, target, "out"], [target, source, "in"]]) {{
+      const leaf = renderNodesById.get(leafId);
+      const neighbor = renderNodesById.get(neighborId);
+      if (!leaf || !neighbor) continue;
+      if (isFocusKind(leaf.kind)) continue;
+      if ((degreeById.get(leafId) || 0) !== 1) continue;
+      const key = `${{normalizedKind(leaf.kind)}}||${{neighborId}}||${{String(l.label || "")}}||${{direction}}`;
+      if (!groups.has(key)) groups.set(key, {{ key, kind: normalizedKind(leaf.kind), neighborId, direction, label: l.label, members: [], links: [] }});
+      groups.get(key).members.push(leaf);
+      groups.get(key).links.push(l);
+    }}
+  }}
+
+  const collapsedMemberIds = new Set();
+  const aggregateNodes = [];
+  const aggregateLinks = [];
+  for (const group of groups.values()) {{
+    if (group.members.length < 2) continue;
+    const aggId = `agg::${{group.key}}`;
+    if (expandedAggregateIds.has(aggId)) continue;
+    group.members.forEach(n => collapsedMemberIds.add(String(n.id)));
+    const px = group.members.reduce((sum, n) => sum + n.x, 0) / group.members.length;
+    const py = group.members.reduce((sum, n) => sum + n.y, 0) / group.members.length;
+    const existingPos = posById.get(aggId);
+    const episodeUuids = Array.from(new Set(group.members.flatMap(n => n.episode_uuids || [])));
+    const aggregateNode = {{
+      id: aggId,
+      label: `${{group.members.length}} ${{formatNodeKindLabel(group.kind)}}`,
+      kind: group.kind,
+      status: "active",
+      is_new: false,
+      is_invalid: false,
+      invalid_age: null,
+      episode_uuids: episodeUuids,
+      x: existingPos ? existingPos.x : px,
+      y: existingPos ? existingPos.y : py,
+      display_age: Math.min(...group.members.map(n => Number(n.display_age || 0))),
+      is_aggregate: true,
+      aggregate_count: group.members.length,
+      aggregate_member_labels: group.members.map(n => n.label),
+    }};
+    aggregateNodes.push(aggregateNode);
+    const rep = group.links[0] || {{}};
+    aggregateLinks.push({{
+      ...rep,
+      id: `agg-edge::${{group.key}}`,
+      source: group.direction === "out" ? aggId : group.neighborId,
+      target: group.direction === "out" ? group.neighborId : aggId,
+      episode_uuids: Array.from(new Set(group.links.flatMap(l => l.episode_uuids || []))),
+      is_aggregate: true,
+    }});
+  }}
+
+  const renderNodes = baseNodes.filter(n => !collapsedMemberIds.has(String(n.id))).concat(aggregateNodes);
+  const renderLinks = baseLinks
+    .filter(l => !collapsedMemberIds.has(String(l.source)) && !collapsedMemberIds.has(String(l.target)))
+    .concat(aggregateLinks);
   const pairBuckets = new Map();
   for (const l of renderLinks) {{
     const a = String(l.source), b = String(l.target);
@@ -1198,9 +1334,13 @@ function nodeBounds(node) {{
     0,
     ...lines.map(line => String(line || "").length * NODE_LABEL_CHAR_WIDTH / 2)
   );
-  const halfWidth = Math.max(NODE_R, labelHalfWidth) + NODE_BOUNDS_PAD;
-  const top = -(NODE_R + NODE_BOUNDS_PAD);
-  const bottom = NODE_LABEL_OFFSET + (lines.length * NODE_LABEL_LINE_HEIGHT) + NODE_BOUNDS_PAD;
+  const radius = nodeRadius(node);
+  const labelWidth = showNodeLabel(node) ? labelHalfWidth : 0;
+  const halfWidth = Math.max(radius, labelWidth) + NODE_BOUNDS_PAD;
+  const top = -(radius + NODE_BOUNDS_PAD);
+  const bottom = showNodeLabel(node)
+    ? nodeLabelOffset(node) + (lines.length * NODE_LABEL_LINE_HEIGHT) + NODE_BOUNDS_PAD
+    : radius + NODE_BOUNDS_PAD;
   return {{ left: -halfWidth, right: halfWidth, top, bottom }};
 }}
 
@@ -1212,7 +1352,7 @@ function trimDistanceForNode(node, ux, uy) {{
   if (uy > 0) candidates.push(b.bottom / uy);
   if (uy < 0) candidates.push(b.top / uy);
   const exit = Math.min(...candidates.filter(v => Number.isFinite(v) && v > 0));
-  return Number.isFinite(exit) ? exit : NODE_R + NODE_BOUNDS_PAD;
+  return Number.isFinite(exit) ? exit : nodeRadius(node || {{}}) + NODE_BOUNDS_PAD;
 }}
 
 function fitNodeLabel(text, maxChars = 16) {{
@@ -1247,6 +1387,36 @@ function nodeLabelLines(text, maxChars = 16) {{
 function symbolForKind(kind) {{
   const k = String(kind || "").toLowerCase();
   return ICON_IDS[k] || ICON_IDS.generic;
+}}
+
+function formatNodeKindLabel(kind) {{
+  const labels = {{
+    player: "players",
+    coach: "coaches",
+    team: "teams",
+    match: "matches",
+    competition: "competitions",
+    goalevent: "goal events",
+    injuryevent: "injury events",
+    transferevent: "transfer events",
+    retirementevent: "retirement events",
+    award: "awards",
+    record: "records",
+    stadium: "stadiums",
+  }};
+  return labels[normalizedKind(kind)] || `${{kind || "nodes"}}`;
+}}
+
+function updateLegendFocusState() {{
+  document.querySelectorAll(".legend-type").forEach(el => {{
+    const kinds = String(el.dataset.kinds || "").split(",").map(k => k.trim()).filter(Boolean);
+    const active = kinds.some(k => focusKinds.has(k));
+    el.classList.toggle("is-focus", active);
+    el.classList.toggle("is-muted", !active);
+    el.title = active
+      ? "Focused type: click to shrink labels and aggregate simple leaves"
+      : "Muted type: click to focus";
+  }});
 }}
 
 function showTooltip(event, html) {{
@@ -1336,7 +1506,7 @@ function renderGraph() {{
 
   const nodeHit = node.append("circle")
     .attr("class", "node-hit")
-    .attr("r", NODE_R + 3)
+    .attr("r", d => nodeRadius(d) + 5)
     .attr("fill", "rgba(0,0,0,0.001)")
     .attr("stroke", "transparent");
 
@@ -1353,12 +1523,14 @@ function renderGraph() {{
     const group = d3.select(this);
 
     const appendIcon = (clipPath, color) => {{
+      const size = nodeIconSize(d);
+      const half = size / 2;
       const icon = group.append("use")
         .attr("href", iconHref)
-        .attr("width", NODE_ICON_SIZE)
-        .attr("height", NODE_ICON_SIZE)
-        .attr("x", -NODE_ICON_HALF)
-        .attr("y", -NODE_ICON_HALF)
+        .attr("width", size)
+        .attr("height", size)
+        .attr("x", -half)
+        .attr("y", -half)
         .style("color", color);
       if (clipPath) icon.attr("clip-path", clipPath);
       return icon;
@@ -1372,10 +1544,19 @@ function renderGraph() {{
     }}
   }});
 
+  node
+    .filter(d => d.is_aggregate)
+    .append("text")
+    .attr("class", "aggregate-count")
+    .attr("x", 0)
+    .attr("y", 0)
+    .text(d => String(d.aggregate_count || ""));
+
   node.append("text")
     .attr("class", "label")
     .attr("x", 0)
-    .attr("y", NODE_LABEL_OFFSET)
+    .attr("y", d => nodeLabelOffset(d))
+    .style("display", d => showNodeLabel(d) ? null : "none")
     .each(function(d) {{
       const lines = nodeLabelLines(d.label, 16);
       const t = d3.select(this);
@@ -1389,7 +1570,9 @@ function renderGraph() {{
     }});
 
   node.append("title")
-    .text(d => String(d.label || ""));
+    .text(d => d.is_aggregate
+      ? `${{d.label}}. Click to expand.\\n${{(d.aggregate_member_labels || []).join("\\n")}}`
+      : String(d.label || ""));
 
   nodeSelection = node;
   edgeGroupSelection = edgeGroup;
@@ -1410,6 +1593,14 @@ function renderGraph() {{
     }}
   }}
   resetGraphEpisodeHover();
+
+  node.filter(d => d.is_aggregate)
+    .style("cursor", "zoom-in")
+    .on("click", (event, d) => {{
+      event.stopPropagation();
+      expandedAggregateIds.add(String(d.id));
+      renderGraph();
+    }});
 
   node.on("mousemove", (event, d) => {{
     d3.select(event.currentTarget).style("opacity", 1);
