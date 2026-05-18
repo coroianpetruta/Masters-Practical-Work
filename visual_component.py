@@ -107,7 +107,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       z-index: 14; background: #060d1a; border-bottom: 1px solid #1c2a3b;
     }}
     .timeline-actions {{
-      position: absolute; right: 10px; top: 6px;
+      position: absolute; right: 10px; top: 4px;
       display: flex; align-items: center; gap: 8px;
     }}
     .window-clear-btn {{
@@ -132,7 +132,11 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     }}
     .year-nav button:disabled {{ opacity: 0.35; cursor: default; }}
     .year-nav .year-label {{ min-width: 44px; text-align: center; font-weight: 600; }}
-    .timeline {{ position: absolute; left: 8px; right: 8px; top: 4px; height: 56px; pointer-events: auto; overflow: hidden; }}
+    .timeline {{ position: absolute; left: 8px; right: 8px; top: 30px; height: 34px; pointer-events: auto; overflow: hidden; }}
+    .timeline-overview {{
+      position: absolute; left: 8px; right: 8px; bottom: 2px; height: 28px;
+      display: none; pointer-events: auto; overflow: hidden;
+    }}
     .timeline-slider-spikes {{
       position: absolute; left: 8px; right: 8px; bottom: 0px; height: 24px;
       pointer-events: none;
@@ -154,6 +158,17 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
       width: 4px;
     }}
     .t-brush .overlay {{ cursor: crosshair; }}
+    .overview-brush .selection {{
+      fill: rgba(248, 180, 255, 0.2);
+      stroke: #f8b4ff;
+      stroke-width: 1px;
+    }}
+    .overview-brush .handle {{
+      fill: rgba(248, 180, 255, 0.9);
+      stroke: none;
+      width: 4px;
+    }}
+    .overview-brush .overlay {{ cursor: crosshair; }}
     .timeline-slider:focus {{
       outline: none;
     }}
@@ -281,6 +296,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
 <div class="wrap" id="wrap">
   <div class="timeline-shell" id="timelineShell">
     <svg class="timeline" id="timeline"></svg>
+    <svg class="timeline-overview" id="timelineOverview"></svg>
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
     <div class="timeline-actions" id="timelineActions">
@@ -365,6 +381,7 @@ const GH = H - TL_H;
 const svg = d3.select("#svg").attr("viewBox", [0,0,W,GH]);
 svg.selectAll("*").remove();
 const timelineSvg = d3.select("#timeline").attr("viewBox", [0,0,W,TL_H]);
+const timelineOverviewSvg = d3.select("#timelineOverview").attr("viewBox", [0,0,W,28]);
 const timelineSliderSpikesSvg = d3.select("#timelineSliderSpikes").attr("viewBox", [0,0,W,24]);
 
 const tooltip = d3.select("#tt");
@@ -736,9 +753,13 @@ function updateWindowSummary() {{
 function setCustomWindow(startIdx, endIdx) {{
   const start = Math.max(0, Math.min(startIdx, frames.length - 1));
   const end = Math.max(start, Math.min(endIdx, frames.length - 1));
+  if (isYearGranularity && yearMeta[start]) {{
+    activeYearWindowStart = decadeStart(yearMeta[start].year);
+  }}
   customWindow = {{ startIdx: start, endIdx: end }};
   customWindowFrameCache = composeWindowFrame(start, end);
   updateWindowSummary();
+  updateYearNav();
   renderTimeline();
   renderSliderSpikes();
   renderGraph();
@@ -1424,10 +1445,10 @@ function renderTimeline() {{
   timelineSvg.selectAll("*").remove();
   const paneWidth = Math.max(240, timelineShell.clientWidth);
   const tlWidth = Math.max(220, paneWidth - 16);
-  const tlHeight = 56;
+  const tlHeight = 34;
   timelineSvg.attr("viewBox", [0, 0, tlWidth, tlHeight]);
 
-  const margin = {{ left: 0, right: 0, top: 6, bottom: 4 }};
+  const margin = {{ left: 0, right: 0, top: 3, bottom: 3 }};
   const innerW = tlWidth - margin.left - margin.right;
   const innerH = tlHeight - margin.top - margin.bottom;
   const gT = timelineSvg.append("g").attr("transform", `translate(${{margin.left}},${{margin.top}})`);
@@ -1555,6 +1576,15 @@ function renderTimeline() {{
 
 function renderSliderSpikes() {{
   timelineSliderSpikesSvg.selectAll("*").remove();
+  renderTimelineOverview();
+  if (isYearGranularity && availableTimelineYears.length > YEAR_WINDOW_SIZE) {{
+    timelineSliderSpikesSvg.style("display", "none");
+    timelineSlider.style.display = "none";
+    return;
+  }}
+
+  timelineSliderSpikesSvg.style("display", "block");
+  timelineSlider.style.display = "";
   const paneWidth = Math.max(240, timelineShell.clientWidth);
   const sw = Math.max(220, paneWidth - 16);
   const sh = 24;
@@ -1605,6 +1635,112 @@ function renderSliderSpikes() {{
       d.slot === currentSlot ? "#dbe7ff" : (slotInWindow(d.slot) ? "#ffe0ff" : "#98a7bc")
     ))
     .text(d => d.tickLabel);
+}}
+
+function renderTimelineOverview() {{
+  timelineOverviewSvg.selectAll("*").remove();
+  if (!isYearGranularity || availableTimelineYears.length <= YEAR_WINDOW_SIZE) {{
+    timelineOverviewSvg.style("display", "none");
+    return;
+  }}
+
+  timelineOverviewSvg.style("display", "block");
+  const paneWidth = Math.max(240, timelineShell.clientWidth);
+  const ow = Math.max(220, paneWidth - 16);
+  const oh = 28;
+  timelineOverviewSvg.attr("viewBox", [0, 0, ow, oh]);
+
+  const items = yearMeta.filter(m => Number.isFinite(m.year));
+  const x = d3.scaleBand()
+    .domain(items.map(m => m.frameIdx))
+    .range([0, ow])
+    .paddingInner(0.45)
+    .paddingOuter(0.02);
+
+  const gO = timelineOverviewSvg.append("g");
+  const activeStart = Number(activeYearWindowStart ?? (availableTimelineYears[0] ?? 0));
+  const activeEnd = activeStart + YEAR_WINDOW_SIZE - 1;
+
+  gO.append("line")
+    .attr("x1", 0)
+    .attr("x2", ow)
+    .attr("y1", 13)
+    .attr("y2", 13)
+    .attr("stroke", "#506176")
+    .attr("stroke-width", 1);
+
+  gO.selectAll("line.overview-year")
+    .data(items)
+    .join("line")
+    .attr("class", "overview-year")
+    .attr("x1", d => x(d.frameIdx) + x.bandwidth() / 2)
+    .attr("x2", d => x(d.frameIdx) + x.bandwidth() / 2)
+    .attr("y1", d => (d.frameIdx === currentIdx ? 4 : 7))
+    .attr("y2", 20)
+    .attr("stroke", d => {{
+      if (customWindow && d.frameIdx >= customWindow.startIdx && d.frameIdx <= customWindow.endIdx) return "#f8b4ff";
+      if (d.frameIdx === currentIdx) return "#dbe7ff";
+      if (d.year >= activeStart && d.year <= activeEnd) return "#9fb4d0";
+      return "#58687c";
+    }})
+    .attr("stroke-width", d => (d.frameIdx === currentIdx ? 2 : 1.2))
+    .attr("opacity", d => (d.year >= activeStart && d.year <= activeEnd ? 0.95 : 0.65));
+
+  const labelItems = items.filter((d, i) => i === 0 || i === items.length - 1 || d.year % 5 === 0);
+  gO.selectAll("text.overview-label")
+    .data(labelItems)
+    .join("text")
+    .attr("class", "overview-label")
+    .attr("x", d => x(d.frameIdx) + x.bandwidth() / 2)
+    .attr("y", 27)
+    .attr("text-anchor", "middle")
+    .attr("font-size", "8px")
+    .attr("fill", "#98a7bc")
+    .text(d => String(d.year));
+
+  const frameFromX = (px) => {{
+    if (!items.length) return null;
+    let best = items[0];
+    let bestDist = Infinity;
+    for (const item of items) {{
+      const center = x(item.frameIdx) + x.bandwidth() / 2;
+      const dist = Math.abs(center - px);
+      if (dist < bestDist) {{
+        best = item;
+        bestDist = dist;
+      }}
+    }}
+    return best.frameIdx;
+  }};
+
+  const overviewBrush = d3.brushX()
+    .extent([[0, 0], [ow, 22]])
+    .on("end", (event) => {{
+      if (suppressBrushSync) return;
+      const sel = event.selection;
+      if (!sel) {{
+        if (customWindow) clearCustomWindow();
+        return;
+      }}
+      const startIdx = frameFromX(sel[0]);
+      const endIdx = frameFromX(sel[1]);
+      if (startIdx === null || endIdx === null) return;
+      setCustomWindow(Math.min(startIdx, endIdx), Math.max(startIdx, endIdx));
+    }});
+
+  const brushG = gO.append("g").attr("class", "overview-brush").call(overviewBrush);
+  if (customWindow) {{
+    const startX = x(customWindow.startIdx);
+    const endX = x(customWindow.endIdx);
+    if (startX !== undefined && endX !== undefined) {{
+      suppressBrushSync = true;
+      brushG.call(overviewBrush.move, [
+        Math.min(startX, endX),
+        Math.max(startX, endX) + x.bandwidth(),
+      ]);
+      suppressBrushSync = false;
+    }}
+  }}
 }}
 
 function setCurrentIdx(idx) {{

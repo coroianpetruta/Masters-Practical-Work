@@ -152,7 +152,6 @@ if st.session_state.raw_payload:
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         node_kind_options = collect_node_kinds(st.session_state.raw_payload)
         edge_label_options = collect_edge_labels(st.session_state.raw_payload)
-        time_label_options = [str(label) for label in st.session_state.raw_payload.get("labels", [])]
         st.subheader("Graph Filter")
         selected_node_labels = st.multiselect(
             "Search and select node(s)",
@@ -209,27 +208,6 @@ if st.session_state.raw_payload:
             key="filter_include_seed_nodes",
             help="Keeps selected nodes visible even when node type filters would otherwise hide them.",
         )
-        if time_label_options:
-            start_default = 0
-            end_default = len(time_label_options) - 1
-            time_start_label = st.selectbox(
-                "Start timestep",
-                options=time_label_options,
-                index=start_default,
-                key="filter_time_start",
-            )
-            time_end_label = st.selectbox(
-                "End timestep",
-                options=time_label_options,
-                index=end_default,
-                key="filter_time_end",
-            )
-            if time_start_label == time_label_options[0] and time_end_label == time_label_options[-1]:
-                time_start_label = None
-                time_end_label = None
-        else:
-            time_start_label = None
-            time_end_label = None
     filter_spec = {
         "selected_labels": selected_node_labels,
         "selected_kinds": selected_node_kinds,
@@ -237,8 +215,8 @@ if st.session_state.raw_payload:
         "relationship_mode": relationship_mode,
         "hop_depth": int(hop_depth),
         "include_seed_nodes": include_seed_nodes,
-        "time_start_label": time_start_label,
-        "time_end_label": time_end_label,
+        "time_start_label": None,
+        "time_end_label": None,
     }
     st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, filter_spec)
 
