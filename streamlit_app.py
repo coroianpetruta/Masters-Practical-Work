@@ -1,4 +1,5 @@
 import importlib
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -12,6 +13,7 @@ from data_access import (
     load_demo_dataset,
     load_source_documents,
 )
+from llm_filter import interpret_filter_query, resolve_node_mention
 from timeline_model import (
     apply_filter_spec,
     collect_edge_labels,
@@ -34,6 +36,14 @@ def use_neo4j_runtime() -> bool:
         return bool(st.secrets.get("USE_NEO4J", False))
     except st.errors.StreamlitSecretNotFoundError:
         return False
+
+
+def secret_or_env(name: str, default: str = "") -> str:
+    try:
+        value = st.secrets.get(name, None)
+    except st.errors.StreamlitSecretNotFoundError:
+        value = None
+    return str(value if value is not None else os.getenv(name, default))
 
 
 def load_graph_source(limit: int) -> tuple[dict, str]:
@@ -110,6 +120,9 @@ if "graph_source" not in st.session_state:
     st.session_state.edges_loaded = 0
     st.session_state.last_granularity = None
     st.session_state.last_limit = None
+    st.session_state.llm_filter_intent = None
+    st.session_state.llm_filter_candidates = {}
+    st.session_state.llm_filter_spec = None
 
 needs_graph_reload = (
     st.session_state.graph_source is None
@@ -146,6 +159,9 @@ if needs_payload_recompute and st.session_state.graph_source is not None:
     st.session_state.raw_payload = payload
     st.session_state.labels = payload.get("labels", [])
     st.session_state.last_granularity = granularity
+    st.session_state.llm_filter_intent = None
+    st.session_state.llm_filter_candidates = {}
+    st.session_state.llm_filter_spec = None
 
 if st.session_state.raw_payload:
     with st.sidebar:
@@ -208,6 +224,98 @@ if st.session_state.raw_payload:
             key="filter_include_seed_nodes",
             help="Keeps selected nodes visible even when node type filters would otherwise hide them.",
         )
+
+        st.subheader("LLM Filter")
+        llm_query = st.text_area(
+            "Natural-language filter",
+            key="llm_filter_query",
+            placeholder='Example: "In what games did Haaland and Mbappe both play?"',
+            height=82,
+        )
+        col_interpret, col_clear = st.columns(2)
+        with col_interpret:
+            interpret_clicked = st.button("Interpret query", key="llm_filter_interpret")
+        with col_clear:
+            clear_llm_clicked = st.button("Clear LLM filter", key="llm_filter_clear")
+
+        if clear_llm_clicked:
+            st.session_state.llm_filter_intent = None
+            st.session_state.llm_filter_candidates = {}
+            st.session_state.llm_filter_spec = None
+
+        if interpret_clicked:
+            if not llm_query.strip():
+                st.warning("Enter a filter query first.")
+            else:
+                try:
+                    with st.spinner("Interpreting filter query with DeepSeek..."):
+                        intent = interpret_filter_query(
+                            llm_query,
+                            node_kinds=node_kind_options,
+                            edge_labels=edge_label_options,
+                            time_labels=[str(label) for label in st.session_state.raw_payload.get("labels", [])],
+                            api_key=secret_or_env("DEEPSEEK_API_KEY"),
+                            model=secret_or_env("DEEPSEEK_MODEL", "deepseek-chat"),
+                            base_url=secret_or_env("DEEPSEEK_BASE_URL", "https://api.deepseek.com/v1"),
+                        )
+                    st.session_state.llm_filter_intent = intent
+                    st.session_state.llm_filter_candidates = {
+                        mention: resolve_node_mention(mention, node_label_options)
+                        for mention in intent.get("seed_node_mentions", [])
+                    }
+                    st.session_state.llm_filter_spec = None
+                except Exception as exc:
+                    st.error(f"Could not interpret query: {exc}")
+
+        if st.session_state.llm_filter_intent:
+            intent = st.session_state.llm_filter_intent
+            st.caption("Interpreted filter")
+            st.json(
+                {
+                    "node_mentions": intent.get("seed_node_mentions", []),
+                    "node_types": intent.get("selected_kinds", []),
+                    "edge_types": intent.get("selected_edge_labels", []),
+                    "relationship_mode": intent.get("relationship_mode", "union"),
+                    "hop_depth": intent.get("hop_depth", 1),
+                    "time_range_detected": [
+                        intent.get("time_start_label"),
+                        intent.get("time_end_label"),
+                    ],
+                    "note": "Detected time ranges are shown here; use the timeline above the graph to select the visible timestep/window.",
+                },
+                expanded=False,
+            )
+
+            resolved_labels = []
+            unresolved = []
+            for mention_idx, mention in enumerate(intent.get("seed_node_mentions", [])):
+                candidates = st.session_state.llm_filter_candidates.get(mention, [])
+                labels = [candidate.label for candidate in candidates]
+                if not labels:
+                    unresolved.append(mention)
+                    st.warning(f'No node match found for "{mention}".')
+                    continue
+                choice = st.selectbox(
+                    f'Resolve "{mention}"',
+                    options=labels,
+                    key=f"llm_resolve_{mention_idx}",
+                    format_func=lambda label, candidates=candidates: (
+                        f"{label} ({next((c.reason for c in candidates if c.label == label), 'match')})"
+                    ),
+                )
+                resolved_labels.append(choice)
+
+            if st.button("Apply interpreted filter", key="llm_filter_apply", disabled=bool(unresolved)):
+                st.session_state.llm_filter_spec = {
+                    "selected_labels": resolved_labels,
+                    "selected_kinds": intent.get("selected_kinds", []),
+                    "selected_edge_labels": intent.get("selected_edge_labels", []),
+                    "relationship_mode": intent.get("relationship_mode", "union"),
+                    "hop_depth": int(intent.get("hop_depth", 1)),
+                    "include_seed_nodes": bool(intent.get("include_seed_nodes", True)),
+                    "time_start_label": None,
+                    "time_end_label": None,
+                }
     filter_spec = {
         "selected_labels": selected_node_labels,
         "selected_kinds": selected_node_kinds,
@@ -218,6 +326,10 @@ if st.session_state.raw_payload:
         "time_start_label": None,
         "time_end_label": None,
     }
+    if st.session_state.llm_filter_spec:
+        filter_spec = st.session_state.llm_filter_spec
+        with st.sidebar:
+            st.info("Using the applied LLM filter. Clear it to return to manual filters.")
     st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, filter_spec)
 
 if not st.session_state.payload or not st.session_state.labels:
