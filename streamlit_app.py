@@ -128,12 +128,25 @@ st.markdown(
       background: #102033 !important;
       color: #dce6f1 !important;
       font-size: 11px !important;
-      line-height: 1 !important;
+      line-height: 13px !important;
       padding: 4px 10px !important;
       min-height: 0 !important;
-      height: 23px !important;
+      height: 22px !important;
       font-family: sans-serif !important;
+      font-weight: 400 !important;
       box-sizing: border-box !important;
+      align-items: center !important;
+      justify-content: center !important;
+      gap: 0 !important;
+      white-space: nowrap !important;
+    }
+    [data-testid="stMain"] div[data-testid="stButton"] > button * {
+      color: #dce6f1 !important;
+      font-size: 11px !important;
+      line-height: 13px !important;
+      font-weight: 400 !important;
+      margin: 0 !important;
+      padding: 0 !important;
     }
     #filter-panel-toggle {
       display: none;
