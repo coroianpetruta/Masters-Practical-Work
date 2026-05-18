@@ -31,13 +31,6 @@ DEMO_DATA_PATH = Path(__file__).resolve().parent / "data" / "demo_payload.json"
 DEFAULT_REL_LIMIT = 5000
 
 
-query_params = st.query_params
-requested_granularity = str(query_params.get("granularity", "Year")).title()
-if requested_granularity not in {"Year", "Month"}:
-    requested_granularity = "Year"
-granularity = requested_granularity
-
-
 def use_neo4j_runtime() -> bool:
     try:
         return bool(st.secrets.get("USE_NEO4J", False))
@@ -103,39 +96,60 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
 st.set_page_config(
     page_title="Temporal KG Timeline (Neo4j + D3)",
     layout="wide",
-    initial_sidebar_state="collapsed",
+    initial_sidebar_state="expanded",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
-next_granularity = "Month" if granularity == "Year" else "Year"
+
+if "timeline_granularity" not in st.session_state:
+    st.session_state.timeline_granularity = "Year"
+
+with st.sidebar:
+    granularity = st.selectbox(
+        "Timeline granularity",
+        ["Year", "Month"],
+        index=0 if st.session_state.timeline_granularity == "Year" else 1,
+        key="timeline_granularity",
+    )
+
 st.markdown(
-    f"""
+    """
     <style>
-    .app-top-controls {{
+    #filter-panel-toggle {
+      display: none;
+    }
+    .app-filter-control {
       position: fixed;
-      top: 4px;
-      right: 304px;
+      top: 104px;
+      left: 12px;
       z-index: 100000;
-      display: flex;
-      gap: 8px;
-      align-items: center;
-    }}
-    .app-top-controls a {{
-      border: 1px solid #6e7a8f;
-      border-radius: 6px;
-      background: #102033;
-      color: #dce6f1 !important;
-      font-size: 11px;
+      border: 1px solid #cfcfcf;
+      border-radius: 8px;
+      background: #ffffff;
+      color: #111827;
+      font-size: 12px;
       line-height: 1;
-      padding: 6px 10px;
-      text-decoration: none !important;
       font-family: sans-serif;
-    }}
+      padding: 8px 10px;
+      cursor: pointer;
+    }
+    .app-filter-control::after {
+      content: "Show Filters";
+    }
+    body:has(#filter-panel-toggle:checked) .app-filter-control {
+      left: 348px;
+    }
+    body:has(#filter-panel-toggle:checked) .app-filter-control::after {
+      content: "Hide Filters";
+    }
+    [data-testid="stSidebar"] {
+      display: none !important;
+    }
+    body:has(#filter-panel-toggle:checked) [data-testid="stSidebar"] {
+      display: block !important;
+    }
     </style>
-    <div class="app-top-controls">
-      <a target="_self" href="?granularity={next_granularity}">
-        {granularity}: switch to {next_granularity}
-      </a>
-    </div>
+    <input id="filter-panel-toggle" type="checkbox" />
+    <label class="app-filter-control" for="filter-panel-toggle"></label>
     """,
     unsafe_allow_html=True,
 )
