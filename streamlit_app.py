@@ -13,10 +13,12 @@ from data_access import (
     load_source_documents,
 )
 from timeline_model import (
-    apply_node_filter,
+    apply_filter_spec,
+    collect_edge_labels,
     collect_node_kinds,
     collect_node_labels,
     compute_timestep_states,
+    format_edge_label,
     format_node_kind_label,
 )
 from ui_styles import APP_STYLE
@@ -28,7 +30,10 @@ DEFAULT_REL_LIMIT = 5000
 
 
 def use_neo4j_runtime() -> bool:
-    return bool(st.secrets.get("USE_NEO4J", False))
+    try:
+        return bool(st.secrets.get("USE_NEO4J", False))
+    except st.errors.StreamlitSecretNotFoundError:
+        return False
 
 
 def load_graph_source(limit: int) -> tuple[dict, str]:
@@ -146,13 +151,15 @@ if st.session_state.raw_payload:
     with st.sidebar:
         node_label_options = collect_node_labels(st.session_state.raw_payload)
         node_kind_options = collect_node_kinds(st.session_state.raw_payload)
-        st.subheader("Node Filter")
+        edge_label_options = collect_edge_labels(st.session_state.raw_payload)
+        time_label_options = [str(label) for label in st.session_state.raw_payload.get("labels", [])]
+        st.subheader("Graph Filter")
         selected_node_labels = st.multiselect(
             "Search and select node(s)",
             options=node_label_options,
             default=[],
             key="node_filter_labels",
-            help="Shows only selected node(s) and directly connected neighbors via selected-node edges.",
+            help="Selected nodes act as seeds for the relationship mode below.",
         )
         selected_node_kinds = st.multiselect(
             "Filter by node type(s)",
@@ -160,13 +167,80 @@ if st.session_state.raw_payload:
             default=[],
             format_func=format_node_kind_label,
             key="node_filter_kinds",
-            help="Shows all nodes of the selected type(s). Explicit node selections are still shown even if they are not one of the selected types.",
+            help="Restricts result nodes by type. Selected seed nodes can still be preserved with the option below.",
         )
-    st.session_state.payload = apply_node_filter(
-        st.session_state.raw_payload,
-        selected_node_labels,
-        selected_node_kinds,
-    )
+        selected_edge_labels = st.multiselect(
+            "Filter by edge type(s)",
+            options=edge_label_options,
+            default=[],
+            format_func=format_edge_label,
+            key="edge_filter_labels",
+            help="Restricts which relationships can be traversed and displayed.",
+        )
+        relationship_mode = st.selectbox(
+            "Selected-node relationship mode",
+            options=[
+                "union",
+                "intersection",
+                "path",
+                "selected_only",
+            ],
+            format_func=lambda mode: {
+                "union": "Connected to any selected node",
+                "intersection": "Connected to all selected nodes",
+                "path": "Path between selected nodes",
+                "selected_only": "Selected nodes only",
+            }[mode],
+            key="relationship_filter_mode",
+            help="Controls how multiple selected nodes are combined.",
+        )
+        hop_depth = st.number_input(
+            "Hop depth",
+            min_value=0,
+            max_value=5,
+            value=1,
+            step=1,
+            key="filter_hop_depth",
+            help="How many relationship steps to expand from selected nodes.",
+        )
+        include_seed_nodes = st.checkbox(
+            "Always show selected nodes",
+            value=True,
+            key="filter_include_seed_nodes",
+            help="Keeps selected nodes visible even when node type filters would otherwise hide them.",
+        )
+        if time_label_options:
+            start_default = 0
+            end_default = len(time_label_options) - 1
+            time_start_label = st.selectbox(
+                "Start timestep",
+                options=time_label_options,
+                index=start_default,
+                key="filter_time_start",
+            )
+            time_end_label = st.selectbox(
+                "End timestep",
+                options=time_label_options,
+                index=end_default,
+                key="filter_time_end",
+            )
+            if time_start_label == time_label_options[0] and time_end_label == time_label_options[-1]:
+                time_start_label = None
+                time_end_label = None
+        else:
+            time_start_label = None
+            time_end_label = None
+    filter_spec = {
+        "selected_labels": selected_node_labels,
+        "selected_kinds": selected_node_kinds,
+        "selected_edge_labels": selected_edge_labels,
+        "relationship_mode": relationship_mode,
+        "hop_depth": int(hop_depth),
+        "include_seed_nodes": include_seed_nodes,
+        "time_start_label": time_start_label,
+        "time_end_label": time_end_label,
+    }
+    st.session_state.payload = apply_filter_spec(st.session_state.raw_payload, filter_spec)
 
 if not st.session_state.payload or not st.session_state.labels:
     st.info("Load data to see the timeline visualization.")

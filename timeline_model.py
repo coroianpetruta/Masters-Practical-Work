@@ -319,33 +319,90 @@ def collect_node_kinds(payload: Dict[str, Any]) -> List[str]:
     return sorted(kinds, key=lambda kind: NODE_KIND_LABELS.get(kind, kind).lower())
 
 
+def collect_edge_labels(payload: Dict[str, Any]) -> List[str]:
+    labels: Set[str] = set()
+    for frame in payload.get("frames", []):
+        for l in frame.get("links", []):
+            label = str(l.get("label", "")).strip()
+            if label:
+                labels.add(label)
+    return sorted(labels, key=lambda label: label.lower())
+
+
 def format_node_kind_label(kind: str) -> str:
     return NODE_KIND_LABELS.get(str(kind).strip().lower(), str(kind))
+
+
+def format_edge_label(label: str) -> str:
+    return str(label).replace("_", " ").title()
+
+
+def apply_filter_spec(payload: Dict[str, Any], spec: Dict[str, Any]) -> Dict[str, Any]:
+    return apply_node_filter(
+        payload,
+        selected_labels=list(spec.get("selected_labels", [])),
+        selected_kinds=list(spec.get("selected_kinds", [])),
+        selected_edge_labels=list(spec.get("selected_edge_labels", [])),
+        relationship_mode=str(spec.get("relationship_mode", "union")),
+        hop_depth=int(spec.get("hop_depth", 1)),
+        include_seed_nodes=bool(spec.get("include_seed_nodes", True)),
+        time_start_label=spec.get("time_start_label"),
+        time_end_label=spec.get("time_end_label"),
+    )
 
 
 def apply_node_filter(
     payload: Dict[str, Any],
     selected_labels: List[str],
     selected_kinds: Optional[List[str]] = None,
+    selected_edge_labels: Optional[List[str]] = None,
+    relationship_mode: str = "union",
+    hop_depth: int = 1,
+    include_seed_nodes: bool = True,
+    time_start_label: Optional[str] = None,
+    time_end_label: Optional[str] = None,
 ) -> Dict[str, Any]:
     """
-    Keep:
-    - if only node kinds are selected: all nodes of selected kinds
-    - if explicit nodes are selected: all explicitly selected nodes
-    - if explicit nodes are selected: only direct neighbors of those nodes
-      and, when selected kinds exist, only neighbors whose type is selected
+    Apply deterministic graph filters from a shared filter spec:
+    selected nodes, node types, edge types, relationship mode, hop depth,
+    seed inclusion, and optional inclusive time range.
     Recompute node statuses on the filtered subgraph timeline.
     """
-    if not selected_labels and not selected_kinds:
+    selected_edge_labels = selected_edge_labels or []
+    relationship_mode = str(relationship_mode or "union").strip().lower()
+    hop_depth = max(0, int(hop_depth or 0))
+    has_time_filter = time_start_label is not None or time_end_label is not None
+
+    if (
+        not selected_labels
+        and not selected_kinds
+        and not selected_edge_labels
+        and not has_time_filter
+    ):
         return payload
 
     frames = payload.get("frames", [])
-    labels = payload.get("labels", [])
+    all_labels = payload.get("labels", [])
     episodes = payload.get("episodes", {})
     sources = payload.get("sources", {})
     granularity = payload.get("granularity", "")
     selected_label_set = set(selected_labels)
     selected_kind_set = {str(kind).strip().lower() for kind in (selected_kinds or []) if str(kind).strip()}
+    selected_edge_label_set = {str(label).strip().lower() for label in selected_edge_labels if str(label).strip()}
+
+    start_idx = 0
+    end_idx = max(0, len(frames) - 1)
+    if frames and has_time_filter:
+        label_to_idx = {str(label): idx for idx, label in enumerate(all_labels)}
+        if time_start_label is not None:
+            start_idx = label_to_idx.get(str(time_start_label), start_idx)
+        if time_end_label is not None:
+            end_idx = label_to_idx.get(str(time_end_label), end_idx)
+        if start_idx > end_idx:
+            start_idx, end_idx = end_idx, start_idx
+
+    visible_frames = frames[start_idx : end_idx + 1]
+    labels = all_labels[start_idx : end_idx + 1]
 
     # selected node ids come from the full timeline graph
     selected_ids: Set[str] = set()
@@ -364,57 +421,134 @@ def apply_node_filter(
             if nkind in selected_kind_set:
                 kind_selected_ids.add(nid)
 
-    if not selected_ids and not kind_selected_ids:
+    has_node_type_filter = bool(selected_kind_set)
+    has_edge_type_filter = bool(selected_edge_label_set)
+
+    if selected_labels and not selected_ids and not kind_selected_ids and not has_edge_type_filter:
         return {"frames": [], "labels": labels, "episodes": episodes, "sources": sources, "granularity": granularity}
 
     filtered_frame_links: List[List[Dict[str, Any]]] = []
     frame_node_ids: List[Set[str]] = []
 
-    for frame in frames:
+    def link_allowed_by_type(link: Dict[str, Any]) -> bool:
+        if not selected_edge_label_set:
+            return True
+        return str(link.get("label", "")).strip().lower() in selected_edge_label_set
+
+    def node_allowed_by_type(node_id: str, is_seed: bool = False) -> bool:
+        if is_seed and include_seed_nodes:
+            return True
+        if not selected_kind_set:
+            return True
+        return kind_by_id.get(node_id, "entity") in selected_kind_set
+
+    def build_adjacency(links: List[Dict[str, Any]]) -> Dict[str, List[tuple[str, Dict[str, Any]]]]:
+        adjacency: Dict[str, List[tuple[str, Dict[str, Any]]]] = {}
+        for link in links:
+            source = str(link.get("source"))
+            target = str(link.get("target"))
+            adjacency.setdefault(source, []).append((target, link))
+            adjacency.setdefault(target, []).append((source, link))
+        return adjacency
+
+    def reachable_from(seed_id: str, adjacency: Dict[str, List[tuple[str, Dict[str, Any]]]]) -> Set[str]:
+        seen: Set[str] = {seed_id}
+        frontier: Set[str] = {seed_id}
+        for _ in range(hop_depth):
+            next_frontier: Set[str] = set()
+            for current in frontier:
+                for neighbor, _ in adjacency.get(current, []):
+                    if neighbor not in seen:
+                        seen.add(neighbor)
+                        next_frontier.add(neighbor)
+            frontier = next_frontier
+            if not frontier:
+                break
+        return seen
+
+    def shortest_path_edges(
+        start_id: str,
+        end_id: str,
+        adjacency: Dict[str, List[tuple[str, Dict[str, Any]]]],
+    ) -> List[str]:
+        if start_id == end_id:
+            return []
+        queue: List[tuple[str, List[str]]] = [(start_id, [])]
+        seen: Set[str] = {start_id}
+        while queue:
+            current, path = queue.pop(0)
+            if len(path) >= hop_depth:
+                continue
+            for neighbor, link in adjacency.get(current, []):
+                if neighbor in seen:
+                    continue
+                next_path = path + [str(link.get("id"))]
+                if neighbor == end_id:
+                    return next_path
+                seen.add(neighbor)
+                queue.append((neighbor, next_path))
+        return []
+
+    for frame in visible_frames:
         orig_nodes = frame.get("nodes", [])
-        orig_links = frame.get("links", [])
+        orig_links = [dict(link) for link in frame.get("links", []) if link_allowed_by_type(link)]
         orig_node_ids = {str(n.get("id")) for n in orig_nodes}
+        selected_ids_in_frame = selected_ids & orig_node_ids
 
         keep_links: List[Dict[str, Any]] = []
         keep_node_ids: Set[str] = set()
+        adjacency = build_adjacency(orig_links)
 
         if selected_ids:
-            # Explicit node filter drives the subgraph. Node kinds, when present,
-            # constrain which neighbor types may appear around the selected nodes.
-            for l in orig_links:
-                s = str(l.get("source"))
-                t = str(l.get("target"))
+            if relationship_mode == "selected_only":
+                keep_node_ids = set(selected_ids_in_frame)
+            elif relationship_mode == "intersection":
+                reachable_sets = [
+                    reachable_from(seed_id, adjacency) for seed_id in sorted(selected_ids_in_frame)
+                ]
+                if reachable_sets:
+                    keep_node_ids = set.intersection(*reachable_sets)
+                if not include_seed_nodes:
+                    keep_node_ids -= selected_ids
+            elif relationship_mode == "path":
+                path_edge_ids: Set[str] = set()
+                seed_list = sorted(selected_ids_in_frame)
+                for idx, start_id in enumerate(seed_list):
+                    for end_id in seed_list[idx + 1 :]:
+                        path_edge_ids.update(shortest_path_edges(start_id, end_id, adjacency))
+                for link in orig_links:
+                    if str(link.get("id")) in path_edge_ids:
+                        keep_links.append(dict(link))
+                        keep_node_ids.add(str(link.get("source")))
+                        keep_node_ids.add(str(link.get("target")))
+            else:
+                keep_node_ids = set()
+                for seed_id in selected_ids_in_frame:
+                    keep_node_ids.update(reachable_from(seed_id, adjacency))
 
-                neighbor_id = None
-                if s in selected_ids and t not in selected_ids:
-                    neighbor_id = t
-                elif t in selected_ids and s not in selected_ids:
-                    neighbor_id = s
-                elif s in selected_ids and t in selected_ids:
-                    neighbor_id = None
-                else:
-                    continue
+            if include_seed_nodes:
+                keep_node_ids.update(selected_ids_in_frame)
 
-                if selected_kind_set and neighbor_id is not None:
-                    if kind_by_id.get(neighbor_id, "entity") not in selected_kind_set:
-                        continue
-
-                keep_links.append(dict(l))
-                keep_node_ids.add(s)
-                keep_node_ids.add(t)
-
-            # Keep explicit selected nodes even if isolated after filtering.
-            keep_node_ids.update({nid for nid in selected_ids if nid in orig_node_ids})
+            keep_node_ids = {
+                nid for nid in keep_node_ids if nid in orig_node_ids and node_allowed_by_type(nid, nid in selected_ids)
+            }
+            if relationship_mode != "path":
+                for link in orig_links:
+                    source = str(link.get("source"))
+                    target = str(link.get("target"))
+                    if source in keep_node_ids and target in keep_node_ids:
+                        keep_links.append(dict(link))
         else:
-            # Only node-kind filtering: show the full induced subgraph on those kinds.
+            keep_node_ids = {
+                str(n.get("id"))
+                for n in orig_nodes
+                if node_allowed_by_type(str(n.get("id")))
+            }
             for l in orig_links:
                 s = str(l.get("source"))
                 t = str(l.get("target"))
-                if s in kind_selected_ids and t in kind_selected_ids:
+                if s in keep_node_ids and t in keep_node_ids:
                     keep_links.append(dict(l))
-                    keep_node_ids.add(s)
-                    keep_node_ids.add(t)
-            keep_node_ids.update({nid for nid in kind_selected_ids if nid in orig_node_ids})
 
         filtered_frame_links.append(keep_links)
         frame_node_ids.append(keep_node_ids)
@@ -460,7 +594,8 @@ def apply_node_filter(
 
             # preserve episode uuids from original frame node if available
             ep_uuids: List[str] = []
-            for n in frames[i].get("nodes", []):
+            source_frame = visible_frames[i]
+            for n in source_frame.get("nodes", []):
                 if str(n.get("id")) == nid:
                     ep_uuids = list(n.get("episode_uuids", []))
                     break
