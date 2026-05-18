@@ -208,6 +208,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     .edge-label-bg {{ stroke: rgba(255,255,255,0.95); stroke-width: 2px; paint-order: stroke; stroke-linejoin: round; }}
     .node-hit {{ fill: rgba(0,0,0,0.001); stroke: transparent; pointer-events: all; cursor: grab; }}
     .node.dragging .node-hit {{ cursor: grabbing; }}
+    .node {{ transition: opacity 0.2s ease; }}
     .node-icon {{ pointer-events: none; }}
     .node-icon use {{ transition: color 0.2s ease, opacity 0.2s ease; }}
     .label {{
@@ -229,7 +230,7 @@ def d3_html(payload: Dict[str, Any], frame_idx: int, width: int = 1380, height: 
     }}
 
     .legend {{
-      position: absolute; left: 10px; top: 10px; background: rgba(255,255,255,0.95);
+      position: absolute; right: 10px; top: 52px; background: rgba(255,255,255,0.95);
       border: 1px solid #ddd; border-radius: 10px; padding: 8px 10px; font-size: 12px; z-index: 11;
     }}
     .legend-title {{ font-weight: 700; margin-bottom: 4px; }}
@@ -436,9 +437,13 @@ function colorForStatus(status) {{
   return "#95a5a6";
 }}
 
-function invalidOpacity(age) {{
+function ageOpacity(age) {{
   if (age === null || age === undefined) return 1;
   return Math.max(0.18, 1 - (Number(age) * 0.14));
+}}
+
+function nodeDisplayOpacity(d) {{
+  return ageOpacity(d.display_age);
 }}
 
 function seededRandom(seed) {{
@@ -943,8 +948,14 @@ function applyGraphEpisodeHover(epUuids) {{
 // -------- Global static layout (all nodes/links across all frames) --------
 const nodeMap = new Map();
 const linkMap = new Map();
+const nodeFirstSeenIdx = new Map();
 for (const f of frames) {{
+  const frameIdx = frames.indexOf(f);
   for (const n of (f.nodes || [])) if (!nodeMap.has(n.id)) nodeMap.set(n.id, {{ id: n.id, label: n.label }});
+  for (const n of (f.nodes || [])) {{
+    const nid = String(n.id);
+    if (!nodeFirstSeenIdx.has(nid) || n.is_new) nodeFirstSeenIdx.set(nid, frameIdx);
+  }}
   for (const l of (f.links || [])) if (!linkMap.has(l.id)) linkMap.set(l.id, {{ id: l.id, source: l.source, target: l.target }});
 }}
 const allNodes = Array.from(nodeMap.values());
@@ -1001,9 +1012,15 @@ const zoomBehavior = d3.zoom()
 svg.call(zoomBehavior);
 
 function makeRenderData(frame) {{
+  const displayFrameIdx = customWindow ? customWindow.endIdx : currentIdx;
   const renderNodes = (frame.nodes || []).map(n => {{
     const p = posById.get(n.id) || {{ x: W / 2, y: GH / 2 }};
-    return {{ ...n, x: p.x, y: p.y }};
+    const explicitAge = n.node_age === null || n.node_age === undefined ? NaN : Number(n.node_age);
+    const firstSeenIdx = nodeFirstSeenIdx.get(String(n.id));
+    const displayAge = Number.isFinite(explicitAge)
+      ? explicitAge
+      : (firstSeenIdx === undefined ? null : Math.max(0, displayFrameIdx - firstSeenIdx));
+    return {{ ...n, x: p.x, y: p.y, display_age: displayAge }};
   }});
 
   const renderLinks = (frame.links || []).map(l => ({{ ...l }}));
@@ -1160,7 +1177,7 @@ function renderGraph() {{
     .join("g")
     .attr("class", "edge")
     .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
-      ? invalidOpacity(d.invalid_age)
+      ? ageOpacity(d.invalid_age)
       : 1));
 
   const link = edgeGroup.append("path")
@@ -1213,9 +1230,7 @@ function renderGraph() {{
     .join("g")
     .attr("class", "node")
     .attr("transform", d => `translate(${{d.x}},${{d.y}})`)
-    .style("opacity", d => ((d.status === "invalid" || d.status === "new_invalid")
-      ? invalidOpacity(d.invalid_age)
-      : 1));
+    .style("opacity", d => nodeDisplayOpacity(d));
 
   const iconGroups = node.append("g")
     .attr("class", "node-icon");
@@ -1298,9 +1313,11 @@ function renderGraph() {{
   resetGraphEpisodeHover();
 
   node.on("mousemove", (event, d) => {{
+    d3.select(event.currentTarget).style("opacity", 1);
     showTooltip(event, `<b>${{d.label}}</b>`);
     setHighlightForEpisodeUuids(d.episode_uuids || []);
-  }}).on("mouseleave", () => {{
+  }}).on("mouseleave", (event, d) => {{
+    d3.select(event.currentTarget).style("opacity", nodeDisplayOpacity(d));
     hideTooltip();
     setHighlightForEpisodeUuids([]);
     if (!graphEpisodeHoverActive) resetGraphEpisodeHover();
