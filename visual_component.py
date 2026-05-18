@@ -948,15 +948,35 @@ function applyGraphEpisodeHover(epUuids) {{
 // -------- Global static layout (all nodes/links across all frames) --------
 const nodeMap = new Map();
 const linkMap = new Map();
-const nodeFirstSeenIdx = new Map();
-for (const f of frames) {{
-  const frameIdx = frames.indexOf(f);
-  for (const n of (f.nodes || [])) if (!nodeMap.has(n.id)) nodeMap.set(n.id, {{ id: n.id, label: n.label }});
+const nodeActivityIdxs = new Map();
+function rememberNodeActivity(nodeId, frameIdx) {{
+  const nid = String(nodeId);
+  if (!nodeActivityIdxs.has(nid)) nodeActivityIdxs.set(nid, []);
+  const idxs = nodeActivityIdxs.get(nid);
+  if (idxs[idxs.length - 1] !== frameIdx) idxs.push(frameIdx);
+}}
+for (let frameIdx = 0; frameIdx < frames.length; frameIdx += 1) {{
+  const f = frames[frameIdx];
   for (const n of (f.nodes || [])) {{
     const nid = String(n.id);
-    if (!nodeFirstSeenIdx.has(nid) || n.is_new) nodeFirstSeenIdx.set(nid, frameIdx);
+    if (!nodeMap.has(n.id)) nodeMap.set(n.id, {{ id: n.id, label: n.label }});
+    if (!nodeActivityIdxs.has(nid) || n.is_new) rememberNodeActivity(nid, frameIdx);
   }}
-  for (const l of (f.links || [])) if (!linkMap.has(l.id)) linkMap.set(l.id, {{ id: l.id, source: l.source, target: l.target }});
+  for (const l of (f.links || [])) {{
+    if (!linkMap.has(l.id)) linkMap.set(l.id, {{ id: l.id, source: l.source, target: l.target }});
+    if (l.is_new) {{
+      rememberNodeActivity(l.source, frameIdx);
+      rememberNodeActivity(l.target, frameIdx);
+    }}
+  }}
+}}
+
+function latestNodeActivityIdx(nodeId, displayFrameIdx) {{
+  const idxs = nodeActivityIdxs.get(String(nodeId)) || [];
+  for (let i = idxs.length - 1; i >= 0; i -= 1) {{
+    if (idxs[i] <= displayFrameIdx) return idxs[i];
+  }}
+  return undefined;
 }}
 const allNodes = Array.from(nodeMap.values());
 const allLinks = Array.from(linkMap.values());
@@ -981,6 +1001,10 @@ const NODE_ICON_SIZE = 46;
 const NODE_ICON_HALF = NODE_ICON_SIZE / 2;
 const NODE_LABEL_OFFSET = NODE_ICON_HALF + 12;
 const NODE_R = NODE_ICON_HALF + 4;
+const NODE_LABEL_FONT_SIZE = 6.8;
+const NODE_LABEL_LINE_HEIGHT = NODE_LABEL_FONT_SIZE * 1.1;
+const NODE_LABEL_CHAR_WIDTH = NODE_LABEL_FONT_SIZE * 0.62;
+const NODE_BOUNDS_PAD = 5;
 
 const defs = svg.append("defs");
 defs.append("marker")
@@ -1015,11 +1039,8 @@ function makeRenderData(frame) {{
   const displayFrameIdx = customWindow ? customWindow.endIdx : currentIdx;
   const renderNodes = (frame.nodes || []).map(n => {{
     const p = posById.get(n.id) || {{ x: W / 2, y: GH / 2 }};
-    const explicitAge = n.node_age === null || n.node_age === undefined ? NaN : Number(n.node_age);
-    const firstSeenIdx = nodeFirstSeenIdx.get(String(n.id));
-    const displayAge = Number.isFinite(explicitAge)
-      ? explicitAge
-      : (firstSeenIdx === undefined ? null : Math.max(0, displayFrameIdx - firstSeenIdx));
+    const lastActivityIdx = latestNodeActivityIdx(n.id, displayFrameIdx);
+    const displayAge = lastActivityIdx === undefined ? null : Math.max(0, displayFrameIdx - lastActivityIdx);
     return {{ ...n, x: p.x, y: p.y, display_age: displayAge }};
   }});
 
@@ -1046,6 +1067,7 @@ function edgeGeometry(l, nodePos, normalExtra = 0, reverse = false) {{
   const s = nodePos.get(l.source) || {{ x: W / 2, y: GH / 2 }};
   const t = nodePos.get(l.target) || {{ x: W / 2, y: GH / 2 }};
   let sx = s.x, sy = s.y, tx = t.x, ty = t.y;
+  let sourceNode = s, targetNode = t;
 
   if (l.source === l.target) {{
     const loopR = NODE_R + 8 + (l.parallel_index || 0) * 10;
@@ -1060,6 +1082,9 @@ function edgeGeometry(l, nodePos, normalExtra = 0, reverse = false) {{
     const ax = sx, ay = sy;
     sx = tx; sy = ty;
     tx = ax; ty = ay;
+    const node = sourceNode;
+    sourceNode = targetNode;
+    targetNode = node;
   }}
 
   const dx = tx - sx, dy = ty - sy;
@@ -1071,12 +1096,14 @@ function edgeGeometry(l, nodePos, normalExtra = 0, reverse = false) {{
   const labelOffset = normalExtra;
   const offset = parallelOffset + labelOffset;
 
-  // trim line ends to node boundary so arrows are visible
-  const trim = NODE_R + 2;
-  const ssx = sx + (dx / len) * trim;
-  const ssy = sy + (dy / len) * trim;
-  const ttx = tx - (dx / len) * trim;
-  const tty = ty - (dy / len) * trim;
+  // Trim line ends to the combined icon + label bounds so links do not cross node text.
+  const ux = dx / len, uy = dy / len;
+  const sourceTrim = trimDistanceForNode(sourceNode, ux, uy);
+  const targetTrim = trimDistanceForNode(targetNode, -ux, -uy);
+  const ssx = sx + ux * sourceTrim;
+  const ssy = sy + uy * sourceTrim;
+  const ttx = tx - ux * targetTrim;
+  const tty = ty - uy * targetTrim;
 
   const cx = (ssx + ttx) / 2 + nx * offset;
   const cy = (ssy + tty) / 2 + ny * offset;
@@ -1114,6 +1141,29 @@ function edgeLabelPos(l, nodePos) {{
   const cy = (sy + ty) / 2 + ny * offset;
   // keep text off the path for readability
   return {{ x: cx + nx * 10, y: cy + ny * 10 }};
+}}
+
+function nodeBounds(node) {{
+  const lines = nodeLabelLines(node.label, 16);
+  const labelHalfWidth = Math.max(
+    0,
+    ...lines.map(line => String(line || "").length * NODE_LABEL_CHAR_WIDTH / 2)
+  );
+  const halfWidth = Math.max(NODE_R, labelHalfWidth) + NODE_BOUNDS_PAD;
+  const top = -(NODE_R + NODE_BOUNDS_PAD);
+  const bottom = NODE_LABEL_OFFSET + (lines.length * NODE_LABEL_LINE_HEIGHT) + NODE_BOUNDS_PAD;
+  return {{ left: -halfWidth, right: halfWidth, top, bottom }};
+}}
+
+function trimDistanceForNode(node, ux, uy) {{
+  const b = nodeBounds(node || {{}});
+  const candidates = [];
+  if (ux > 0) candidates.push(b.right / ux);
+  if (ux < 0) candidates.push(b.left / ux);
+  if (uy > 0) candidates.push(b.bottom / uy);
+  if (uy < 0) candidates.push(b.top / uy);
+  const exit = Math.min(...candidates.filter(v => Number.isFinite(v) && v > 0));
+  return Number.isFinite(exit) ? exit : NODE_R + NODE_BOUNDS_PAD;
 }}
 
 function fitNodeLabel(text, maxChars = 16) {{
@@ -1168,7 +1218,7 @@ function hideTooltip() {{
 function renderGraph() {{
   const frame = currentFramePayload();
   const {{ renderNodes, renderLinks }} = makeRenderData(frame);
-  const nodePos = new Map(renderNodes.map(n => [n.id, {{ x: n.x, y: n.y }}]));
+  const nodePos = new Map(renderNodes.map(n => [n.id, {{ ...n }}]));
 
   g.selectAll("*").remove();
 
@@ -1349,7 +1399,7 @@ function renderGraph() {{
     d.x = currentZoomTransform.invertX(sx);
     d.y = currentZoomTransform.invertY(sy);
     posById.set(d.id, {{ x: d.x, y: d.y }});
-    nodePos.set(d.id, {{ x: d.x, y: d.y }});
+    nodePos.set(d.id, {{ ...d }});
     d3.select(event.currentTarget.parentNode).attr("transform", `translate(${{d.x}},${{d.y}})`);
     const affected = edgeGroup.filter(l => l.source === d.id || l.target === d.id);
     affected.selectAll("path")
