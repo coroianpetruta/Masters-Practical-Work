@@ -130,10 +130,13 @@ st.markdown(
     <style>
     [data-testid="stMain"] div[data-testid="stButton"] {
       position: fixed;
-      top: 10px;
+      top: 4px;
       left: 12px;
       z-index: 100001;
       width: auto !important;
+    }
+    body:has(#filter-panel-toggle:checked) [data-testid="stMain"] div[data-testid="stButton"] {
+      left: 348px;
     }
     [data-testid="stMain"] div[data-testid="stButton"] > button {
       border: 1px solid #6e7a8f !important;
@@ -166,7 +169,7 @@ st.markdown(
     }
     .app-filter-control {
       position: fixed;
-      top: 104px;
+      top: 144px;
       left: 12px;
       z-index: 100000;
       border: 1px solid #cfcfcf;
@@ -341,7 +344,7 @@ if st.session_state.raw_payload:
         with col_interpret:
             interpret_clicked = st.button("Interpret query", key="llm_filter_interpret")
         with col_clear:
-            clear_llm_clicked = st.button("Clear LLM filter", key="llm_filter_clear")
+            clear_llm_clicked = st.button("Clear AI filter", key="llm_filter_clear")
 
         if clear_llm_clicked:
             st.session_state.llm_filter_intent = None
