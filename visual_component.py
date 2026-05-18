@@ -100,6 +100,7 @@ def d3_html(
     next_granularity_label = "Month" if current_granularity_label.lower() == "year" else "Year"
     filter_toggle_label = "Hide Filters" if filter_panel_open else "Show Filters"
     next_filter_state = "closed" if filter_panel_open else "open"
+    current_filter_state = "open" if filter_panel_open else "closed"
     return f"""
 <!doctype html>
 <html>
@@ -137,7 +138,7 @@ def d3_html(
     .granularity-toggle-btn {{
       border: 1px solid #6e7a8f; border-radius: 6px;
       background: #102033; color: #dce6f1;
-      font-size: 11px; padding: 4px 10px; cursor: pointer;
+      font-size: 11px; padding: 4px 10px; cursor: pointer; text-decoration: none;
     }}
     .year-nav {{
       display: none; align-items: center; gap: 6px;
@@ -256,7 +257,7 @@ def d3_html(
     .filter-toggle {{
       position: absolute; left: 12px; top: 10px; z-index: 12;
       border: 1px solid #cfcfcf; background: #fff; border-radius: 8px;
-      padding: 6px 10px; font-size: 12px; cursor: pointer;
+      padding: 6px 10px; font-size: 12px; cursor: pointer; text-decoration: none; color: #111;
     }}
 
     .tooltip {{
@@ -322,7 +323,7 @@ def d3_html(
     <svg class="timeline-slider-spikes" id="timelineSliderSpikes"></svg>
     <input class="timeline-slider" id="timelineSlider" type="range" min="0" max="0" value="0" step="1"/>
     <div class="timeline-actions" id="timelineActions">
-      <button class="granularity-toggle-btn" id="granularityToggle" title="Switch timeline granularity">{current_granularity_label}: switch to {next_granularity_label}</button>
+      <a class="granularity-toggle-btn" id="granularityToggle" target="_parent" href="?granularity={next_granularity_label}&filter={current_filter_state}" title="Switch timeline granularity">{current_granularity_label}: switch to {next_granularity_label}</a>
       <button class="timeline-skip-btn" id="nextEventBtn" title="Jump to the next timestep with changes">Next event</button>
       <button class="window-clear-btn" id="windowClear" title="Drag over the bars to pick a window" disabled>Clear window</button>
       <div class="year-nav" id="yearNav">
@@ -334,7 +335,7 @@ def d3_html(
   </div>
   <div class="layout" id="layout">
     <div class="graph-pane" id="graphPane">
-      <button class="filter-toggle" id="filterToggle">{filter_toggle_label}</button>
+      <a class="filter-toggle" id="filterToggle" target="_parent" href="?granularity={current_granularity_label}&filter={next_filter_state}">{filter_toggle_label}</a>
       <button class="source-toggle" id="sourceToggle">See source</button>
       <div class="legend">
         <div class="legend-title">Legend</div>
@@ -521,9 +522,25 @@ function frameAt(i) {{
 
 function updateParentQueryParam(key, value) {{
   const targetWindow = window.parent || window;
-  const url = new URL(targetWindow.location.href);
+  let parentHref = "";
+  try {{
+    parentHref = targetWindow.location.href;
+  }} catch (err) {{
+    parentHref = document.referrer || window.location.href;
+  }}
+  const url = new URL(parentHref);
   url.searchParams.set(key, value);
-  targetWindow.location.href = url.toString();
+  try {{
+    targetWindow.location.assign(url.toString());
+  }} catch (err) {{
+    const a = document.createElement("a");
+    a.href = url.toString();
+    a.target = "_parent";
+    a.rel = "noreferrer";
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  }}
 }}
 
 function frameIdxForTimeLabel(label, preferLast = false) {{
@@ -1840,12 +1857,14 @@ if (nextEventBtn) {{
 
 if (granularityToggleBtn) {{
   granularityToggleBtn.addEventListener("click", () => {{
+    if (granularityToggleBtn.tagName === "A") return;
     updateParentQueryParam("granularity", "{next_granularity_label}");
   }});
 }}
 
 if (filterToggleBtn) {{
   filterToggleBtn.addEventListener("click", () => {{
+    if (filterToggleBtn.tagName === "A") return;
     updateParentQueryParam("filter", "{next_filter_state}");
   }});
 }}

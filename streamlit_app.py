@@ -104,7 +104,7 @@ def load_graph_source(limit: int) -> tuple[dict, str]:
 st.set_page_config(
     page_title="Temporal KG Timeline (Neo4j + D3)",
     layout="wide",
-    initial_sidebar_state="expanded" if filter_panel_open else "collapsed",
+    initial_sidebar_state="expanded",
 )
 st.markdown(APP_STYLE, unsafe_allow_html=True)
 if not filter_panel_open:
